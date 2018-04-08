@@ -1,0 +1,3184 @@
+{
+	"info": {
+		"_postman_id": "285194ee-366d-4590-b963-e00713461428",
+		"name": "Biometrix",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Stats API",
+			"description": null,
+			"item": [
+				{
+					"name": "Done",
+					"description": null,
+					"item": [
+						{
+							"name": "ProgramComposition",
+							"description": null,
+							"item": [
+								{
+									"name": "Athlete GRF Program Composition (NEW)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"userId\": \"970815f6-d298-4db7-9ae4-828a87607fe3\",\r\n  \"startDate\": \"2017-01-01\",\r\n  \"endDate\": \"2017-11-01\"\r\n}"
+										},
+										"url": {
+											"raw": "https://4h7p60kvzc.execute-api.us-west-2.amazonaws.com/v1/MQ/AthleteGRFProgComp",
+											"protocol": "https",
+											"host": [
+												"4h7p60kvzc",
+												"execute-api",
+												"us-west-2",
+												"amazonaws",
+												"com"
+											],
+											"path": [
+												"v1",
+												"MQ",
+												"AthleteGRFProgComp"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Athlete GRF Program Composition (OLD)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"userId\": \"970815f6-d298-4db7-9ae4-828a87607fe3\",\r\n  \"startDate\": \"2017-01-01\",\r\n  \"endDate\": \"2017-11-01\"\r\n}"
+										},
+										"url": {
+											"raw": "http://biometrixstatsapi-dev.us-west-2.elasticbeanstalk.com/MQ/AthleteGRFProgComp",
+											"protocol": "http",
+											"host": [
+												"biometrixstatsapi-dev",
+												"us-west-2",
+												"elasticbeanstalk",
+												"com"
+											],
+											"path": [
+												"MQ",
+												"AthleteGRFProgComp"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Athlete Total Accel Program Composition (OLD)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"userId\": \"970815f6-d298-4db7-9ae4-828a87607fe3\",\r\n  \"startDate\": \"2017-01-01\",\r\n  \"endDate\": \"2017-11-01\"\r\n}"
+										},
+										"url": {
+											"raw": "http://biometrixstatsapi-dev.us-west-2.elasticbeanstalk.com/MQ/AthleteTotalAccelProgComp",
+											"protocol": "http",
+											"host": [
+												"biometrixstatsapi-dev",
+												"us-west-2",
+												"elasticbeanstalk",
+												"com"
+											],
+											"path": [
+												"MQ",
+												"AthleteTotalAccelProgComp"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Athlete Total Accel Program Composition (NEW)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"userId\": \"970815f6-d298-4db7-9ae4-828a87607fe3\",\r\n  \"startDate\": \"2017-01-01\",\r\n  \"endDate\": \"2017-11-01\"\r\n}"
+										},
+										"url": {
+											"raw": "http://4h7p60kvzc.execute-api.us-west-2.amazonaws.com/v1/MQ/AthleteTotalAccelProgComp",
+											"protocol": "http",
+											"host": [
+												"4h7p60kvzc",
+												"execute-api",
+												"us-west-2",
+												"amazonaws",
+												"com"
+											],
+											"path": [
+												"v1",
+												"MQ",
+												"AthleteTotalAccelProgComp"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Athlete Plane Program Composition (OLD)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"userId\": \"970815f6-d298-4db7-9ae4-828a87607fe3\",\r\n  \"startDate\": \"2017-01-01\",\r\n  \"endDate\": \"2017-11-01\"\r\n}"
+										},
+										"url": {
+											"raw": "http://biometrixstatsapi-dev.us-west-2.elasticbeanstalk.com/MQ/AthletePlaneProgComp",
+											"protocol": "http",
+											"host": [
+												"biometrixstatsapi-dev",
+												"us-west-2",
+												"elasticbeanstalk",
+												"com"
+											],
+											"path": [
+												"MQ",
+												"AthletePlaneProgComp"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Athlete Plane Program Composition (NEW)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"userId\": \"970815f6-d298-4db7-9ae4-828a87607fe3\",\r\n  \"startDate\": \"2017-01-01\",\r\n  \"endDate\": \"2017-11-01\"\r\n}"
+										},
+										"url": {
+											"raw": "http://4h7p60kvzc.execute-api.us-west-2.amazonaws.com/v1/MQ/AthletePlaneProgComp",
+											"protocol": "http",
+											"host": [
+												"4h7p60kvzc",
+												"execute-api",
+												"us-west-2",
+												"amazonaws",
+												"com"
+											],
+											"path": [
+												"v1",
+												"MQ",
+												"AthletePlaneProgComp"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Team GRF Program Composition (OLD)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"teamId\":\"f87e1deb-f022-4223-acaa-4926b6094343\",\r\n    \"startDate\": \"2017-03-16\",\r\n    \"endDate\": \"2017-03-23\"\r\n}"
+										},
+										"url": {
+											"raw": "http://biometrixstatsapi-dev.us-west-2.elasticbeanstalk.com/MQ/TeamGRFProgComp",
+											"protocol": "http",
+											"host": [
+												"biometrixstatsapi-dev",
+												"us-west-2",
+												"elasticbeanstalk",
+												"com"
+											],
+											"path": [
+												"MQ",
+												"TeamGRFProgComp"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Team GRF Program Composition (NEW)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"teamId\":\"f87e1deb-f022-4223-acaa-4926b6094343\",\r\n    \"startDate\": \"2017-03-16\",\r\n    \"endDate\": \"2017-03-23\"\r\n}"
+										},
+										"url": {
+											"raw": "http://4h7p60kvzc.execute-api.us-west-2.amazonaws.com/v1/MQ/TeamGRFProgComp",
+											"protocol": "http",
+											"host": [
+												"4h7p60kvzc",
+												"execute-api",
+												"us-west-2",
+												"amazonaws",
+												"com"
+											],
+											"path": [
+												"v1",
+												"MQ",
+												"TeamGRFProgComp"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Team Plane Program Composition (OLD)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"teamId\": \"f87e1deb-f022-4223-acaa-4926b6094343\",\r\n  \"startDate\": \"2017-01-01\",\r\n  \"endDate\": \"2017-06-01\"\r\n}"
+										},
+										"url": {
+											"raw": "http://biometrixstatsapi-dev.us-west-2.elasticbeanstalk.com/MQ/TeamPlaneProgComp",
+											"protocol": "http",
+											"host": [
+												"biometrixstatsapi-dev",
+												"us-west-2",
+												"elasticbeanstalk",
+												"com"
+											],
+											"path": [
+												"MQ",
+												"TeamPlaneProgComp"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Team Plane Program Composition (NEW)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"teamId\": \"f87e1deb-f022-4223-acaa-4926b6094343\",\r\n  \"startDate\": \"2017-01-01\",\r\n  \"endDate\": \"2017-06-01\"\r\n}"
+										},
+										"url": {
+											"raw": "http://4h7p60kvzc.execute-api.us-west-2.amazonaws.com/v1/MQ/TeamPlaneProgComp",
+											"protocol": "http",
+											"host": [
+												"4h7p60kvzc",
+												"execute-api",
+												"us-west-2",
+												"amazonaws",
+												"com"
+											],
+											"path": [
+												"v1",
+												"MQ",
+												"TeamPlaneProgComp"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Training Group GRF Program Composition (OLD)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"trainingGroupId\": \"81239559-d3fd-4271-8638-5508a676edf8\",\r\n  \"startDate\": \"2017-01-01\",\r\n  \"endDate\": \"2017-06-01\"\r\n}"
+										},
+										"url": {
+											"raw": "http://biometrixstatsapi-dev.us-west-2.elasticbeanstalk.com/MQ/TrainingGroupGRFProgComp",
+											"protocol": "http",
+											"host": [
+												"biometrixstatsapi-dev",
+												"us-west-2",
+												"elasticbeanstalk",
+												"com"
+											],
+											"path": [
+												"MQ",
+												"TrainingGroupGRFProgComp"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Training Group GRF Program Composition (NEW)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"trainingGroupId\": \"81239559-d3fd-4271-8638-5508a676edf8\",\r\n  \"startDate\": \"2017-01-01\",\r\n  \"endDate\": \"2017-06-01\"\r\n}"
+										},
+										"url": {
+											"raw": "http://4h7p60kvzc.execute-api.us-west-2.amazonaws.com/v1/MQ/TrainingGroupGRFProgComp",
+											"protocol": "http",
+											"host": [
+												"4h7p60kvzc",
+												"execute-api",
+												"us-west-2",
+												"amazonaws",
+												"com"
+											],
+											"path": [
+												"v1",
+												"MQ",
+												"TrainingGroupGRFProgComp"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Training Group Plane Program Composition (OLD)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"trainingGroupId\": \"81239559-d3fd-4271-8638-5508a676edf8\",\r\n  \"startDate\": \"2017-01-01\",\r\n  \"endDate\": \"2017-06-01\"\r\n}"
+										},
+										"url": {
+											"raw": "http://biometrixstatsapi-dev.us-west-2.elasticbeanstalk.com/MQ/TrainingGroupPlaneProgComp",
+											"protocol": "http",
+											"host": [
+												"biometrixstatsapi-dev",
+												"us-west-2",
+												"elasticbeanstalk",
+												"com"
+											],
+											"path": [
+												"MQ",
+												"TrainingGroupPlaneProgComp"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Training Group Plane Program Composition (NEW)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"trainingGroupId\": \"81239559-d3fd-4271-8638-5508a676edf8\",\r\n  \"startDate\": \"2017-01-01\",\r\n  \"endDate\": \"2017-06-01\"\r\n}"
+										},
+										"url": {
+											"raw": "http://4h7p60kvzc.execute-api.us-west-2.amazonaws.com/v1/MQ/TrainingGroupPlaneProgComp",
+											"protocol": "http",
+											"host": [
+												"4h7p60kvzc",
+												"execute-api",
+												"us-west-2",
+												"amazonaws",
+												"com"
+											],
+											"path": [
+												"v1",
+												"MQ",
+												"TrainingGroupPlaneProgComp"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Training Group Total Accel Program Composition (OLD)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"trainingGroupId\": \"81239559-d3fd-4271-8638-5508a676edf8\",\r\n  \"startDate\": \"2017-01-01\",\r\n  \"endDate\": \"2017-06-01\"\r\n}"
+										},
+										"url": {
+											"raw": "http://biometrixstatsapi-dev.us-west-2.elasticbeanstalk.com/MQ/TrainingGroupTotalAccelProgComp",
+											"protocol": "http",
+											"host": [
+												"biometrixstatsapi-dev",
+												"us-west-2",
+												"elasticbeanstalk",
+												"com"
+											],
+											"path": [
+												"MQ",
+												"TrainingGroupTotalAccelProgComp"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Training Group Total Accel Program Composition (NEW)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"trainingGroupId\": \"81239559-d3fd-4271-8638-5508a676edf8\",\r\n  \"startDate\": \"2017-01-01\",\r\n  \"endDate\": \"2017-06-01\"\r\n}"
+										},
+										"url": {
+											"raw": "http://4h7p60kvzc.execute-api.us-west-2.amazonaws.com/v1/MQ/TrainingGroupTotalAccelProgComp",
+											"protocol": "http",
+											"host": [
+												"4h7p60kvzc",
+												"execute-api",
+												"us-west-2",
+												"amazonaws",
+												"com"
+											],
+											"path": [
+												"v1",
+												"MQ",
+												"TrainingGroupTotalAccelProgComp"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Team Total Accel Program Composition (OLD)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"teamId\":\"f87e1deb-f022-4223-acaa-4926b6094343\",\n    \"startDate\": \"2017-03-16\",\n    \"endDate\": \"2017-03-23\"\n}"
+										},
+										"url": {
+											"raw": "http://biometrixstatsapi-dev.us-west-2.elasticbeanstalk.com/MQ/TeamTotalAccelProgComp",
+											"protocol": "http",
+											"host": [
+												"biometrixstatsapi-dev",
+												"us-west-2",
+												"elasticbeanstalk",
+												"com"
+											],
+											"path": [
+												"MQ",
+												"TeamTotalAccelProgComp"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Team Total Accel Program Composition (NEW)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"teamId\":\"f87e1deb-f022-4223-acaa-4926b6094343\",\r\n    \"startDate\": \"2017-03-16\",\r\n    \"endDate\": \"2017-03-23\"\r\n}"
+										},
+										"url": {
+											"raw": "https://statsapi.dev.fathomai.com/v1/MQ/TeamTotalAccelProgComp",
+											"protocol": "https",
+											"host": [
+												"statsapi",
+												"dev",
+												"fathomai",
+												"com"
+											],
+											"path": [
+												"v1",
+												"MQ",
+												"TeamTotalAccelProgComp"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Team Movement Quality (NEW)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMDJjYjc5NjUtNzkyMS00OTNhLTgwZDQtNmIyNzhjOTI4ZmFkIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDEtMDQgMTU6MDI6NDIgLTA1MDAiLCJzaWduX2luX21ldGhvZCI6bnVsbH0.xH8zpcdoGI3JDjpt39jvNmDxUmk1Kh9tVZDGUYAmzX0"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"teamId\": \"f87e1deb-f022-4223-acaa-4926b6094343\",\r\n  \"startDate\": \"2017-01-01\",\r\n  \"endDate\": \"2017-06-01\"\r\n}"
+								},
+								"url": {
+									"raw": "https://statsapi.dev.fathomai.com/v1/MQ/Team",
+									"protocol": "https",
+									"host": [
+										"statsapi",
+										"dev",
+										"fathomai",
+										"com"
+									],
+									"path": [
+										"v1",
+										"MQ",
+										"Team"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Training Group Movement Quality (NEW)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMDJjYjc5NjUtNzkyMS00OTNhLTgwZDQtNmIyNzhjOTI4ZmFkIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDEtMDQgMTU6MDI6NDIgLTA1MDAiLCJzaWduX2luX21ldGhvZCI6bnVsbH0.xH8zpcdoGI3JDjpt39jvNmDxUmk1Kh9tVZDGUYAmzX0"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"trainingGroupId\": \"81239559-d3fd-4271-8638-5508a676edf8\",\r\n  \"startDate\": \"2017-01-01\",\r\n  \"endDate\": \"2017-06-01\"\r\n}"
+								},
+								"url": {
+									"raw": "http://4h7p60kvzc.execute-api.us-west-2.amazonaws.com/v1/MQ/TrainingGroup",
+									"protocol": "http",
+									"host": [
+										"4h7p60kvzc",
+										"execute-api",
+										"us-west-2",
+										"amazonaws",
+										"com"
+									],
+									"path": [
+										"v1",
+										"MQ",
+										"TrainingGroup"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Training Group MQ Summary (NEW)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMDJjYjc5NjUtNzkyMS00OTNhLTgwZDQtNmIyNzhjOTI4ZmFkIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDEtMDQgMTU6MDI6NDIgLTA1MDAiLCJzaWduX2luX21ldGhvZCI6bnVsbH0.xH8zpcdoGI3JDjpt39jvNmDxUmk1Kh9tVZDGUYAmzX0"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"trainingGroupId\": \"81239559-d3fd-4271-8638-5508a676edf8\",\r\n  \"startDate\": \"2017-01-01\",\r\n  \"endDate\": \"2017-06-01\"\r\n}"
+								},
+								"url": {
+									"raw": "http://statsapi.dev.fathomai.com/v1/MQ/TrainingGroupMQSummary",
+									"protocol": "http",
+									"host": [
+										"statsapi",
+										"dev",
+										"fathomai",
+										"com"
+									],
+									"path": [
+										"v1",
+										"MQ",
+										"TrainingGroupMQSummary"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Athlete Stance Program Composition (NEW)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMDJjYjc5NjUtNzkyMS00OTNhLTgwZDQtNmIyNzhjOTI4ZmFkIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDEtMDQgMTU6MDI6NDIgLTA1MDAiLCJzaWduX2luX21ldGhvZCI6bnVsbH0.xH8zpcdoGI3JDjpt39jvNmDxUmk1Kh9tVZDGUYAmzX0"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"userId\": \"970815f6-d298-4db7-9ae4-828a87607fe3\",\r\n  \"startDate\": \"2017-01-01\",\r\n  \"endDate\": \"2017-11-01\"\r\n}"
+								},
+								"url": {
+									"raw": "http://statsapi.dev.fathomai.com/v1/MQ/AthleteStanceProgComp",
+									"protocol": "http",
+									"host": [
+										"statsapi",
+										"dev",
+										"fathomai",
+										"com"
+									],
+									"path": [
+										"v1",
+										"MQ",
+										"AthleteStanceProgComp"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Team Stance Program Composition (NEW)",
+							"request": {
+								"method": "OPTIONS",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMDJjYjc5NjUtNzkyMS00OTNhLTgwZDQtNmIyNzhjOTI4ZmFkIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDEtMDQgMTU6MDI6NDIgLTA1MDAiLCJzaWduX2luX21ldGhvZCI6bnVsbH0.xH8zpcdoGI3JDjpt39jvNmDxUmk1Kh9tVZDGUYAmzX0"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"teamId\": \"f87e1deb-f022-4223-acaa-4926b6094343\",\r\n  \"startDate\": \"2017-01-01\",\r\n  \"endDate\": \"2017-06-01\"\r\n}"
+								},
+								"url": {
+									"raw": "http://statsapi.dev.fathomai.com/v1/MQ/TeamStanceProgComp",
+									"protocol": "http",
+									"host": [
+										"statsapi",
+										"dev",
+										"fathomai",
+										"com"
+									],
+									"path": [
+										"v1",
+										"MQ",
+										"TeamStanceProgComp"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Training Group Stance Program Composition (NEW)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMDJjYjc5NjUtNzkyMS00OTNhLTgwZDQtNmIyNzhjOTI4ZmFkIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDEtMDQgMTU6MDI6NDIgLTA1MDAiLCJzaWduX2luX21ldGhvZCI6bnVsbH0.xH8zpcdoGI3JDjpt39jvNmDxUmk1Kh9tVZDGUYAmzX0"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"trainingGroupId\": \"81239559-d3fd-4271-8638-5508a676edf8\",\r\n  \"startDate\": \"2017-01-01\",\r\n  \"endDate\": \"2017-06-01\"\r\n}"
+								},
+								"url": {
+									"raw": "http://statsapi.dev.fathomai.com/v1/MQ/TrainingGroupStanceProgComp",
+									"protocol": "http",
+									"host": [
+										"statsapi",
+										"dev",
+										"fathomai",
+										"com"
+									],
+									"path": [
+										"v1",
+										"MQ",
+										"TrainingGroupStanceProgComp"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Athlete MQ Summary (NEW)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMDJjYjc5NjUtNzkyMS00OTNhLTgwZDQtNmIyNzhjOTI4ZmFkIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDEtMDQgMTU6MDI6NDIgLTA1MDAiLCJzaWduX2luX21ldGhvZCI6bnVsbH0.xH8zpcdoGI3JDjpt39jvNmDxUmk1Kh9tVZDGUYAmzX0"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"userId\": \"970815f6-d298-4db7-9ae4-828a87607fe3\",\r\n  \"startDate\": \"2017-03-10\",\r\n  \"endDate\": \"2017-03-20\"\r\n}"
+								},
+								"url": {
+									"raw": "http://statsapi.dev.fathomai.com/v1/MQ/AthleteMQSummary",
+									"protocol": "http",
+									"host": [
+										"statsapi",
+										"dev",
+										"fathomai",
+										"com"
+									],
+									"path": [
+										"v1",
+										"MQ",
+										"AthleteMQSummary"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Todo",
+					"description": null,
+					"item": [
+						{
+							"name": "Team Two Minute Movement Quality",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"teamId\": \"f87e1deb-f022-4223-acaa-4926b6094343\",\r\n  \"startDate\": \"2017-01-01\",\r\n  \"endDate\": \"2017-06-01\"\r\n}"
+								},
+								"url": {
+									"raw": "http://biometrixstatsapi-dev.us-west-2.elasticbeanstalk.com/MQ/TeamTwoMin",
+									"protocol": "http",
+									"host": [
+										"biometrixstatsapi-dev",
+										"us-west-2",
+										"elasticbeanstalk",
+										"com"
+									],
+									"path": [
+										"MQ",
+										"TeamTwoMin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Athlete Summaries TG",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"teamId\": \"f87e1deb-f022-4223-acaa-4926b6094343\",\r\n  \"startDate\": \"2017-01-01\",\r\n  \"endDate\": \"2017-06-01\"\r\n}"
+								},
+								"url": {
+									"raw": "http://biometrixstatsapi-dev.us-west-2.elasticbeanstalk.com/MQ/TGAthleteSummaries",
+									"protocol": "http",
+									"host": [
+										"biometrixstatsapi-dev",
+										"us-west-2",
+										"elasticbeanstalk",
+										"com"
+									],
+									"path": [
+										"MQ",
+										"TGAthleteSummaries"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Team MQ Detail (NEW)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMDJjYjc5NjUtNzkyMS00OTNhLTgwZDQtNmIyNzhjOTI4ZmFkIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDEtMDQgMTU6MDI6NDIgLTA1MDAiLCJzaWduX2luX21ldGhvZCI6bnVsbH0.xH8zpcdoGI3JDjpt39jvNmDxUmk1Kh9tVZDGUYAmzX0"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"teamId\":\"f87e1deb-f022-4223-acaa-4926b6094343\",\n    \"startDate\": \"2017-03-15\",\n    \"endDate\": \"2017-03-20\"\n}"
+						},
+						"url": {
+							"raw": "https://statsapi.{{environment}}.fathomai.com/v1/MQ/TeamMQDetail",
+							"protocol": "https",
+							"host": [
+								"statsapi",
+								"{{environment}}",
+								"fathomai",
+								"com"
+							],
+							"path": [
+								"v1",
+								"MQ",
+								"TeamMQDetail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Training Group MQ Detail (NEW)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJraWQiOiJ1cy13ZXN0LTIxIiwidHlwIjoiSldTIiwiYWxnIjoiUlM1MTIifQ.eyJzdWIiOiJ1cy13ZXN0LTI6MTliZmFkNzUtOWQ5NS00ZmZmLWFlYzktZGU0YTkzZGEyMTRkIiwiYXVkIjoidXMtd2VzdC0yOjA5M2RhOGRjLThlNzUtNGJmNS04MGE5LWE0NmYwMDBhNGEyNiIsImFtciI6WyJ1bmF1dGhlbnRpY2F0ZWQiXSwiaXNzIjoiaHR0cHM6Ly9jb2duaXRvLWlkZW50aXR5LmFtYXpvbmF3cy5jb20iLCJleHAiOjE1MTM2MzA4ODcsImlhdCI6MTUxMzYzMDI4N30.5uqv6M06l4SbVgw9-bTiaVCuEGL6er4rhQlGOE5jtgE"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"trainingGroupId\": \"81239559-d3fd-4271-8638-5508a676edf8\",\r\n  \"startDate\": \"2017-01-01\",\r\n  \"endDate\": \"2017-06-01\"\r\n}"
+						},
+						"url": {
+							"raw": "http://statsapi.{{environment}}.fathomai.com/v1/MQ/TrainingGroupMQDetail",
+							"protocol": "http",
+							"host": [
+								"statsapi",
+								"{{environment}}",
+								"fathomai",
+								"com"
+							],
+							"path": [
+								"v1",
+								"MQ",
+								"TrainingGroupMQDetail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Team MQ Summary (NEW)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMDJjYjc5NjUtNzkyMS00OTNhLTgwZDQtNmIyNzhjOTI4ZmFkIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDEtMDQgMTU6MDI6NDIgLTA1MDAiLCJzaWduX2luX21ldGhvZCI6bnVsbH0.xH8zpcdoGI3JDjpt39jvNmDxUmk1Kh9tVZDGUYAmzX0"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"teamId\": \"f87e1deb-f022-4223-acaa-4926b6094343\",\r\n  \"startDate\": \"2017-01-01\",\r\n  \"endDate\": \"2017-06-01\"\r\n}"
+						},
+						"url": {
+							"raw": "http://statsapi.{{environment}}.fathomai.com/v1/MQ/TeamMQSummary",
+							"protocol": "http",
+							"host": [
+								"statsapi",
+								"{{environment}}",
+								"fathomai",
+								"com"
+							],
+							"path": [
+								"v1",
+								"MQ",
+								"TeamMQSummary"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Athlete Two Minute Movement Quality (NEW)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMDJjYjc5NjUtNzkyMS00OTNhLTgwZDQtNmIyNzhjOTI4ZmFkIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDEtMDQgMTU6MDI6NDIgLTA1MDAiLCJzaWduX2luX21ldGhvZCI6bnVsbH0.xH8zpcdoGI3JDjpt39jvNmDxUmk1Kh9tVZDGUYAmzX0"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": \"970815f6-d298-4db7-9ae4-828a87607fe3\",\r\n  \"startDate\": \"2017-01-01\",\r\n  \"endDate\": \"2017-11-01\"\r\n}"
+						},
+						"url": {
+							"raw": "http://statsapi.{{environment}}.fathomai.com/v1/MQ/AthleteTwoMin",
+							"protocol": "http",
+							"host": [
+								"statsapi",
+								"{{environment}}",
+								"fathomai",
+								"com"
+							],
+							"path": [
+								"v1",
+								"MQ",
+								"AthleteTwoMin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Team Two Minute Movement Quality (NEW)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMDJjYjc5NjUtNzkyMS00OTNhLTgwZDQtNmIyNzhjOTI4ZmFkIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDEtMDQgMTU6MDI6NDIgLTA1MDAiLCJzaWduX2luX21ldGhvZCI6bnVsbH0.xH8zpcdoGI3JDjpt39jvNmDxUmk1Kh9tVZDGUYAmzX0"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"teamId\": \"f87e1deb-f022-4223-acaa-4926b6094343\",\r\n  \"startDate\": \"2017-01-01\",\r\n  \"endDate\": \"2017-06-01\"\r\n}"
+						},
+						"url": {
+							"raw": "http://statsapi.{{environment}}.fathomai.com/v1/MQ/TeamTwoMin",
+							"protocol": "http",
+							"host": [
+								"statsapi",
+								"{{environment}}",
+								"fathomai",
+								"com"
+							],
+							"path": [
+								"v1",
+								"MQ",
+								"TeamTwoMin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Athlete Movement Quality (NEW)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMDJjYjc5NjUtNzkyMS00OTNhLTgwZDQtNmIyNzhjOTI4ZmFkIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDEtMDQgMTU6MDI6NDIgLTA1MDAiLCJzaWduX2luX21ldGhvZCI6bnVsbH0.xH8zpcdoGI3JDjpt39jvNmDxUmk1Kh9tVZDGUYAmzX0"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": \"970815f6-d298-4db7-9ae4-828a87607fe3\",\r\n  \"startDate\": \"2017-03-10\",\r\n  \"endDate\": \"2017-03-20\"\r\n}"
+						},
+						"url": {
+							"raw": "http://statsapi.{{environment}}.fathomai.com/v1/MQ/Athlete",
+							"protocol": "http",
+							"host": [
+								"statsapi",
+								"{{environment}}",
+								"fathomai",
+								"com"
+							],
+							"path": [
+								"v1",
+								"MQ",
+								"Athlete"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "db948e4c-3aa2-44df-a6eb-506e74ee96e1",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5099a35-a9b0-49de-9a6e-e6b7a38ccfbb",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Rails App",
+			"description": null,
+			"item": [
+				{
+					"name": "Create User",
+					"description": "",
+					"item": [
+						{
+							"name": "Create User (Email)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "35e0be3f-3097-4ad1-862a-31d2a71f58a5",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"response must be valid and have a body\", function () {",
+											"     // assert that the status code is 201",
+											"     pm.response.to.have.status(201);",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.json;",
+											"});",
+											"",
+											"pm.test(\"Content-Type is present\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\");",
+											"});",
+											"",
+											"pm.test(\"Body contains auth_token\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"auth_token\");",
+											"});",
+											"",
+											"pm.test(\"Body contains role\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"role\");",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"glitch0+testuser2@gmail.com\",\r\n  \"password\": \"muffins1\",\r\n  \"first_name\": \"Test\",\r\n  \"last_name\": \"User\"\r\n}"
+								},
+								"url": {
+									"raw": "https://rails-api-v2.biometrixtech.com/v1/user",
+									"protocol": "https",
+									"host": [
+										"rails-api-v2",
+										"biometrixtech",
+										"com"
+									],
+									"path": [
+										"v1",
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Subject (Email)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b96667cd-5ad7-4196-bd79-3297ceddc58d",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"response must be valid and have a body\", function () {",
+											"     // assert that the status code is 201",
+											"     pm.response.to.have.status(201);",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.json;",
+											"});",
+											"",
+											"pm.test(\"Content-Type is present\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\");",
+											"});",
+											"",
+											"pm.test(\"Body contains auth_token\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"auth_token\");",
+											"});",
+											"",
+											"pm.test(\"Body contains jwt\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"jwt\");",
+											"});",
+											"",
+											"pm.test(\"Body contains role\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"role\");",
+											"});",
+											"",
+											"pm.test(\"Role equals subject\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData[\"role\"]).to.eql(\"subject\");",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"glitch0+test4@gmail.com\",\r\n  \"first_name\": \"Chris\",\r\n  \"last_name\": \"Cassano\",\r\n  \"team_id\": \"61a69100-ab4f-41be-b174-43076bce84f9\",\r\n  \"training_group_id\": \"068fb6b0-96d4-49f6-80c9-260b0e19cb32\"\r\n}"
+								},
+								"url": {
+									"raw": "https://rails-api-v2.biometrixtech.com/v1/user/subject",
+									"protocol": "https",
+									"host": [
+										"rails-api-v2",
+										"biometrixtech",
+										"com"
+									],
+									"path": [
+										"v1",
+										"user",
+										"subject"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Login",
+					"description": "",
+					"item": [
+						{
+							"name": "Login User (Email)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "afed62be-4621-4f43-ab8e-26108f7474d0",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"response must be valid and have a body\", function () {",
+											"     // assert that the status code is 200",
+											"     pm.response.to.be.ok;",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.json;",
+											"});",
+											"",
+											"pm.test(\"Content-Type is present\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\");",
+											"});",
+											"",
+											"pm.test(\"Body contains auth_token\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"auth_token\");",
+											"});",
+											"",
+											"pm.test(\"Body contains jwt\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"jwt\");",
+											"});",
+											"",
+											"pm.test(\"Body contains role\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"role\");",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"glitch0@gmail.com\",\r\n  \"password\": \"muffins1\"\r\n}"
+								},
+								"url": {
+									"raw": "https://rails-api-v2.biometrixtech.com/v1/sign_in",
+									"protocol": "https",
+									"host": [
+										"rails-api-v2",
+										"biometrixtech",
+										"com"
+									],
+									"path": [
+										"v1",
+										"sign_in"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login as Athlete",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0572041a-46c7-4033-b445-2b93a26d1c28",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"response must be valid and have a body\", function () {",
+											"     // assert that the status code is 200",
+											"     pm.response.to.be.ok;",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.json;",
+											"});",
+											"",
+											"pm.test(\"Content-Type is present\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\");",
+											"});",
+											"",
+											"pm.test(\"Body contains auth_token\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"auth_token\");",
+											"});",
+											"",
+											"pm.test(\"Body contains jwt\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"jwt\");",
+											"});",
+											"",
+											"pm.test(\"Body contains role\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"role\");",
+											"});",
+											"",
+											"pm.test(\"Role equals athlete\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData[\"role\"]).to.eql(\"athlete\");",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"glitch0@gmail.com\",\r\n  \"password\": \"muffins1\",\r\n  \"athlete_id\": \"b3afd00e-cc98-4119-8dc7-c976626c9c01\"\r\n}"
+								},
+								"url": {
+									"raw": "https://rails-api-v2.biometrixtech.com/v1/sign_in",
+									"protocol": "https",
+									"host": [
+										"rails-api-v2",
+										"biometrixtech",
+										"com"
+									],
+									"path": [
+										"v1",
+										"sign_in"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login User for Accessory set up",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "91c84d7f-2178-4f3e-83be-f81aa4fe3cac",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"response must be valid and have a body\", function () {",
+											"     // assert that the status code is 200",
+											"     pm.response.to.be.ok;",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.json;",
+											"});",
+											"",
+											"pm.test(\"Content-Type is present\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\");",
+											"});",
+											"",
+											"pm.test(\"Body contains user\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"user\");",
+											"});",
+											"",
+											"pm.test(\"Body contains auth_token\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"auth_token\");",
+											"});",
+											"",
+											"pm.test(\"Body contains jwt\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"jwt\");",
+											"});",
+											"",
+											"pm.test(\"Body contains role\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"role\");",
+											"});",
+											"",
+											"pm.test(\"Body contains organization\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"organization\");",
+											"});",
+											"",
+											"pm.test(\"Body contains teams\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"teams\");",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "content-type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"glitch0@gmail.com\",\r\n  \"password\": \"muffins1\"\r\n}"
+								},
+								"url": {
+									"raw": "https://rails-api-v2.biometrixtech.com/v1/sign_in/accessory",
+									"protocol": "https",
+									"host": [
+										"rails-api-v2",
+										"biometrixtech",
+										"com"
+									],
+									"path": [
+										"v1",
+										"sign_in",
+										"accessory"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Misc User",
+					"description": "",
+					"item": [
+						{
+							"name": "Forgot Password",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8fff1812-9b25-420e-912a-bbc8f6c16d44",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"response must be valid and have a body\", function () {",
+											"     // assert that the status code is 200",
+											"     pm.response.to.be.ok;",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.json;",
+											"});",
+											"",
+											"pm.test(\"Content-Type is present\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\");",
+											"});",
+											"",
+											"pm.test(\"Body contains success\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"success\");",
+											"});",
+											"",
+											"pm.test(\"Success equals true\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData[\"success\"]).to.eql(true);",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"glitch0+testuser@gmail.com\"\r\n}"
+								},
+								"url": {
+									"raw": "https://rails-api-v2.biometrixtech.com/v1/user/forgot_password",
+									"protocol": "https",
+									"host": [
+										"rails-api-v2",
+										"biometrixtech",
+										"com"
+									],
+									"path": [
+										"v1",
+										"user",
+										"forgot_password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change Password",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "aa46e0b1-6c9a-4d42-90fc-aa8897a311d5",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"response must be valid and have a body\", function () {",
+											"     // assert that the status code is 200",
+											"     pm.response.to.be.ok;",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.json;",
+											"});",
+											"",
+											"pm.test(\"Content-Type is present\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\");",
+											"});",
+											"",
+											"pm.test(\"Body contains id\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"id\");",
+											"});",
+											"",
+											"pm.test(\"Body contains email\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"email\");",
+											"});",
+											"",
+											"pm.test(\"Body contains role\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"role\");",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "jwt",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZTg1MTQ0ODktOGRlOS00N2UwLWIzZDUtYjE1ZGEyNDQ3ODNmIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDMtMjMgMTU6Mzk6NDcgKzAwMDAiLCJzaWduX2luX21ldGhvZCI6bnVsbCwicm9sZSI6ImJpb21ldHJpeF9hZG1pbiJ9.QlcsM1gmB-U1BQ1BLzA4y3YIsvP0L1AIrdmZP_-pQp0"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"old_password\": \"muffins1\",\r\n  \"password\": \"muffins2\"\r\n}"
+								},
+								"url": {
+									"raw": "https://rails-api-v2.biometrixtech.com/v1/user/password",
+									"protocol": "https",
+									"host": [
+										"rails-api-v2",
+										"biometrixtech",
+										"com"
+									],
+									"path": [
+										"v1",
+										"user",
+										"password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1fd8dd76-bc91-485b-9d73-583f522ad2fd",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"response must be valid and have a body\", function () {",
+											"     // assert that the status code is 200",
+											"     pm.response.to.be.ok;",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.json;",
+											"});",
+											"",
+											"pm.test(\"Content-Type is present\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\");",
+											"});",
+											"",
+											"pm.test(\"Body contains id\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"id\");",
+											"});",
+											"",
+											"pm.test(\"Body contains email\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"email\");",
+											"});",
+											"",
+											"pm.test(\"Body contains role\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"role\");",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "jwt",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZTg1MTQ0ODktOGRlOS00N2UwLWIzZDUtYjE1ZGEyNDQ3ODNmIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDMtMjMgMTU6Mzk6NDcgKzAwMDAiLCJzaWduX2luX21ldGhvZCI6bnVsbCwicm9sZSI6ImJpb21ldHJpeF9hZG1pbiJ9.QlcsM1gmB-U1BQ1BLzA4y3YIsvP0L1AIrdmZP_-pQp0"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"old_password\": \"muffins1\",\r\n  \"password\": \"muffins2\"\r\n}"
+								},
+								"url": {
+									"raw": "https://rails-api-v2.biometrixtech.com/v1/user",
+									"protocol": "https",
+									"host": [
+										"rails-api-v2",
+										"biometrixtech",
+										"com"
+									],
+									"path": [
+										"v1",
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Cognito Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c86cf6d2-e6c6-4ae2-bc5c-e2aa51616035",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"response must be valid and have a body\", function () {",
+											"     // assert that the status code is 200",
+											"     pm.response.to.be.ok;",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.json;",
+											"});",
+											"",
+											"pm.test(\"Content-Type is present\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\");",
+											"});",
+											"",
+											"pm.test(\"Body contains role\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"identity_id\");",
+											"});",
+											"",
+											"pm.test(\"Body contains jwt\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"token\");",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "jwt",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZTg1MTQ0ODktOGRlOS00N2UwLWIzZDUtYjE1ZGEyNDQ3ODNmIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDMtMjMgMTU6Mzk6NDcgKzAwMDAiLCJzaWduX2luX21ldGhvZCI6bnVsbCwicm9sZSI6ImJpb21ldHJpeF9hZG1pbiJ9.QlcsM1gmB-U1BQ1BLzA4y3YIsvP0L1AIrdmZP_-pQp0"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"old_password\": \"muffins1\",\r\n  \"password\": \"muffins2\"\r\n}"
+								},
+								"url": {
+									"raw": "https://rails-api-v2.biometrixtech.com/v1/user/cognito",
+									"protocol": "https",
+									"host": [
+										"rails-api-v2",
+										"biometrixtech",
+										"com"
+									],
+									"path": [
+										"v1",
+										"user",
+										"cognito"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e4bbf6b2-f655-46b2-9584-c24b1d327bb5",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"response must be valid and have a body\", function () {",
+											"     // assert that the status code is 200",
+											"     pm.response.to.be.ok;",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.json;",
+											"});",
+											"",
+											"pm.test(\"Content-Type is present\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\");",
+											"});",
+											"",
+											"pm.test(\"Body contains id\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"id\");",
+											"});",
+											"",
+											"pm.test(\"Body contains email\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"email\");",
+											"});",
+											"",
+											"pm.test(\"Body contains role\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"role\");",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "jwt",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZTg1MTQ0ODktOGRlOS00N2UwLWIzZDUtYjE1ZGEyNDQ3ODNmIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDMtMjMgMTU6Mzk6NDcgKzAwMDAiLCJzaWduX2luX21ldGhvZCI6bnVsbCwicm9sZSI6ImJpb21ldHJpeF9hZG1pbiJ9.QlcsM1gmB-U1BQ1BLzA4y3YIsvP0L1AIrdmZP_-pQp0"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"first_name\": \"Chris\",\r\n  \"last_name\": \"Meow\",\r\n  \"push_token\": \"testtoken\",\r\n  \"push_type\": \"android\"\r\n}"
+								},
+								"url": {
+									"raw": "https://rails-api-v2.biometrixtech.com/v1/user",
+									"protocol": "https",
+									"host": [
+										"rails-api-v2",
+										"biometrixtech",
+										"com"
+									],
+									"path": [
+										"v1",
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Test Push Notifications",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "db1843a1-a877-48e7-895d-9445005d082a",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"response must be valid and have a body\", function () {",
+											"     // assert that the status code is 200",
+											"     pm.response.to.be.ok;",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.json;",
+											"});",
+											"",
+											"pm.test(\"Content-Type is present\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\");",
+											"});",
+											"",
+											"pm.test(\"Body contains success\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"success\");",
+											"});",
+											"",
+											"pm.test(\"Success equals true\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData[\"success\"]).to.eql(true);",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "jwt",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZTg1MTQ0ODktOGRlOS00N2UwLWIzZDUtYjE1ZGEyNDQ3ODNmIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDMtMjMgMTU6Mzk6NDcgKzAwMDAiLCJzaWduX2luX21ldGhvZCI6bnVsbCwicm9sZSI6ImJpb21ldHJpeF9hZG1pbiJ9.QlcsM1gmB-U1BQ1BLzA4y3YIsvP0L1AIrdmZP_-pQp0"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "https://rails-api-v2.biometrixtech.com/v1/user/test_push_notifications",
+									"protocol": "https",
+									"host": [
+										"rails-api-v2",
+										"biometrixtech",
+										"com"
+									],
+									"path": [
+										"v1",
+										"user",
+										"test_push_notifications"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Training Groups",
+					"description": "",
+					"item": [
+						{
+							"name": "Create Training Group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "9c8dfc84-c39a-4b9a-a7a9-4427b6f09ffa",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"response must be valid and have a body\", function () {",
+											"     // assert that the status code is 200",
+											"     pm.response.to.be.ok;",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.json;",
+											"});",
+											"",
+											"pm.test(\"Content-Type is present\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\");",
+											"});",
+											"",
+											"pm.test(\"response must be valid and have a body\", function () {",
+											"     // assert that the status code is 200",
+											"     pm.response.to.be.ok;",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.json;",
+											"});",
+											"",
+											"pm.test(\"Content-Type is present\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\");",
+											"});",
+											"",
+											"pm.test(\"Body contains id\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"id\");",
+											"});",
+											"",
+											"pm.test(\"Body contains team_id\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"team_id\");",
+											"});",
+											"",
+											"pm.test(\"Body contains user_id\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"user_id\");",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "jwt",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZTg1MTQ0ODktOGRlOS00N2UwLWIzZDUtYjE1ZGEyNDQ3ODNmIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDMtMjMgMTU6Mzk6NDcgKzAwMDAiLCJzaWduX2luX21ldGhvZCI6bnVsbCwicm9sZSI6ImJpb21ldHJpeF9hZG1pbiJ9.QlcsM1gmB-U1BQ1BLzA4y3YIsvP0L1AIrdmZP_-pQp0"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"a group\",\r\n  \"description\": \"the best group\",\r\n  \"tier\": \"primary\",\r\n  \"team_id\": \"f87e1deb-f022-4223-acaa-4926b6094343\"\r\n}"
+								},
+								"url": {
+									"raw": "https://rails-api-v2.biometrixtech.com/v1/training_groups",
+									"protocol": "https",
+									"host": [
+										"rails-api-v2",
+										"biometrixtech",
+										"com"
+									],
+									"path": [
+										"v1",
+										"training_groups"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Training Groups",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f5d61539-2d56-495f-8e22-5878ad3e3d1d",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"response must be valid and have a body\", function () {",
+											"     // assert that the status code is 200",
+											"     pm.response.to.be.ok;",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.json;",
+											"});",
+											"",
+											"pm.test(\"Content-Type is present\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\");",
+											"});",
+											"",
+											"pm.test(\"response must be valid and have a body\", function () {",
+											"     // assert that the status code is 200",
+											"     pm.response.to.be.ok;",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.json;",
+											"});",
+											"",
+											"pm.test(\"Content-Type is present\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\");",
+											"});",
+											"",
+											"pm.test(\"Body contains id\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"id\");",
+											"});",
+											"",
+											"pm.test(\"Body contains team_id\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"team_id\");",
+											"});",
+											"",
+											"pm.test(\"Body contains user_id\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"user_id\");",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "jwt",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZTg1MTQ0ODktOGRlOS00N2UwLWIzZDUtYjE1ZGEyNDQ3ODNmIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDMtMjMgMTY6MjA6MjEgKzAwMDAiLCJzaWduX2luX21ldGhvZCI6bnVsbCwicm9sZSI6ImJpb21ldHJpeF9hZG1pbiJ9.QZXWIq7z4Z9KqEovH8fWaokiOTktAJCsLAXZwJtI9RE"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"a different group name\",\r\n  \"description\": \"the worst group\",\r\n  \"user_ids\": [\r\n    \"e8514489-8de9-47e0-b3d5-b15da244783f\"\r\n  ]\r\n}"
+								},
+								"url": {
+									"raw": "https://rails-api-v2.biometrixtech.com/v1/training_groups/ad644ccd-3803-4bf5-a661-3fe972a6c609",
+									"protocol": "https",
+									"host": [
+										"rails-api-v2",
+										"biometrixtech",
+										"com"
+									],
+									"path": [
+										"v1",
+										"training_groups",
+										"ad644ccd-3803-4bf5-a661-3fe972a6c609"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find Training Groups",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "26f8ba53-7e51-4e46-a436-9d1e00c9058f",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"response must be valid and have a body\", function () {",
+											"     // assert that the status code is 200",
+											"     pm.response.to.be.ok;",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.json;",
+											"});",
+											"",
+											"pm.test(\"Content-Type is present\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\");",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "jwt",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZTg1MTQ0ODktOGRlOS00N2UwLWIzZDUtYjE1ZGEyNDQ3ODNmIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDMtMjMgMTY6MjA6MjEgKzAwMDAiLCJzaWduX2luX21ldGhvZCI6bnVsbCwicm9sZSI6ImJpb21ldHJpeF9hZG1pbiJ9.QZXWIq7z4Z9KqEovH8fWaokiOTktAJCsLAXZwJtI9RE"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"a group\",\r\n  \"description\": \"the best group\",\r\n  \"tier\": \"primary\",\r\n  \"team_id\": \"f87e1deb-f022-4223-acaa-4926b6094343\"\r\n}"
+								},
+								"url": {
+									"raw": "https://rails-api-v2.biometrixtech.com/v1/training_groups",
+									"protocol": "https",
+									"host": [
+										"rails-api-v2",
+										"biometrixtech",
+										"com"
+									],
+									"path": [
+										"v1",
+										"training_groups"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Training Group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "63030de5-53a4-44d7-8e54-625efee884f2",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"response must be valid and have a body\", function () {",
+											"     // assert that the status code is 200",
+											"     pm.response.to.be.ok;",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.json;",
+											"});",
+											"",
+											"pm.test(\"Content-Type is present\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\");",
+											"});",
+											"",
+											"pm.test(\"Body contains success\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"success\");",
+											"});",
+											"",
+											"pm.test(\"Success equals true\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData[\"success\"]).to.eql(true);",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "jwt",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZTg1MTQ0ODktOGRlOS00N2UwLWIzZDUtYjE1ZGEyNDQ3ODNmIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDMtMjMgMTY6MjA6MjEgKzAwMDAiLCJzaWduX2luX21ldGhvZCI6bnVsbCwicm9sZSI6ImJpb21ldHJpeF9hZG1pbiJ9.QZXWIq7z4Z9KqEovH8fWaokiOTktAJCsLAXZwJtI9RE"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "https://rails-api-v2.biometrixtech.com/v1/training_groups/ad644ccd-3803-4bf5-a661-3fe972a6c609",
+									"protocol": "https",
+									"host": [
+										"rails-api-v2",
+										"biometrixtech",
+										"com"
+									],
+									"path": [
+										"v1",
+										"training_groups",
+										"ad644ccd-3803-4bf5-a661-3fe972a6c609"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove Single User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d226af85-e43f-4f46-ab4b-490ab6a204b4",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"response must be valid and have a body\", function () {",
+											"     // assert that the status code is 200",
+											"     pm.response.to.be.ok;",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.json;",
+											"});",
+											"",
+											"pm.test(\"Content-Type is present\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\");",
+											"});",
+											"",
+											"pm.test(\"response must be valid and have a body\", function () {",
+											"     // assert that the status code is 200",
+											"     pm.response.to.be.ok;",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.json;",
+											"});",
+											"",
+											"pm.test(\"Content-Type is present\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\");",
+											"});",
+											"",
+											"pm.test(\"Body contains id\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"id\");",
+											"});",
+											"",
+											"pm.test(\"Body contains team_id\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"team_id\");",
+											"});",
+											"",
+											"pm.test(\"Body contains user_id\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"user_id\");",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "jwt",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZTg1MTQ0ODktOGRlOS00N2UwLWIzZDUtYjE1ZGEyNDQ3ODNmIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDMtMjMgMTY6MjA6MjEgKzAwMDAiLCJzaWduX2luX21ldGhvZCI6bnVsbCwicm9sZSI6ImJpb21ldHJpeF9hZG1pbiJ9.QZXWIq7z4Z9KqEovH8fWaokiOTktAJCsLAXZwJtI9RE"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"user_id\": \"f0119001-3f97-4e91-b9bf-20ed047871f9\"\r\n}"
+								},
+								"url": {
+									"raw": "https://rails-api-v2.biometrixtech.com/v1/training_groups/63a9217a-1c47-463f-8f94-36e9477941bd/remove_user",
+									"protocol": "https",
+									"host": [
+										"rails-api-v2",
+										"biometrixtech",
+										"com"
+									],
+									"path": [
+										"v1",
+										"training_groups",
+										"63a9217a-1c47-463f-8f94-36e9477941bd",
+										"remove_user"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "Alerts API",
+			"description": null,
+			"item": [
+				{
+					"name": "Notifications",
+					"request": {
+						"method": "OPTIONS",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://alerts.dev.fathomai.com/v1/Notifications",
+							"protocol": "https",
+							"host": [
+								"alerts",
+								"dev",
+								"fathomai",
+								"com"
+							],
+							"path": [
+								"v1",
+								"Notifications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Notifications",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJraWQiOiJ1cy13ZXN0LTIxIiwidHlwIjoiSldTIiwiYWxnIjoiUlM1MTIifQ.eyJzdWIiOiJ1cy13ZXN0LTI6MTliZmFkNzUtOWQ5NS00ZmZmLWFlYzktZGU0YTkzZGEyMTRkIiwiYXVkIjoidXMtd2VzdC0yOjA5M2RhOGRjLThlNzUtNGJmNS04MGE5LWE0NmYwMDBhNGEyNiIsImFtciI6WyJ1bmF1dGhlbnRpY2F0ZWQiXSwiaXNzIjoiaHR0cHM6Ly9jb2duaXRvLWlkZW50aXR5LmFtYXpvbmF3cy5jb20iLCJleHAiOjE1MTM2MzA4ODcsImlhdCI6MTUxMzYzMDI4N30.5uqv6M06l4SbVgw9-bTiaVCuEGL6er4rhQlGOE5jtgE",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"startDate\": \"2017-12-20\",\n    \"endDate\": \"2017-12-26\"\n}"
+						},
+						"url": {
+							"raw": "https://alerts.production.fathomai.com/v1/Notifications",
+							"protocol": "https",
+							"host": [
+								"alerts",
+								"production",
+								"fathomai",
+								"com"
+							],
+							"path": [
+								"v1",
+								"Notifications"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Preprocessing API",
+			"description": null,
+			"item": [
+				{
+					"name": "Status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "30f013f6-98e2-40f1-9d8b-3f014cb636a7",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok;",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"Body contains sessions\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"sessions\");",
+									"});",
+									"",
+									"pm.test(\"Body contains PROCESSING_COMPLETE\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"PROCESSING_COMPLETE\");",
+									"});",
+									"",
+									"pm.test(\"Body contains PROCESSING_FAILED\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"PROCESSING_FAILED\");",
+									"});",
+									"",
+									"pm.test(\"Body contains PROCESSING_IN_PROGRESS\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"PROCESSING_IN_PROGRESS\");",
+									"});",
+									"",
+									"pm.test(\"Body contains UPLOAD_COMPLETE\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"UPLOAD_COMPLETE\");",
+									"});",
+									"",
+									"pm.test(\"Body contains UPLOAD_IN_PROGRESS\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"UPLOAD_IN_PROGRESS\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZTg1MTQ0ODktOGRlOS00N2UwLWIzZDUtYjE1ZGEyNDQ3ODNmIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDMtMDUgMTc6NDc6NTAgKzAwMDAiLCJzaWduX2luX21ldGhvZCI6Impzb24tYWNjZXNzb3J5Iiwicm9sZSI6ImJpb21ldHJpeF9hZG1pbiJ9.3KOTieGlQaxf8SLF-l4gNr4x8v_z08eX68uUoWQRDMk"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"start_date\": \"2018-01-01\",\n    \"end_date\": \"2018-03-04\"\n}"
+						},
+						"url": {
+							"raw": "https://preprocessing.{{environment}}.fathomai.com/v1/status",
+							"protocol": "https",
+							"host": [
+								"preprocessing",
+								"{{environment}}",
+								"fathomai",
+								"com"
+							],
+							"path": [
+								"v1",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Session Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dfd716d6-9595-4617-a336-5d5d3cb44a7e",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     // assert that the status code is 201",
+									"     pm.response.to.have.status(201);",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"Body contains user_id\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"user_id\");",
+									"});",
+									"",
+									"pm.test(\"user_id is UUID\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(typeof jsonData[\"session\"][\"user_id\"]).to.eql(\"string\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJraWQiOiI1MitieUdBWW1VNkI3MGhlNVl6TmNYWHJIaSszUkorbDVOZlE2WDlGNDlRPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJkYTMyYzcwMC03MzI3LTQzNTctYWZjYi01YjM1YTU5MjU3NzgiLCJldmVudF9pZCI6ImNiMzkxY2UzLTJkMTktMTFlOC04NTJjLWE3NGJkMTgwZjQ2MiIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE1MjE2NDQ5NDQsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC51cy13ZXN0LTIuYW1hem9uYXdzLmNvbVwvdXMtd2VzdC0yX0hvM3VHQkYxayIsImV4cCI6MTUyMTY0ODU0NCwiaWF0IjoxNTIxNjQ0OTQ0LCJqdGkiOiIyZjEzNmUxYi04ZjI4LTRlZjYtOGFjNS1kMjFkY2Q4NDdkNDQiLCJjbGllbnRfaWQiOiIxOTQxOThpMG8wZ25pZXR1djkybjdybnI3NyIsInVzZXJuYW1lIjoiMDA6ODA6RTE6QkQ6RDg6ODMifQ.O8KjOSc4NaVtcexsuFgjhQf6PdZ7TsINGJW-AVtX-iPz1FEnIysGA10Vz7wrp52REtJNMiBFNa8ofdmyyfQWZYCzIVw4sNLnrBK2lvhQjfxwgBYSAjBvGz77O0ZI9QWXBel9-0mSgysSp3PO6F6qbFvHZ3RWiTStyMOBj-uueLVu1QGppkoZeqzFemm1H8TeX9EU8m9q6h0jYxhFnIz2THhDfLNwlTYDOUp1KkT9uqvGfbT0z3EQXVYgCGJLlpd882HfVjNgAcTro48Ip30ee1d1bOG9tE3I9wPhCBzWwMCsP6Q3ZaG-Fq6RhQbcnPAKaxeHR4suVkOZkiKZ6ShT5w"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"event_date\": \"2018-02-01T17:21:01Z\",\n    \"end_date\": \"2018-02-01T18:30:00Z\",\n    \"sensors\": [\n        \"11:22:33:44:55:66\",\n        \"22:33:44:55:66:77\",\n        \"55:22:33:44:55:66\"\n    ]\n}"
+						},
+						"url": {
+							"raw": "https://apis.{{environment}}.fathomai.com/preprocessing/session",
+							"protocol": "https",
+							"host": [
+								"apis",
+								"{{environment}}",
+								"fathomai",
+								"com"
+							],
+							"path": [
+								"preprocessing",
+								"session"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "session/get",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJraWQiOiJ1cy13ZXN0LTIxIiwidHlwIjoiSldTIiwiYWxnIjoiUlM1MTIifQ.eyJzdWIiOiJ1cy13ZXN0LTI6MTliZmFkNzUtOWQ5NS00ZmZmLWFlYzktZGU0YTkzZGEyMTRkIiwiYXVkIjoidXMtd2VzdC0yOjA5M2RhOGRjLThlNzUtNGJmNS04MGE5LWE0NmYwMDBhNGEyNiIsImFtciI6WyJ1bmF1dGhlbnRpY2F0ZWQiXSwiaXNzIjoiaHR0cHM6Ly9jb2duaXRvLWlkZW50aXR5LmFtYXpvbmF3cy5jb20iLCJleHAiOjE1MTM2MzA4ODcsImlhdCI6MTUxMzYzMDI4N30.5uqv6M06l4SbVgw9-bTiaVCuEGL6er4rhQlGOE5jtgE"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"event_date\": \"2018-02-01T17:21:00Z\",\n    \"sensors\": [\n        \"11:22:33:44:55:66\",\n        \"22:33:44:55:66:77\",\n        \"55:22:33:44:55:66\"\n    ]\n}"
+						},
+						"url": {
+							"raw": "https://apis.{{environment}}.fathomai.com/preprocessing/session/978f730d-b96c-54b3-bfe1-4d82d9a6288d",
+							"protocol": "https",
+							"host": [
+								"apis",
+								"{{environment}}",
+								"fathomai",
+								"com"
+							],
+							"path": [
+								"preprocessing",
+								"session",
+								"978f730d-b96c-54b3-bfe1-4d82d9a6288d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "session/upload",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJraWQiOiJ1cy13ZXN0LTIxIiwidHlwIjoiSldTIiwiYWxnIjoiUlM1MTIifQ.eyJzdWIiOiJ1cy13ZXN0LTI6MTliZmFkNzUtOWQ5NS00ZmZmLWFlYzktZGU0YTkzZGEyMTRkIiwiYXVkIjoidXMtd2VzdC0yOjA5M2RhOGRjLThlNzUtNGJmNS04MGE5LWE0NmYwMDBhNGEyNiIsImFtciI6WyJ1bmF1dGhlbnRpY2F0ZWQiXSwiaXNzIjoiaHR0cHM6Ly9jb2duaXRvLWlkZW50aXR5LmFtYXpvbmF3cy5jb20iLCJleHAiOjE1MTM2MzA4ODcsImlhdCI6MTUxMzYzMDI4N30.5uqv6M06l4SbVgw9-bTiaVCuEGL6er4rhQlGOE5jtgE"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/octet-stream"
+							}
+						],
+						"body": {
+							"mode": "file",
+							"file": {}
+						},
+						"url": {
+							"raw": "https://apis.dev.fathomai.com/preprocessing/session/b245be18-bdd2-55f8-9f0b-ccbbb5f30b91/upload",
+							"protocol": "https",
+							"host": [
+								"apis",
+								"dev",
+								"fathomai",
+								"com"
+							],
+							"path": [
+								"preprocessing",
+								"session",
+								"b245be18-bdd2-55f8-9f0b-ccbbb5f30b91",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "session",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJraWQiOiJ1cy13ZXN0LTIxIiwidHlwIjoiSldTIiwiYWxnIjoiUlM1MTIifQ.eyJzdWIiOiJ1cy13ZXN0LTI6MTliZmFkNzUtOWQ5NS00ZmZmLWFlYzktZGU0YTkzZGEyMTRkIiwiYXVkIjoidXMtd2VzdC0yOjA5M2RhOGRjLThlNzUtNGJmNS04MGE5LWE0NmYwMDBhNGEyNiIsImFtciI6WyJ1bmF1dGhlbnRpY2F0ZWQiXSwiaXNzIjoiaHR0cHM6Ly9jb2duaXRvLWlkZW50aXR5LmFtYXpvbmF3cy5jb20iLCJleHAiOjE1MTM2MzA4ODcsImlhdCI6MTUxMzYzMDI4N30.5uqv6M06l4SbVgw9-bTiaVCuEGL6er4rhQlGOE5jtgE"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"session_status\": \"UPLOAD_COMPLETE\"\r\n}"
+						},
+						"url": {
+							"raw": "https://preprocessing.dev.fathomai.com/v1/session/ba0a28e1-ded0-464e-8e3a-63483eba3164",
+							"protocol": "https",
+							"host": [
+								"preprocessing",
+								"dev",
+								"fathomai",
+								"com"
+							],
+							"path": [
+								"v1",
+								"session",
+								"ba0a28e1-ded0-464e-8e3a-63483eba3164"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Hardware API",
+			"description": null,
+			"item": [
+				{
+					"name": "accessory/register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJraWQiOiJ1cy13ZXN0LTIxIiwidHlwIjoiSldTIiwiYWxnIjoiUlM1MTIifQ.eyJzdWIiOiJ1cy13ZXN0LTI6MTliZmFkNzUtOWQ5NS00ZmZmLWFlYzktZGU0YTkzZGEyMTRkIiwiYXVkIjoidXMtd2VzdC0yOjA5M2RhOGRjLThlNzUtNGJmNS04MGE5LWE0NmYwMDBhNGEyNiIsImFtciI6WyJ1bmF1dGhlbnRpY2F0ZWQiXSwiaXNzIjoiaHR0cHM6Ly9jb2duaXRvLWlkZW50aXR5LmFtYXpvbmF3cy5jb20iLCJleHAiOjE1MTM2MzA4ODcsImlhdCI6MTUxMzYzMDI4N30.5uqv6M06l4SbVgw9-bTiaVCuEGL6er4rhQlGOE5jtgE",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"ffqkjhrqdkha2\",\n    \"hardware_model\": \"model\",\n    \"firmware_version\": \"1.0\",\n    \"settings_key\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "https://apis.{{environment}}.fathomai.com/hardware/accessory/1d:3a:42:5d:g5:ea/register",
+							"protocol": "https",
+							"host": [
+								"apis",
+								"{{environment}}",
+								"fathomai",
+								"com"
+							],
+							"path": [
+								"hardware",
+								"accessory",
+								"1d:3a:42:5d:g5:ea",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "accessory/patch",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJraWQiOiJ1cy13ZXN0LTIxIiwidHlwIjoiSldTIiwiYWxnIjoiUlM1MTIifQ.eyJzdWIiOiJ1cy13ZXN0LTI6MTliZmFkNzUtOWQ5NS00ZmZmLWFlYzktZGU0YTkzZGEyMTRkIiwiYXVkIjoidXMtd2VzdC0yOjA5M2RhOGRjLThlNzUtNGJmNS04MGE5LWE0NmYwMDBhNGEyNiIsImFtciI6WyJ1bmF1dGhlbnRpY2F0ZWQiXSwiaXNzIjoiaHR0cHM6Ly9jb2duaXRvLWlkZW50aXR5LmFtYXpvbmF3cy5jb20iLCJleHAiOjE1MTM2MzA4ODcsImlhdCI6MTUxMzYzMDI4N30.5uqv6M06l4SbVgw9-bTiaVCuEGL6er4rhQlGOE5jtgE"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"owner_id\": \"94509d08-3307-4c83-a69b-6cc7b3ae59bf\"\n}"
+						},
+						"url": {
+							"raw": "https://hardware.dev.fathomai.com/v1/accessory/1d:3a:42:5d:g5:ea",
+							"protocol": "https",
+							"host": [
+								"hardware",
+								"dev",
+								"fathomai",
+								"com"
+							],
+							"path": [
+								"v1",
+								"accessory",
+								"1d:3a:42:5d:g5:ea"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "accessory/get",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJraWQiOiJ1cy13ZXN0LTIxIiwidHlwIjoiSldTIiwiYWxnIjoiUlM1MTIifQ.eyJzdWIiOiJ1cy13ZXN0LTI6MTliZmFkNzUtOWQ5NS00ZmZmLWFlYzktZGU0YTkzZGEyMTRkIiwiYXVkIjoidXMtd2VzdC0yOjA5M2RhOGRjLThlNzUtNGJmNS04MGE5LWE0NmYwMDBhNGEyNiIsImFtciI6WyJ1bmF1dGhlbnRpY2F0ZWQiXSwiaXNzIjoiaHR0cHM6Ly9jb2duaXRvLWlkZW50aXR5LmFtYXpvbmF3cy5jb20iLCJleHAiOjE1MTM2MzA4ODcsImlhdCI6MTUxMzYzMDI4N30.5uqv6M06l4SbVgw9-bTiaVCuEGL6er4rhQlGOE5jtgE"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"ffqkjhrqdkha2\",\n    \"hardware_model\": \"model\",\n    \"firmware_version\": \"1.0\",\n    \"settings_key\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "https://hardware.{{environment}}.fathomai.com/v1/accessory/1d:3a:42:5d:g5:ea",
+							"protocol": "https",
+							"host": [
+								"hardware",
+								"{{environment}}",
+								"fathomai",
+								"com"
+							],
+							"path": [
+								"v1",
+								"accessory",
+								"1d:3a:42:5d:g5:ea"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "accessory/login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJraWQiOiJ1cy13ZXN0LTIxIiwidHlwIjoiSldTIiwiYWxnIjoiUlM1MTIifQ.eyJzdWIiOiJ1cy13ZXN0LTI6MTliZmFkNzUtOWQ5NS00ZmZmLWFlYzktZGU0YTkzZGEyMTRkIiwiYXVkIjoidXMtd2VzdC0yOjA5M2RhOGRjLThlNzUtNGJmNS04MGE5LWE0NmYwMDBhNGEyNiIsImFtciI6WyJ1bmF1dGhlbnRpY2F0ZWQiXSwiaXNzIjoiaHR0cHM6Ly9jb2duaXRvLWlkZW50aXR5LmFtYXpvbmF3cy5jb20iLCJleHAiOjE1MTM2MzA4ODcsImlhdCI6MTUxMzYzMDI4N30.5uqv6M06l4SbVgw9-bTiaVCuEGL6er4rhQlGOE5jtgE",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"ffqkjhrqdkha2\"\n}"
+						},
+						"url": {
+							"raw": "https://hardware.dev.fathomai.com/v1/accessory/1d:3a:42:5d:g5:ea/login",
+							"protocol": "https",
+							"host": [
+								"hardware",
+								"dev",
+								"fathomai",
+								"com"
+							],
+							"path": [
+								"v1",
+								"accessory",
+								"1d:3a:42:5d:g5:ea",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "accessory/sync",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJraWQiOiJ1cy13ZXN0LTIxIiwidHlwIjoiSldTIiwiYWxnIjoiUlM1MTIifQ.eyJzdWIiOiJ1cy13ZXN0LTI6MTliZmFkNzUtOWQ5NS00ZmZmLWFlYzktZGU0YTkzZGEyMTRkIiwiYXVkIjoidXMtd2VzdC0yOjA5M2RhOGRjLThlNzUtNGJmNS04MGE5LWE0NmYwMDBhNGEyNiIsImFtciI6WyJ1bmF1dGhlbnRpY2F0ZWQiXSwiaXNzIjoiaHR0cHM6Ly9jb2duaXRvLWlkZW50aXR5LmFtYXpvbmF3cy5jb20iLCJleHAiOjE1MTM2MzA4ODcsImlhdCI6MTUxMzYzMDI4N30.5uqv6M06l4SbVgw9-bTiaVCuEGL6er4rhQlGOE5jtgE"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"event_date\": \"2016-12-09T08:21:15Z\",\r\n    \"accessory\": {\r\n      \"state\": \"0x01\",\r\n      \"battery_level\": 0.89,\r\n      \"memory_level\": 0.89,\r\n      \"firmware_version\": \"2.3.2\",\r\n      \"bluetooth_name\": \"athl1\"\r\n    },\r\n    \"sensors\": [\r\n    \t{\r\n        \t\"mac_address\": \"aa:bb:cc:dd:ee:ff\",\r\n\t        \"battery_level\": \"0.99\",\r\n\t        \"memory_level\": 0.57,\r\n\t        \"firmware_version\": \"1.2\",\r\n\t        \"gyro_offset\": [\r\n\t          0.572344,\r\n\t          0.572344,\r\n\t          0.572344\r\n\t        ]\r\n    \t}\r\n    ]\r\n}"
+						},
+						"url": {
+							"raw": "https://hardware.dev.fathomai.com/v1/accessory/1d:3a:42:5d:g5:ea/sync",
+							"protocol": "https",
+							"host": [
+								"hardware",
+								"dev",
+								"fathomai",
+								"com"
+							],
+							"path": [
+								"v1",
+								"accessory",
+								"1d:3a:42:5d:g5:ea",
+								"sync"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sensor/patch",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJraWQiOiJ1cy13ZXN0LTIxIiwidHlwIjoiSldTIiwiYWxnIjoiUlM1MTIifQ.eyJzdWIiOiJ1cy13ZXN0LTI6MTliZmFkNzUtOWQ5NS00ZmZmLWFlYzktZGU0YTkzZGEyMTRkIiwiYXVkIjoidXMtd2VzdC0yOjA5M2RhOGRjLThlNzUtNGJmNS04MGE5LWE0NmYwMDBhNGEyNiIsImFtciI6WyJ1bmF1dGhlbnRpY2F0ZWQiXSwiaXNzIjoiaHR0cHM6Ly9jb2duaXRvLWlkZW50aXR5LmFtYXpvbmF3cy5jb20iLCJleHAiOjE1MTM2MzA4ODcsImlhdCI6MTUxMzYzMDI4N30.5uqv6M06l4SbVgw9-bTiaVCuEGL6er4rhQlGOE5jtgE"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"firmware_version\": \"1.2\",\r\n  \"memory_level\": 0.2\r\n}"
+						},
+						"url": {
+							"raw": "https://apis.dev.fathomai.com/hardware/sensor/4E:E2:71:9B:A5:E1",
+							"protocol": "https",
+							"host": [
+								"apis",
+								"dev",
+								"fathomai",
+								"com"
+							],
+							"path": [
+								"hardware",
+								"sensor",
+								"4E:E2:71:9B:A5:E1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sensor/multipatch",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJraWQiOiJ1cy13ZXN0LTIxIiwidHlwIjoiSldTIiwiYWxnIjoiUlM1MTIifQ.eyJzdWIiOiJ1cy13ZXN0LTI6MTliZmFkNzUtOWQ5NS00ZmZmLWFlYzktZGU0YTkzZGEyMTRkIiwiYXVkIjoidXMtd2VzdC0yOjA5M2RhOGRjLThlNzUtNGJmNS04MGE5LWE0NmYwMDBhNGEyNiIsImFtciI6WyJ1bmF1dGhlbnRpY2F0ZWQiXSwiaXNzIjoiaHR0cHM6Ly9jb2duaXRvLWlkZW50aXR5LmFtYXpvbmF3cy5jb20iLCJleHAiOjE1MTM2MzA4ODcsImlhdCI6MTUxMzYzMDI4N30.5uqv6M06l4SbVgw9-bTiaVCuEGL6er4rhQlGOE5jtgE"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"sensors\": [\r\n  \t{\r\n\t\t\"mac_address\": \"4E:E2:71:9B:A5:E1\",\r\n\t\t\"last_user_id\": \"4811e0fa-aa9d-4f61-af2d-28064c7a1011\",\r\n\t\t\"firmware_version\": \"1.2\",\r\n\t\t\"memory_level\": 0.2\r\n\t}\r\n  ]\r\n}"
+						},
+						"url": {
+							"raw": "https://apis.dev.fathomai.com/hardware/sensor",
+							"protocol": "https",
+							"host": [
+								"apis",
+								"dev",
+								"fathomai",
+								"com"
+							],
+							"path": [
+								"hardware",
+								"sensor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "misc/time",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJraWQiOiJ1cy13ZXN0LTIxIiwidHlwIjoiSldTIiwiYWxnIjoiUlM1MTIifQ.eyJzdWIiOiJ1cy13ZXN0LTI6MTliZmFkNzUtOWQ5NS00ZmZmLWFlYzktZGU0YTkzZGEyMTRkIiwiYXVkIjoidXMtd2VzdC0yOjA5M2RhOGRjLThlNzUtNGJmNS04MGE5LWE0NmYwMDBhNGEyNiIsImFtciI6WyJ1bmF1dGhlbnRpY2F0ZWQiXSwiaXNzIjoiaHR0cHM6Ly9jb2duaXRvLWlkZW50aXR5LmFtYXpvbmF3cy5jb20iLCJleHAiOjE1MTM2MzA4ODcsImlhdCI6MTUxMzYzMDI4N30.5uqv6M06l4SbVgw9-bTiaVCuEGL6er4rhQlGOE5jtgE",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"event_date\": \"2018-02-01T17:21:00Z\",\n    \"sensors\": [\n        \"11:22:33:44:55:66\",\n        \"22:33:44:55:66:77\",\n        \"55:22:33:44:55:66\"\n    ]\n}"
+						},
+						"url": {
+							"raw": "https://apis.dev.fathomai.com/hardware/misc/time",
+							"protocol": "https",
+							"host": [
+								"apis",
+								"dev",
+								"fathomai",
+								"com"
+							],
+							"path": [
+								"hardware",
+								"misc",
+								"time"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "firmware/download",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJraWQiOiJ1cy13ZXN0LTIxIiwidHlwIjoiSldTIiwiYWxnIjoiUlM1MTIifQ.eyJzdWIiOiJ1cy13ZXN0LTI6MTliZmFkNzUtOWQ5NS00ZmZmLWFlYzktZGU0YTkzZGEyMTRkIiwiYXVkIjoidXMtd2VzdC0yOjA5M2RhOGRjLThlNzUtNGJmNS04MGE5LWE0NmYwMDBhNGEyNiIsImFtciI6WyJ1bmF1dGhlbnRpY2F0ZWQiXSwiaXNzIjoiaHR0cHM6Ly9jb2duaXRvLWlkZW50aXR5LmFtYXpvbmF3cy5jb20iLCJleHAiOjE1MTM2MzA4ODcsImlhdCI6MTUxMzYzMDI4N30.5uqv6M06l4SbVgw9-bTiaVCuEGL6er4rhQlGOE5jtgE"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/octet-stream"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"event_date\": \"2018-02-01T17:21:00Z\",\n    \"sensors\": [\n        \"11:22:33:44:55:66\",\n        \"22:33:44:55:66:77\",\n        \"55:22:33:44:55:66\"\n    ]\n}"
+						},
+						"url": {
+							"raw": "https://apis.{{environment}}.fathomai.com/hardware/firmware/sensor/latest/download",
+							"protocol": "https",
+							"host": [
+								"apis",
+								"{{environment}}",
+								"fathomai",
+								"com"
+							],
+							"path": [
+								"hardware",
+								"firmware",
+								"sensor",
+								"latest",
+								"download"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "ce0c92b4-baad-4f81-b2e1-5d490343cf42",
+							"name": "firmware/download",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJraWQiOiJ1cy13ZXN0LTIxIiwidHlwIjoiSldTIiwiYWxnIjoiUlM1MTIifQ.eyJzdWIiOiJ1cy13ZXN0LTI6MTliZmFkNzUtOWQ5NS00ZmZmLWFlYzktZGU0YTkzZGEyMTRkIiwiYXVkIjoidXMtd2VzdC0yOjA5M2RhOGRjLThlNzUtNGJmNS04MGE5LWE0NmYwMDBhNGEyNiIsImFtciI6WyJ1bmF1dGhlbnRpY2F0ZWQiXSwiaXNzIjoiaHR0cHM6Ly9jb2duaXRvLWlkZW50aXR5LmFtYXpvbmF3cy5jb20iLCJleHAiOjE1MTM2MzA4ODcsImlhdCI6MTUxMzYzMDI4N30.5uqv6M06l4SbVgw9-bTiaVCuEGL6er4rhQlGOE5jtgE"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/octet-stream"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"event_date\": \"2018-02-01T17:21:00Z\",\n    \"sensors\": [\n        \"11:22:33:44:55:66\",\n        \"22:33:44:55:66:77\",\n        \"55:22:33:44:55:66\"\n    ]\n}"
+								},
+								"url": {
+									"raw": "https://apis.dev.fathomai.com/hardware/firmware/accessory/1.2/download",
+									"protocol": "https",
+									"host": [
+										"apis",
+										"dev",
+										"fathomai",
+										"com"
+									],
+									"path": [
+										"hardware",
+										"firmware",
+										"accessory",
+										"1.2",
+										"download"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "raw",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "public, max-age=43200",
+									"name": "Cache-Control",
+									"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": "Options that are desired for the connection"
+								},
+								{
+									"key": "Content-Length",
+									"value": "8192",
+									"name": "Content-Length",
+									"description": "The length of the response body in octets (8-bit bytes)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/octet-stream",
+									"name": "Content-Type",
+									"description": "The mime type of this content"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 26 Mar 2018 14:43:40 GMT",
+									"name": "Date",
+									"description": "The date and time that the message was sent"
+								},
+								{
+									"key": "Expires",
+									"value": "Tue, 27 Mar 2018 02:43:40 GMT",
+									"name": "Expires",
+									"description": "Gives the date/time after which the response is considered stale"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 f73cfdea81f37aa5878995283b2bb65b.cloudfront.net (CloudFront)",
+									"name": "Via",
+									"description": "Informs the client of proxies through which the response was sent."
+								},
+								{
+									"key": "X-Amz-Cf-Id",
+									"value": "hhB3fYbU8irvUDLZitUHxq7Y5zMsuLM3rL_Kj2fxxN1FHDKDS93Pig==",
+									"name": "X-Amz-Cf-Id",
+									"description": "Custom header"
+								},
+								{
+									"key": "X-Amzn-Trace-Id",
+									"value": "sampled=1;root=1-5ab9071a-b6a06a66383a884e66947d8b",
+									"name": "X-Amzn-Trace-Id",
+									"description": "Custom header"
+								},
+								{
+									"key": "X-Cache",
+									"value": "Miss from cloudfront",
+									"name": "X-Cache",
+									"description": "Custom header"
+								},
+								{
+									"key": "x-amz-apigw-id",
+									"value": "EW4MKEN6PHcFZdg=",
+									"name": "x-amz-apigw-id",
+									"description": "Custom header"
+								},
+								{
+									"key": "x-amzn-RequestId",
+									"value": "11fbe0ef-3104-11e8-923e-b7653ee4d769",
+									"name": "x-amzn-RequestId",
+									"description": "Custom header"
+								}
+							],
+							"cookie": [],
+							"body": "\u0000\u0002��\u0016\u0019�C\u0000\u0000\u0002 )\u0010\u0002\b\u0011y\u0003\b!y\u0003\b-y\u0003\b5y\u0003\bAy\u0003\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000My\u0003\b]y\u0003\b\u0000\u0000\u0000\u0000my\u0003\b}y\u0003\by\u0010\u0002\by\u0010\u0002\by\u0010\u0002\biz\u0003\by\u0010\u0002\by\u0010\u0002\be\u0003\bu\u0003\b�\u0003\b�\u0003\ba�\u0003\by\u0010\u0002\by\u0010\u0002\by\u0010\u0002\by\u0010\u0002\by\u0010\u0002\b}z\u0003\by\u0010\u0002\by\u0010\u0002\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000�z\u0003\by\u0010\u0002\by\u0010\u0002\by\u0010\u0002\by\u0010\u0002\b�~\u0003\b�z\u0003\b�~\u0003\by\u0010\u0002\by\u0010\u0002\by\u0010\u0002\by\u0010\u0002\by\u0010\u0002\by\u0010\u0002\by\u0010\u0002\by\u0010\u0002\b\u0000\u0000\u0000\u0000Q|\u0003\bi|\u0003\by\u0010\u0002\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000y\u0010\u0002\b\u0000\u0000\u0000\u0000�|\u0003\by\u0010\u0002\by\u0010\u0002\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000y\u0010\u0002\b�|\u0003\b�|\u0003\b�|\u0003\by\u0010\u0002\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000E}\u0003\by\u0010\u0002\bY}\u0003\by\u0010\u0002\by\u0010\u0002\by\u0010\u0002\by\u0010\u0002\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000y\u0010\u0002\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000m}\u0003\by\u0010\u0002\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0010�\u0005L#x3�\u0004K\u0013�\u0004H��\u0000�\u0001##p\u0010�@\u0007\u0000 \u0000\u0000\u0000\u0000К\u0004\b\b�\u0003K\u001b�\u0003I\u0003H��\u0000�\b�\u0000\u0000\u0000\u0000D\u0007\u0000 К\u0004\b\u0010�\u0001+\u0011�\u0001;\u0001*(��B���\u001apG\u0003F\u0013�\u0001+\u0000*��\u0018\u001a\u00018pG\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001��\u0001\u0010*+�\u0010�\u0007\u000f\b�\u0010�\u0001;\u0001:�B-�\u0010�\u0007\u000fB�����A�\u0001!A�\u0001A\"�\u0007\u0004�\u0000\u0007\u0000#��\u0002V\b<��\u0001\u0005��\u0001\u0006��G�������G�����������\u0001��\u0001\u0002�\u0007\u00022�\u0010�\u0001;\u0001:��\u0001\u0003\u0013���\u0000 pG\u00018pG\u0000-\u0006�5F\u00038\u00078\u0015�\u0001\u000f\u0007�\u00010\u0015��\u0002�\u00010\u0015��?\u00010��\u00018pG\u0000���\u0000A\u0002�\u0000���\u0000C0�O�A\u0004O�C\u0005��\u0005\u000f\b���\u0002\u000f\u001f�T�\u0000\fU�\u0002\f�d\\�e\\\u0000���O�TT��UU��mB\f�,D��\u0002\u0002��\u0003\u0003��\u0000\u0000��\u0001\u0001��\u0002\u0002��\u0003\u00036-��0�\u0011�\u0000OO�\u00011O��\u001cL�\u00111\u0002�@Ba�A\u0001\u0013�\u0000OO�\u00033L�\u00133\u0002�RBc�C\u0003��\u0005\u000f\u0000𧀤�\u0001\u0004�� \u000e\r�\u0002�\u000e�\"�\u0005��\u0018A�\u0000\u0001\u0003�\u000e��\u0018C�\u0005�YA\u000e��� \u0005\u000e� \u000e\u0001*\u0003�\u000e�(�L�\u0002\fC�\u0005��\u0018Q��q\u0001�\u0000E\u0007�O�\u0000\u000e��\u0000\f~�\u0000\u0000n�\u0001\u0001���\u001f\u001bӱ�\u0000\u001f\f�I\b_�0\u0000O�<\f\u0004�\u0001\u0004O�DR\u0012��\u000f�𚀼�\u0000O\b�_�P\fP�\u0000\u0000A�\u0004QA�\u0005\u00010�_�L\f@AA�\u0001\u0001\u0011��\u001f��\u0001\u0004�ё�\u0000\u000f\u0004�\u0001F\u0000 ����\b� 3��\u000b\u0003�� \u0002\f�\f2\b�\u0002�\u0014\f��\f\u0002\u0001�\f�!�\u0002�\f�\u0002�\u0014\u0002ؿ�� \f\u0001�\u0002� �\f�ܿA�\f\u0001�@�\u001a��\u0001�\u0004Q)C0�o�\u0004\u0004\u001f<\u001c�\f4\u000e�\u0004�\u0014\u0004�� \u0002 �\u0004�\u0001�\u0002�@�\u0003\u0000!�\u0004�E�\u0003\u00010���\f\u0004�� \u0002 �\u0002�\u0001�\u0004�@�\u0003\u0000)F0�!�\u0004�)F0���\u0000\u000f���\u0013\u0006����\u0011\u00014\u0001=N��d\\\u0018��e\\)Д�\u0005\u000f\b���\u0002\u000f\u0005�T�\u0000\f\u0004�\u0019F\u0010F0���\u0003\u000f\u001e�\u0000!\u0000 0�_�T\\\u0005�@\u0000IA(�A�\u0000A0�\u0014��\u0004<�\u0001��\u00110�\u0001�\u0000EE��AA�p\u0001O�\u0000\u00000��d\\\u001a�\u0019F\u0010F�e\\\u001c�\u000bF\u0002FP�\u00014\u0006�R�\u00035��\u0003\u000fA�\u0000!0�\u0000���\u0000\u000f\u0004�\u0000!pG0�O��d\u0004�2\u0004O�\u0000\u0005O�\u0000\u0001P�\u0000���\u0000\u000f\u0004�\u0000!pG0�O��d\u0004�2\u0004\u0010�\u0000EH�@BO�\u0000\u0001>�\u0000�B\u0000O��\u0001O�1\u0001O�\u0002p\u001f�\u0012�C��O��`QpG��\u0000\u000f\u0014���OpG0�O�`t\u0001�\u0000E!�\u0000A �\u0000�P�\u0001\u0002\b�pG0�O�\u0000\u0005\n�P�\u0001\u0002\b�pG0�\u0011�\u0000E\u0002�@Ba�A\u0001O��d\u0004�2\u0004_��\\?�ܮO�\u0003\u0002_��\f\u0018�\u00032_��\f\u0018�\u00032\u0002��\u0002�� \u0003\u0000�\u0003� �\u0002�\u0001�\u0003�@�\u000e\u0000!�\u0002�\u0014D��\u0000�p�O��\fL��l\u001c�\u0011T\u001d�\u001c�\u0013U��\f\u000f��\f\u000f\u0000���,D��\u0003\u0006!�LQ#�LSP�\u00015\u0018�R�\u00035A��\u0011C��\u00138Р�\u0002�O�\u0000\u0005��\u0002�\u0006�\u0000B��\u0003�O�\u0000\u0006��\u0003V��\u0000\u000f\u0018�N�\u0001\u000e���\u0004��\u0000d�@t\u0004�_�N\u000emAF�\u0006\u0006B��!A�UQO�� @�^PO��.���\f�����o\u001eؾ�\u0000O\b�_�P\u000eP�\u0000\u0000A�\u0004Qp�\u0006�\u0000FF�\u0001\u0001@�\u0002\u0000��\u0003\u0001��\\\u0004¿��\f\u0005A�\u0004Qp�A��\u0011O�\u0000\u000e\u0001<\u0000���\u0014�6\u000f޿\u0000 \u0001�\u0000Ap���\u0000\u0004 <5�\f4\u001b�\u0004�\u0014\u0004�� \u0005\u0000�\u0005� �\u0004�\u0001�\u0005�@�\u0002\u0000\u0001�\u0000B!�\u0000A\u0010��p!�\u0004�B�\u0006\u0001^�C\u000e\b� ��pp���\f\u0004�� \u0005\u0000�\u0004� �\u0005�\u0001�\u0004�@�\u0002\u0000\u0001�\u0000A\u0010��pA�\u0000\u0001^�C\u000e\b� ��pp��� \u0005\u0000�\u0005�N�\u0002\u000e �\u0004�\u0001�\u0005�C�\u0002\u0003!�\u0004�\u0001�\u0000A!�\u0004� �\u0002\u0000\u0000��p^�C\u000e\b� ��pp���\u0000\u000f\u000f�\u0001�\u0000F@\u0000A�\u0001\u0001\u0011��\u001f\b�\u0001<��A�\u0006\u0001��\u0000\u000f\u0018�pG\u0003�\u0000FR\u0000C�\u0003\u0003\u0013��\u001f\b�\u0001=��C�\u0006\u0003pG��\f\u000f\f�\u0013U\u0018���\f\u000f\f�P�A\u0006\u0018�R�C\u0006�с�\u0003\u0001\u0001�\u0000AO�\u0000\u0000p�P�A\u0006\u0006�\u0010F\u0019FR�C\u0006\u0019Д�\f\u000f\u0002�P�\u00016\u0013ѕ�\f\u000f\u0005�R�\u00036\u001c�\u0010F\u0019F\nс�\u0003\u0001\u0001�\u0000AA��AA�p\u0001O�\u0000\u0000p�A��AA�x\u0001p�p�O��\fL��l\u001c�\u0011T\u001d�\u001c�\u0013U��\f\u000f��\f\u000f\u0000�����\u0005\u0004��\u0003\u000eR�\u00035O�\u00011\u0000���O�\u00033O��UE�\u0013\u0013C�\u0012cO�\u0002\"E�\u0011\u0015E�\u0010eO�\u0000&\u000e�\u0000A�B\b��BD��\u0004\u0004�@t\u0002�[\bO�2\u0002�\u001ae�\u0003\u0005[\bO�2\u0002O��\u0010O�\u0000,��\u0002\u000eu�\u0003\u000e\"��\u001auF@�\f\u0000[\bO�2\u0002��\u0002\u000eu�\u0003\u000e\"��\u001auF@�\\\u0000[\bO�2\u0002��\u0002\u000eu�\u0003\u000e\"��\u001auF@��\u0000[\bO�2\u0002��\u0002\u000eu�\u0003\u000e\"��\u001auF@��\u0000U�\u0006\u000e\u0018�O�\u0005\u0015E�\u0016uO�\u0006\u0016O��\u0003C�RsO��\u0002_�\u001c\u001c��\u0011��\u001f\u000b�A�\u0000\u0001O�\u0000\u0000O�\u0000L��\u0011��\u001f\u0004�\u0001C\u0000 ���\f�����o?�����\u0003\f\u0004���\u0002\f_�P\fP�\u0000\u0000A�\u0004Qp�\u000e�\u0000NN�\u00111\u0014�\\\u0004¿��\f\u0005A�\u0004Qp�A��\u0011O�\u0000\u000e\u0001<��E�\u0006\u000e��\f�\u0013U��\f\u000f\b���\f\u000f?�;���\f\u000f\n�P�\u00014�4���\f\u000f�%�\u0010F\u0019F,���\f\u000f\u0006�R�\u00035?���\u0010F\u0019F\"�P�A\u0006\u0018�R�C\u0006�ŮP�A\u0004�\r�R�C\u0005���\u0012�O��<\u0006�\u0000�O�\u0001\f\u0002�\u0000�O�\u0001\fM�\u0004�O�A\f�l\\O�C\f\u0018��l\\\u001b�\u0001�P�A\f\f�R�C\f��\u0003\u000f\u0002���\u0002\u000f\u0000 pG\u0010�\u0000\u000f��\u0003\u000fX��B\b��B,��\u0017o��p@�\u0001\u0000pGO�A\f�l\\\u0002�P�\u0001<\u0007�O�C\f�l\\��R�\u0003<��]�\u0004\u000bpG\u0000��F\u0010FbF�F\u0019FcF\u0000�\u0000�\u0001�����\u0000(H�\u0010�\u0000\u000f\u0001�M�\b�����\f�\u0001 \u0000 ]�\b�\u0000�M�\b�����4�\u0001 \u0000 ]�\b�\u0000�M�\b�������\u0001 \u0000 ]�\b�\u0000�M�\b�������\u0001 \u0000 ]�\b�\u0000�M�\b�����4�\u0001 \u0000 ]�\b�\u0000�O�A\f�l\\\u0002�P�\u0001<\n�O�C\f�l\\\u0002�R�\u0003<\u0002�O�\u0000\u0000pGO�\u0001\u0000pGO�A\u0002\u0012�\u0000\u0012\u0015�\u0011�o�xs��bR\u0012�O��#C�\u0000CC�PS\u0011�\u0000O#�\u0002�\u0018�@BpGO�\u0000\u0000pGP�\u00010\u0005�\u0011�\u0000@\b�o�\u0000@pGO�\u0000\u0000pG\u0000�J\u0000\u0011�\u0012�\u0000\u0012\u0011�\r�o�xs��bR\u000e�O��#C�\u0000CC�PS#�\u0002�pGO�\u0000\u0000pGP�\u00010\u0002�O��0pGO�\u0000\u0000pGO�A\u0002���C$���\u0000\u001c���\\\r�\u0001�\u0000LO��\u0002L�Pp��\u0000O@��\u0000\b� �\u0001\u0000pG\u0011��O!�\u0013�8r��\u0001�\u0000@pGA��\u0011O�RR��\u0018\u0002�� \f\u0010�\f� �\u0002�\u0018�@�\u0001\u0000O��#O��#\u0003�\f�@�\f\u0000#�\u0002�O�C\u0003���bS\u0007�P�\u00013\u001e�O��@@�@\u0000pG\u0001�\u0000@@��@@�\u0000\u0000pG\u0000�S�J�\u0000)\b�\u0000(\u001c�O��1O��0\u0000�~���\b\fm�\u0004�\u0000�\u0006���\u0004���\u0002#\u0004�pG-��G�F\u000eF\u0004F\b�\u0000+PъB\u0017Flٲ�����\u0000\u000f\u000b��� \u0004 �\u0004�\u0001�\u000e�D�\u0006\f\u0002�\u000e�\u0000�\u000e�O�\u0017I\"\f����\u001f���\t�\u0010�B�\u0006F\u0000�\b��B\t��\u0019\u0000��2��\"��B@�\u001f�\u00028>D�\u001a������\t�\u0013fB�\u0006D\u0003�\b��E\t��\u0019\u0003��2��\n��E@�\u0007�\u0002;<D��\u0004\u0004C�\u0000@\u0000!\u0000-b�$�\u000e�\u0000#,`k`�����B\u0007�\u0000-U�\u0000!��A\u0000\bF��������\u0000)@𐀳B\u0002ӂB\u0000����\u001af�\u0003\u0006\u0001 �F\u0000-@Ѕ�\u0010\u0010����\u0012�\u0001'����������\u0000\u000f5��\u001bO�\u0017H\u001f���\u0001!����\"\f\b�\u00106B�\u0006F\f�\u0000��B\u0007��\u0019\u0000��2\u0002ҳB\u0000�΀\u0010F�\u001a������\b�\u0013fB�\u0006D\f�\u0003��E\u0007��\u0019\u0003��2\u0002ҤE\u0000���\u0013F��\u0004\u0004C�\u0000@��)F(F������ \u0001\u0006�\u000e�\u0007�\u000e� �\u0001�O�\u0017H�@I�\u0003\t����O�\u0019D\b�\u001af\u001f���D�\u0006C\n�\f��B\u0000�\u000e�\n��\u0019\n��1�����B@򄀪�\u0002\n;D�\u001a\u001f�������\b�\u00113I�\u0003C\u0001�\f��B\u0007��\u0019\u0001��2kҞBi�\u00029;D�\u001bA�\nA���� \u000e\"�\u000e��@#C �\u000e�\u0006�\u0001�O�\u0013L&�\u000e�<C����'\f\f�\u0019f\u001f���G�\u0006F\t�\b��B\u0002�\u0001�\u0000�\u0001�\b��\u0018\t��0AҷB?٩�\u0002\t\u001eD�\u001b������\f�\u0014f@�\u0006G\u0004�\b��E\u0007��\u0018\u0004��0(ҸE&�\u0002<\u001fDD�\t@��\u0007\u0007��\u0002�OEDFNF\u0014�)�e���\u0004\u0003g�\u0006\u0007\u0007�\u000e��@�@N�\u0003\u0003���\u0000\u0000!����\u0013F��\u0010F����\u0002\u0004i�\u0003\u0006\u00018��\u0004F��\u0011F���F���F|�\u0002;<DH�\bF\n�\u00028>D/��E��>F��)F����\u0000�pG\u0000���4�\u0000!\u0003�\fK[XCP\u00041\u000bH\fKB\u0018�B��\u000bJ\u0002�\u0000#B�\u0004;\tK�B��\u0017���#�{�\u0010���pG\u0000\u0000\u0002 ��\u0004\b\u0000\u0000\u0000 <\u0007\u0000 @\u0007\u0000 �~\u0001 ��\u0000\u0000����\u0000�\u0002���\n \u0017�n�\u0001\"O��QYH\u0018���\u0000\"\u0002!\u0017 \u0017���\u0017 \u0017���TJUK\u0003�\u0010`Q`\u0019��x\u0011��r\n \u0017�T�\u0002�\u0016�\n \u0017�O�NINH\u0002�m�NH\u0002�\u001e�\u0003F�s�{\u0000+\u0004�JH\u0002�T�\u0003F�sHK\u0000\"��J FK\u0000\"��L DK\u0000\"��N BK\u0000\"��T @K\u0000\"��U \u0000 \u0000�\u0013�=K\u0000\"��P ;K\u0000\"��h 9K�\"��V 7K\u0000\"��i \u0007�\b\u00024K\u0006!� \u0002�d�2K��{0۲\u001f+\u0005�/K��{0۲+\u0014�-K\u001bx\u0000+1�$H��s�\u0003F\u001aF\"K\u0013D)I\u001aF\u000bF\u001b�\u0013�%I\u001eH$��� �\"K���2۲\u0000+\u001a�\u001fK���2۲\u001aF;\u001d\u001fI\u0018F$�-�\u0014H��R�\u0003F\u001aF\u0011K\u0013D\u0018I\u001aF\u000bF\u001b�\u0013�;\u001d\u0019F\rH$�l�\u0000�*�\u0000\"\u0003!\u001c \u0017�=�\u001c \u0017�V�\u000bKd\"��H \tK\u0001\"�q\u0001#\u0018F\u00107�F��\u0000\u0004\u0002@\u000f)\u0000 ��\u0004\b�(\u0000 �(\u0000 ��\u0004\b\b)\u0000 \u0000�\u0000 q�\u0000 ��\u0004\b��\u0004\b����\u0004�\u0002�a�\u001cJ\u0006!\u0000 \u0001���\u0003F{`\u0001�&�\u0003F{`\u0017H��\u0005�\u0003Fڲ\u0016K\u0001�\u0016K\u0000�\u0016K\u0001!\u0005 \u0001���\u0003F{`\u0001#\u0003�\u0012K\u0002�\u0000#\u0001�\u0010#\u0000�\u0007#\u0000\"\u0000!\u0001 \u0001�*�\u0003F{`\u0003���\u0003F{`\u0007!\u0001 \u0002�\u0012�\u0003F{`\u0000�\b7�F��\b)\u0000 \u000f)\u0000 �(\u0000 �(\u0000 \u0000)\u0000  \u0012\u0002\u0000����\u0000�\u0003F�q\u000fJ�y��S0�y��\u0001\u0003۲\u0000+\u0010�\nK��P0��\u0000+\b�\u0007K��P0��\u000e!\u0018F\u0001�C�\u0001�\u0001���\u0000�\b7�F��\b)\u0000 ����\b�\b#;s\u0001#��'0\u0012���'0��' \u0001:*I\nD�yҲ\u0007�(\u0001\u000bD\u0003�\u001c,��'0\u00013��'0��'0\u0019+��\u0000!\u0000 \u0002�F�\u0003F��&0:\u001d\u0007�\b\u0003\u0011F\u0018F\u0001���\u001bH��w�\u0003F۲\u00013۲ \"\u0006� \"\u0005�\u0000\"\u0004�\u0000\"\u0003�\u0007�\f\u0002\u0002�\u0001�\u0000#\u0000�\u0001#�\"�!\u0000 \u0001���\u0003F��&0\rK\u001c�\rK\u001d�\nH��U�\u0003Fڲ\bK\u0000�\u0013F\u0000\")F F\u0001���\u0003F��&0\u0000�(7�F��\b)\u0000 \u000f)\u0000 \u0000)\u0000 �(\u0000 ����\u0000�x`\u000bF{�\u000b���\u0000#�s&�\u0001#�s\u0000#{s\u0018��{y{\u001fH\u0013F[\u0000\u0013D[\u0000\u0003D\u000bD\u0003��s\u001bxڲ{{yh\u000bD\u001bx�B\u0002�\u0000#�s\u0005�{{\u00013{s{{\u0005+�ٻ{\u0000+\u0006��{\u00013�s�{\u0002+��\u0000�\u0000��{\u0000+\u000e��{\fJ$3[\u0000\u0013Dz�Z�\u0010���\u0003F\fF\u0007J��\u00164\u0003�\u0005J{���P0\u0000�\u00147�F��\u0000�\u0000�\u0000 \b)\u0000 ����\u0000�\u0003F��\u000b�A�\u001dK��P0�����B\u0013�\u0019K\u0000\"��P \n���\u0003F!+\u0003�\u0015K\u0001\"��S \u0000#\u0000\"\u0000!\u0000 \u000b�U�\u001b�\u0000#�s\u0015��{\rJ$3[\u0000\u0013D[������B\b��{\bJ$3[\u0000\u0013D\u0000\"Z�\u0000�\u0005��{\u00013�s�{\u0002+��\u0000�\u00107�F��\b)\u0000 ����\u0000�x`{h;d;l\u00013�c;l\u001bx\u0004+@�\u0005��k\u001bx>+\u000f��+$�\u0005+@����k\u00023�c�k��\u00010��\u0018F�������k\u00023{c{k\u001bx\u0001+\u0000���{k\u00013;c;kZ\u001d;k��\u00010��\u0019F\u0010F��/�\u0000����k\u00023�b�j\u001b�����\u0001C\u0013+\u0000�ˀ\u0001�R�#�\u0000�\u0005\u0016\u0002\b/\u0017\u0002\b/\u0017\u0002\b/\u0017\u0002\b/\u0017\u0002\b�\u0016\u0002\b'\u0017\u0002\b/\u0017\u0002\b/\u0017\u0002\bC\u0016\u0002\b/\u0017\u0002\b/\u0017\u0002\b/\u0017\u0002\b/\u0017\u0002\b)\u0016\u0002\b!\u0016\u0002\b/\u0017\u0002\b/\u0017\u0002\b/\u0017\u0002\b�\u0015\u0002\b�j\u00023�b�j[���\u0018F\u0002�C����j\u00023{b{j[���{j\u0019y{j\u00073\u001aF\u0002�U����j\u00023;b���j\u00023�a�iZ\u001d�i\u001b���\u0019F\u0010F\u0000���w��j\u00023�a\u0000#��G0)���G0\u00013�i\u0013D\u001by\u001b\u0002\u001a���G0�i\u000bD\u001by\u001b�\u0013C\u001b�����G0\u00033�i\u0013D\u001by\u001b\u0002\u001a���G0\u00023�i\u000bD\u001by\u001b�\u0013C\u001b����i�x��G0\u0013D��G0��G �i�x\u0001;�B��>��j\u00023;a\u0000#��F0)���F0\u00013:i\u0013D\u001by\u001b\u0002\u001a���F09i\u000bD\u001by\u001b�\u0013C\u001b�����F0\u00043:i\u0013D\u001by\u001b\u0002\u001a���F0\u000339i\u000bD\u001by\u001b�\u0013C\u001b���;i�x��F0\u0013D��F0��F ;i�x\u0001;�B��\u0005��j\u00023�`\u0001�\u0000�\u0000�\u0000�\u0000�\u0000�H7�F��\u0000���\u0000�\u0002���nK��R0۲\u0003+\u0000���\u0001�R�#�m\u0017\u0002\b�\u0017\u0002\b�\u0018\u0002\b�\u0018\u0002\beK��S0۲\u0000+\u0000�������aK\u0000\"��S ��\u0000�F�\u0003F\u0003+@�\u0010�M�\nF\u0001FZK��\u00164�\u001ab�\u0004\u0004@��qO�\u0000\u0002�B\b��B.�SK��i0۲��\u0001\u0003۲\u0000+\b�\u000b���\u0001 \u0000�U�LK\u0001\"��i \u0010�)�\nF\u0001FHK��\u00184�\u001ab�\u0004\u0004O�zqO�\u0000\u0002�B\b��B(�AK��V0۲�+\"�>K�\"��V \u001d�\u0010�\f�\nF\u0001F9K��\u00164�\u001ab�\u0004\u0004@��qO�\u0000\u0002�B\b��B\u0002�\u0003 \u0000���1K��P0��\u0000+\u0003�\u0000���\u0000�\u0000�,K��j0۲�+<�)K��k0۲\u0003�p\u0003\u0000+4�%K��H0��#K�n�\u001a!J�f K�n\u0000+'�\u001eK�\"��j \"�\u0000���\u0003F\u0000+\u0002�\u0000�\u0012�\u001b�\u0018K\u0000\"��i ����\u0014�\u0000���\u0003F\u0000+\u0002�\u0000�\u0003�\f�\u0010K\u0000\"��i \u0001 \u0000�9�\u0004�\u0000�\u0002�\u0000�\u0000�\u0000�\nK��P0��\u0000+\f�\u0007K��T0۲\u0000+\u0006�\u0004K\u0000\"��T \u0003H\u0002���\u0000���\b)\u0000 ()\u0000 ����\u0000�\u0003F�q�y\u0000+\u000e�\rK�y۲\u0000+\t�\u001c \u0017���\nJ\nK\u001bhC�\u0000s\u0013`\b�\u001c \u0017���\u0005J\u0005K\u001bh#�\u0000s\u0013`\u0000�\b7�F��\b)\u0000 \u0000<\u0001@��\u0000�\u0000 ����\u0000\"O��Q\u0003H\u0018�\u0013�\u0003K\u0000\"�q\u0000���\u0000\u0004\u0002@\b)\u0000 ��\u0000�\u0003K�y۲\u0018F�F]�\u0004{pG\b)\u0000 ����\u0002�x`\u0014#\u0000�\u0006K\u0014\"\u0000!xh\u000e���\u0004K\u0001\"��T \u0000�\b7�F��()\u0000 \b)\u0000 ����\u0000�x`\u0000#�s\n��{zh\u0013D�{\bI�\\Ҳ\u001ap�{\u00013�s�{\u0005+��\u0000�\u00147�F]�\u0004{pG\u0000�\b)\u0000 ����\b�\u0001#�q*K���1۲\u0002+G�'K���1۲\u0004+A�\u0000#�q:��y#J$3[\u0000\u0013D[���\u0000+.Ѻy\u0013F[\u0000\u0013D[\u0000\u0003��s\u001aJ\u0013D�\u001c\u0010#\u0006�\b#\u0005�d#\u0004�\u0000#\u0003� #\u0002� #\u0001�\u0000#\u0000�\u0013F\u0001\" !  \u0000���\u0003F\u0000+\f�\u0001#\u0000#۲\u001aF�y\u0013@\u0000+\u0014�\u0001#\u0000#�q\f \u0017�d��y\u00013�q�y\u0002+��\u0001�\u0000#�q�y\u0018F\b7�F��\u0000�\u0000 \b)\u0000 ����\u0000�\u001bK���1۲\u0002+,�\u0018K���1۲\u0004+&�\u0000#�q ��y\u0014J$3[\u0000\u0013D[���\u0000+\u0014��y\u000fJ$3[\u0000\u0013D[���\u000e!\u0018F\u0000�4�\u0010���\u0003F\fF\bJ��\u00164\f \u0017�\"��y\u00013�q�y\u0002+��\u0000�\f7�F��\u0000�\u0000 \b)\u0000 ����\u0000�\u0003F�q�y\u0003+I�\u0001�R�#�\u0000�i\u001b\u0002\b�\u001b\u0002\b�\u001b\u0002\b�\u001b\u0002\b#Kd\"��H !J�y��R0\u001fK�\"��j \u001dK\u0000\"��k \u001bK\u0000\"�f\u001aK�\"��V \u0018K\u0000\"��h \"�\u0015Kd\"��H \u0013J�y��R0\u0010�>�\u0003F\fF\u000fJ��\u00164\u0012�\rKd\"��H \u000bJ�y��R0\t�\tKd\"��H \u0007J�y��R0\u0000�\u0000�\u0000!\u0003 \u0002���\u0000�\f7�F��\u0000�\b)\u0000 ��\u0000�\u0004K��R0۲\u0018F�F]�\u0004{pG\u0000�\b)\u0000 ����\u0000�\u0000#�q\u0016K���1۲\u0002+\u001e�\u0013K���1۲\u0004+\u0018�\u0000#�q\u0012��y\u000fJ$3[\u0000\u0013D[���\u0000+\u0014�\u0001#\u0000#۲ڲ�y\u0013D�q�y\u00013�q�y\u0002+�ٻy\u0018F\f7�F]�\u0004{pG\u0000�\u0000�\u0000 \b)\u0000 ����\u0000�\u0003F9`�q\u0013F�q@K���1۲\u0002+n�=K���1۲\u0004+h��y;r�y{r\u0000#�w\r��\u00023�9h\nD\u0012x\u0007� \u0001\u000bD\u0003�\u0018,�\u00013�w��y�B��\u0000#�w\u0018��-J$3[\u0000\u0013D[���\u0000+\f��(J$3[\u0000\u0013D[���\u0007�\b\u0003\u0014\"\u000e!\u0001����\u00013�w�\u0002+��\u001fJ�y��V0\u001dK\u0000\"��h \u0000#�w\u001b��\u0019J$3[\u0000\u0013D[���\u0000+\u000f�\u0015K��h0۲Z��\u0011!\u0001�\u0003�[�\u0013C[�ڲ\u000fK��h �\u00013�w�\u0002+��\u0010�^�\u0003F\fF\bJ��\u00184\u0007K��h0۲w+\f�\u0001#\u0000#۲\u0018F$7�F��\u0000�\u0000 \b)\u0000 ����\u0000�9`\u0011F\u001aF\u0003F�q\u000bF�q\u0013F{q�y;r�y{r\u0000#�w\r��\u00023�9h\nD\u0012x\u0007� \u0001\u000bD\u0003�\u0018,�\u00013�w��y�B��\u0000#�w<��!J$3[\u0000\u0013D[���\u0000+0�\u001dK��k0۲\u001aF�B�\u0003�\u0003�\u0001\u0003\u0000+$л\u0016J$3[\u0000\u0013D[���\u0007�\b\u0003\u0014\"\u000e!\u0001�L�\u0010K��k0۲Z��\u0011!\u0001�\u0003�[�\u0013C[�ڲ\nK��k \bJ{y��j0\u0006KA��2�f�\u00013�w�\u0002+��\u0000� 7�F��\b)\u0000 ����\u0000�\u0003F�q\u0001#�s2K���1۲\u0002+V�/K���1۲\u0004+P��y\u0000+&�\u0001#;s\u0000#{s\u0000#�s\u001b��{'J$3[\u0000\u0013D[���\u0000+\rл{#J$3[\u0000\u0013D[���\u0007�\f\u0003\u0002\"\u000f!\u0001�{�\u0001�\u0000#�s�{\u00013�s�{\u0002+��(�\u0000#;s\u0000#{s\u0000#�s\u001b��{\u0014J$3[\u0000\u0013D[���\u0000+\rл{\u000fJ$3[\u0000\u0013D[���\u0007�\f\u0003\u0002\"\u000f!\u0001�T�\u0001�\u0000#�s�{\u00013�s�{\u0002+��\u0001�\u0000#�s�{\u0018F\u00107�F��\u0000�\u0000�\u0000 \b)\u0000 ����\u0000�x`\u000bF{�\u0000#�s\u0002��{\u00013�s�{�J$3[\u0000\u0013D[���z��B��\n���{h\u00013\u001bx\u0013+\u0000�q�{h\u001bx\u0000+\u0000�k��K��V0ڲ{h\u00023\u001bx�B3�{h\u00033\u001bx\u0000+\u0012ѝK��h0۲Z��{\u0011!\u0001�\u0003�[��C[�\u0013@[�ڲ�K��h \u0011��K��h0۲Z��{\u0010!\u0001�\u0003�[�"
+						}
+					]
+				},
+				{
+					"name": "misc/uuid",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJraWQiOiJ1cy13ZXN0LTIxIiwidHlwIjoiSldTIiwiYWxnIjoiUlM1MTIifQ.eyJzdWIiOiJ1cy13ZXN0LTI6MTliZmFkNzUtOWQ5NS00ZmZmLWFlYzktZGU0YTkzZGEyMTRkIiwiYXVkIjoidXMtd2VzdC0yOjA5M2RhOGRjLThlNzUtNGJmNS04MGE5LWE0NmYwMDBhNGEyNiIsImFtciI6WyJ1bmF1dGhlbnRpY2F0ZWQiXSwiaXNzIjoiaHR0cHM6Ly9jb2duaXRvLWlkZW50aXR5LmFtYXpvbmF3cy5jb20iLCJleHAiOjE1MTM2MzA4ODcsImlhdCI6MTUxMzYzMDI4N30.5uqv6M06l4SbVgw9-bTiaVCuEGL6er4rhQlGOE5jtgE"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"event_date\": \"2018-02-01T17:21:00Z\",\n    \"sensors\": [\n        \"11:22:33:44:55:66\",\n        \"22:33:44:55:66:77\",\n        \"55:22:33:44:55:66\"\n    ]\n}"
+						},
+						"url": {
+							"raw": "https://apis.dev.fathomai.com/hardware/misc/uuid",
+							"protocol": "https",
+							"host": [
+								"apis",
+								"dev",
+								"fathomai",
+								"com"
+							],
+							"path": [
+								"hardware",
+								"misc",
+								"uuid"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users API",
+			"description": null,
+			"item": [
+				{
+					"name": "user/get",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJraWQiOiJ1cy13ZXN0LTIxIiwidHlwIjoiSldTIiwiYWxnIjoiUlM1MTIifQ.eyJzdWIiOiJ1cy13ZXN0LTI6MTliZmFkNzUtOWQ5NS00ZmZmLWFlYzktZGU0YTkzZGEyMTRkIiwiYXVkIjoidXMtd2VzdC0yOjA5M2RhOGRjLThlNzUtNGJmNS04MGE5LWE0NmYwMDBhNGEyNiIsImFtciI6WyJ1bmF1dGhlbnRpY2F0ZWQiXSwiaXNzIjoiaHR0cHM6Ly9jb2duaXRvLWlkZW50aXR5LmFtYXpvbmF3cy5jb20iLCJleHAiOjE1MTM2MzA4ODcsImlhdCI6MTUxMzYzMDI4N30.5uqv6M06l4SbVgw9-bTiaVCuEGL6er4rhQlGOE5jtgE"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"event_date\": \"2018-02-01T17:21:00Z\",\n    \"sensors\": [\n        \"11:22:33:44:55:66\",\n        \"22:33:44:55:66:77\",\n        \"55:22:33:44:55:66\"\n    ]\n}"
+						},
+						"url": {
+							"raw": "https://users.{{environment}}.fathomai.com/v1/user/b831794a-b1cc-4d32-9918-2b7040ea0bf3",
+							"protocol": "https",
+							"host": [
+								"users",
+								"{{environment}}",
+								"fathomai",
+								"com"
+							],
+							"path": [
+								"v1",
+								"user",
+								"b831794a-b1cc-4d32-9918-2b7040ea0bf3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Time API",
+			"description": null,
+			"item": [
+				{
+					"name": "time",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://d1x6mturq74j3y.cloudfront.net/time",
+							"protocol": "http",
+							"host": [
+								"d1x6mturq74j3y",
+								"cloudfront",
+								"net"
+							],
+							"path": [
+								"time"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
