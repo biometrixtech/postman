@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "Users-dev",
+			"name": "Users",
 			"event": [
 				{
 					"listen": "test",
@@ -49,7 +49,11 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMTliZmFkNzUtOWQ5NS00ZmZmLWFlYzktZGU0YTkzZGEyMTRkIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDQtMTAgMTY6MDc6MDEgKzAwMDAiLCJzaWduX2luX21ldGhvZCI6Impzb24tYWNjZXNzb3J5Iiwicm9sZSI6InN1cGVyX2FkbWluIn0.RUSd3zDnFS7LLbwt0IF0Qdb2UDc19CGr7ToAL3GMpIQ"
+						"value": "{{JWT_TOKEN}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
 					}
 				],
 				"body": {
@@ -57,13 +61,9 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://apis.dev.fathomai.com/users/user/e1d09699-5f8b-49ed-8637-35c548f9edc8",
-					"protocol": "https",
+					"raw": "{{API_URL}}/users/user/e1d09699-5f8b-49ed-8637-35c548f9edc8",
 					"host": [
-						"apis",
-						"dev",
-						"fathomai",
-						"com"
+						"{{API_URL}}"
 					],
 					"path": [
 						"users",
@@ -76,76 +76,7 @@
 			"response": []
 		},
 		{
-			"name": "Users-dev-sign_in",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "e4bbf6b2-f655-46b2-9584-c24b1d327bb5",
-						"type": "text/javascript",
-						"exec": [
-							"pm.test(\"response must be valid and have a body\", function () {",
-							"     // assert that the status code is 200",
-							"     pm.response.to.be.ok;",
-							"     // assert that the response has a valid JSON body",
-							"     pm.response.to.be.json;",
-							"});",
-							"",
-							"pm.test(\"Content-Type is present\", function () {",
-							"    pm.response.to.have.header(\"Content-Type\");",
-							"});",
-							"",
-							"pm.test(\"Body contains id\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"id\");",
-							"});",
-							"",
-							"pm.test(\"Body contains email\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"email\");",
-							"});",
-							"",
-							"pm.test(\"Body contains role\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"role\");",
-							"});"
-						]
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMTliZmFkNzUtOWQ5NS00ZmZmLWFlYzktZGU0YTkzZGEyMTRkIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDQtMTAgMTY6MDc6MDEgKzAwMDAiLCJzaWduX2luX21ldGhvZCI6Impzb24tYWNjZXNzb3J5Iiwicm9sZSI6InN1cGVyX2FkbWluIn0.RUSd3zDnFS7LLbwt0IF0Qdb2UDc19CGr7ToAL3GMpIQ"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"email\": \"glitch0@gmail.com\",\r\n  \"password\": \"muffins1\"\r\n}"
-				},
-				"url": {
-					"raw": "https://apis.dev.fathomai.com/users/user/sign_in",
-					"protocol": "https",
-					"host": [
-						"apis",
-						"dev",
-						"fathomai",
-						"com"
-					],
-					"path": [
-						"users",
-						"user",
-						"sign_in"
-					]
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "Users-local",
+			"name": "Users-NoAuth",
 			"event": [
 				{
 					"listen": "test",
@@ -187,7 +118,11 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMTliZmFkNzUtOWQ5NS00ZmZmLWFlYzktZGU0YTkzZGEyMTRkIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDQtMTAgMTY6MDc6MDEgKzAwMDAiLCJzaWduX2luX21ldGhvZCI6Impzb24tYWNjZXNzb3J5Iiwicm9sZSI6InN1cGVyX2FkbWluIn0.RUSd3zDnFS7LLbwt0IF0Qdb2UDc19CGr7ToAL3GMpIQ"
+						"value": "{{JWT_TOKEN}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
 					}
 				],
 				"body": {
@@ -195,13 +130,9 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://apis.dev.fathomai.com/users/user/e1d09699-5f8b-49ed-8637-35c548f9edc8",
-					"protocol": "https",
+					"raw": "{{API_URL}}/users/user/e1d09699-5f8b-49ed-8637-35c548f9edc8",
 					"host": [
-						"apis",
-						"dev",
-						"fathomai",
-						"com"
+						"{{API_URL}}"
 					],
 					"path": [
 						"users",
@@ -214,7 +145,7 @@
 			"response": []
 		},
 		{
-			"name": "Users-local-sign_in",
+			"name": "Users-sign_in",
 			"event": [
 				{
 					"listen": "test",
@@ -286,7 +217,295 @@
 			"response": []
 		},
 		{
-			"name": "Users-local-sign_in-blank",
+			"name": "Users-sign_in-blank",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e4bbf6b2-f655-46b2-9584-c24b1d327bb5",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"response must be valid and have a body\", function () {",
+							"     // assert that the status code is 200",
+							"     pm.response.to.be.ok;",
+							"     // assert that the response has a valid JSON body",
+							"     pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Body contains id\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id\");",
+							"});",
+							"",
+							"pm.test(\"Body contains email\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"email\");",
+							"});",
+							"",
+							"pm.test(\"Body contains role\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"role\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMTliZmFkNzUtOWQ5NS00ZmZmLWFlYzktZGU0YTkzZGEyMTRkIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDQtMTAgMTY6MDc6MDEgKzAwMDAiLCJzaWduX2luX21ldGhvZCI6Impzb24tYWNjZXNzb3J5Iiwicm9sZSI6InN1cGVyX2FkbWluIn0.RUSd3zDnFS7LLbwt0IF0Qdb2UDc19CGr7ToAL3GMpIQ",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"email\": \"glitch0@gmail.com\",\r\n\t\"password\": \"muffins1\" \r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/users/user/sign_in",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"user",
+						"sign_in"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Users-sign_in-bad-password",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e4bbf6b2-f655-46b2-9584-c24b1d327bb5",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"response must be valid and have a body\", function () {",
+							"     // assert that the status code is 200",
+							"     pm.response.to.be.ok;",
+							"     // assert that the response has a valid JSON body",
+							"     pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Body contains id\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id\");",
+							"});",
+							"",
+							"pm.test(\"Body contains email\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"email\");",
+							"});",
+							"",
+							"pm.test(\"Body contains role\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"role\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMTliZmFkNzUtOWQ5NS00ZmZmLWFlYzktZGU0YTkzZGEyMTRkIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDQtMTAgMTY6MDc6MDEgKzAwMDAiLCJzaWduX2luX21ldGhvZCI6Impzb24tYWNjZXNzb3J5Iiwicm9sZSI6InN1cGVyX2FkbWluIn0.RUSd3zDnFS7LLbwt0IF0Qdb2UDc19CGr7ToAL3GMpIQ",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"email\": \"glitch0@gmail.com\",\r\n\t\"password\": \"muffins1\" \r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/users/user/sign_in",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"user",
+						"sign_in"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Users-sign_in-bad-params",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e4bbf6b2-f655-46b2-9584-c24b1d327bb5",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"response must be valid and have a body\", function () {",
+							"     // assert that the status code is 200",
+							"     pm.response.to.be.ok;",
+							"     // assert that the response has a valid JSON body",
+							"     pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Body contains id\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id\");",
+							"});",
+							"",
+							"pm.test(\"Body contains email\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"email\");",
+							"});",
+							"",
+							"pm.test(\"Body contains role\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"role\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMTliZmFkNzUtOWQ5NS00ZmZmLWFlYzktZGU0YTkzZGEyMTRkIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDQtMTAgMTY6MDc6MDEgKzAwMDAiLCJzaWduX2luX21ldGhvZCI6Impzb24tYWNjZXNzb3J5Iiwicm9sZSI6InN1cGVyX2FkbWluIn0.RUSd3zDnFS7LLbwt0IF0Qdb2UDc19CGr7ToAL3GMpIQ",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"email\": \"glitch0@gmail.com\",\r\n\t\"password\": \"muffins1\" \r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/users/user/sign_in",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"user",
+						"sign_in"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Users-sign_in-email-not-exist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e4bbf6b2-f655-46b2-9584-c24b1d327bb5",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"response must be valid and have a body\", function () {",
+							"     // assert that the status code is 200",
+							"     pm.response.to.be.ok;",
+							"     // assert that the response has a valid JSON body",
+							"     pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Body contains id\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id\");",
+							"});",
+							"",
+							"pm.test(\"Body contains email\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"email\");",
+							"});",
+							"",
+							"pm.test(\"Body contains role\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"role\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMTliZmFkNzUtOWQ5NS00ZmZmLWFlYzktZGU0YTkzZGEyMTRkIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDQtMTAgMTY6MDc6MDEgKzAwMDAiLCJzaWduX2luX21ldGhvZCI6Impzb24tYWNjZXNzb3J5Iiwicm9sZSI6InN1cGVyX2FkbWluIn0.RUSd3zDnFS7LLbwt0IF0Qdb2UDc19CGr7ToAL3GMpIQ",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"email\": \"glitch0@gmail.com\",\r\n\t\"password\": \"muffins1\" \r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/users/user/sign_in",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"user",
+						"sign_in"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Users-sign_in-missing-user-data",
 			"event": [
 				{
 					"listen": "test",
