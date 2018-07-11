@@ -1,0 +1,1247 @@
+{
+	"info": {
+		"_postman_id": "73561020-ceb3-4f20-b712-054a1bc701d3",
+		"name": "Biometrix API Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create User",
+			"description": "",
+			"item": [
+				{
+					"name": "Create User (Email)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "35e0be3f-3097-4ad1-862a-31d2a71f58a5",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     // assert that the status code is 201",
+									"     pm.response.to.have.status(201);",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"Body contains auth_token\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"auth_token\");",
+									"});",
+									"",
+									"pm.test(\"Body contains role\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"role\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"glitch0+testuser2@gmail.com\",\r\n  \"password\": \"muffins1\",\r\n  \"first_name\": \"Test\",\r\n  \"last_name\": \"User\"\r\n}"
+						},
+						"url": {
+							"raw": "https://rails-api-v2.biometrixtech.com/v1/user",
+							"protocol": "https",
+							"host": [
+								"rails-api-v2",
+								"biometrixtech",
+								"com"
+							],
+							"path": [
+								"v1",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Subject (Email)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b96667cd-5ad7-4196-bd79-3297ceddc58d",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     // assert that the status code is 201",
+									"     pm.response.to.have.status(201);",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"Body contains auth_token\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"auth_token\");",
+									"});",
+									"",
+									"pm.test(\"Body contains jwt\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"jwt\");",
+									"});",
+									"",
+									"pm.test(\"Body contains role\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"role\");",
+									"});",
+									"",
+									"pm.test(\"Role equals subject\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[\"role\"]).to.eql(\"subject\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"glitch0+test4@gmail.com\",\r\n  \"first_name\": \"Chris\",\r\n  \"last_name\": \"Cassano\",\r\n  \"team_id\": \"61a69100-ab4f-41be-b174-43076bce84f9\",\r\n  \"training_group_id\": \"068fb6b0-96d4-49f6-80c9-260b0e19cb32\"\r\n}"
+						},
+						"url": {
+							"raw": "https://rails-api-v2.biometrixtech.com/v1/user/subject",
+							"protocol": "https",
+							"host": [
+								"rails-api-v2",
+								"biometrixtech",
+								"com"
+							],
+							"path": [
+								"v1",
+								"user",
+								"subject"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"description": "",
+			"item": [
+				{
+					"name": "Login User (Email)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "afed62be-4621-4f43-ab8e-26108f7474d0",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok;",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"Body contains auth_token\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"auth_token\");",
+									"});",
+									"",
+									"pm.test(\"Body contains jwt\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"jwt\");",
+									"});",
+									"",
+									"pm.test(\"Body contains role\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"role\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"glitch0@gmail.com\",\r\n  \"password\": \"muffins1\"\r\n}"
+						},
+						"url": {
+							"raw": "https://rails-api-v2.biometrixtech.com/v1/sign_in",
+							"protocol": "https",
+							"host": [
+								"rails-api-v2",
+								"biometrixtech",
+								"com"
+							],
+							"path": [
+								"v1",
+								"sign_in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User (Email) Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "afed62be-4621-4f43-ab8e-26108f7474d0",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok;",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"Body contains auth_token\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"auth_token\");",
+									"});",
+									"",
+									"pm.test(\"Body contains jwt\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"jwt\");",
+									"});",
+									"",
+									"pm.test(\"Body contains role\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"role\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"glitch0@gmail.com\",\r\n  \"password\": \"muffins1\"\r\n}"
+						},
+						"url": {
+							"raw": "https://rails-api-v2.biometrixtech.com/v1/sign_in",
+							"protocol": "https",
+							"host": [
+								"rails-api-v2",
+								"biometrixtech",
+								"com"
+							],
+							"path": [
+								"v1",
+								"sign_in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login as Athlete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0572041a-46c7-4033-b445-2b93a26d1c28",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok;",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"Body contains auth_token\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"auth_token\");",
+									"});",
+									"",
+									"pm.test(\"Body contains jwt\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"jwt\");",
+									"});",
+									"",
+									"pm.test(\"Body contains role\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"role\");",
+									"});",
+									"",
+									"pm.test(\"Role equals athlete\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[\"role\"]).to.eql(\"athlete\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"glitch0@gmail.com\",\r\n  \"password\": \"muffins1\",\r\n  \"athlete_id\": \"b3afd00e-cc98-4119-8dc7-c976626c9c01\"\r\n}"
+						},
+						"url": {
+							"raw": "https://rails-api-v2.biometrixtech.com/v1/sign_in",
+							"protocol": "https",
+							"host": [
+								"rails-api-v2",
+								"biometrixtech",
+								"com"
+							],
+							"path": [
+								"v1",
+								"sign_in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User for Accessory set up",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "91c84d7f-2178-4f3e-83be-f81aa4fe3cac",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok;",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"Body contains user\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"user\");",
+									"});",
+									"",
+									"pm.test(\"Body contains auth_token\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"auth_token\");",
+									"});",
+									"",
+									"pm.test(\"Body contains jwt\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"jwt\");",
+									"});",
+									"",
+									"pm.test(\"Body contains role\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"role\");",
+									"});",
+									"",
+									"pm.test(\"Body contains organization\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"organization\");",
+									"});",
+									"",
+									"pm.test(\"Body contains teams\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"teams\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "content-type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"glitch0@gmail.com\",\r\n  \"password\": \"muffins1\"\r\n}"
+						},
+						"url": {
+							"raw": "https://rails-api-v2.biometrixtech.com/v1/sign_in/accessory",
+							"protocol": "https",
+							"host": [
+								"rails-api-v2",
+								"biometrixtech",
+								"com"
+							],
+							"path": [
+								"v1",
+								"sign_in",
+								"accessory"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Misc User",
+			"description": "",
+			"item": [
+				{
+					"name": "Forgot Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8fff1812-9b25-420e-912a-bbc8f6c16d44",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok;",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"Body contains success\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"success\");",
+									"});",
+									"",
+									"pm.test(\"Success equals true\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[\"success\"]).to.eql(true);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"glitch0+testuser@gmail.com\"\r\n}"
+						},
+						"url": {
+							"raw": "https://rails-api-v2.biometrixtech.com/v1/user/forgot_password",
+							"protocol": "https",
+							"host": [
+								"rails-api-v2",
+								"biometrixtech",
+								"com"
+							],
+							"path": [
+								"v1",
+								"user",
+								"forgot_password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "aa46e0b1-6c9a-4d42-90fc-aa8897a311d5",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok;",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"Body contains id\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"id\");",
+									"});",
+									"",
+									"pm.test(\"Body contains email\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"email\");",
+									"});",
+									"",
+									"pm.test(\"Body contains role\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"role\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "jwt",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZTg1MTQ0ODktOGRlOS00N2UwLWIzZDUtYjE1ZGEyNDQ3ODNmIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDMtMjMgMTU6Mzk6NDcgKzAwMDAiLCJzaWduX2luX21ldGhvZCI6bnVsbCwicm9sZSI6ImJpb21ldHJpeF9hZG1pbiJ9.QlcsM1gmB-U1BQ1BLzA4y3YIsvP0L1AIrdmZP_-pQp0"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"old_password\": \"muffins1\",\r\n  \"password\": \"muffins2\"\r\n}"
+						},
+						"url": {
+							"raw": "https://rails-api-v2.biometrixtech.com/v1/user/password",
+							"protocol": "https",
+							"host": [
+								"rails-api-v2",
+								"biometrixtech",
+								"com"
+							],
+							"path": [
+								"v1",
+								"user",
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1fd8dd76-bc91-485b-9d73-583f522ad2fd",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok;",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"Body contains id\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"id\");",
+									"});",
+									"",
+									"pm.test(\"Body contains email\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"email\");",
+									"});",
+									"",
+									"pm.test(\"Body contains role\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"role\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "jwt",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZTg1MTQ0ODktOGRlOS00N2UwLWIzZDUtYjE1ZGEyNDQ3ODNmIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDMtMjMgMTU6Mzk6NDcgKzAwMDAiLCJzaWduX2luX21ldGhvZCI6bnVsbCwicm9sZSI6ImJpb21ldHJpeF9hZG1pbiJ9.QlcsM1gmB-U1BQ1BLzA4y3YIsvP0L1AIrdmZP_-pQp0"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"old_password\": \"muffins1\",\r\n  \"password\": \"muffins2\"\r\n}"
+						},
+						"url": {
+							"raw": "https://rails-api-v2.biometrixtech.com/v1/user",
+							"protocol": "https",
+							"host": [
+								"rails-api-v2",
+								"biometrixtech",
+								"com"
+							],
+							"path": [
+								"v1",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Teams",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1fd8dd76-bc91-485b-9d73-583f522ad2fd",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok;",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"Body contains id\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"id\");",
+									"});",
+									"",
+									"pm.test(\"Body contains email\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"email\");",
+									"});",
+									"",
+									"pm.test(\"Body contains role\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"role\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "jwt",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZTg1MTQ0ODktOGRlOS00N2UwLWIzZDUtYjE1ZGEyNDQ3ODNmIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDMtMjMgMTU6Mzk6NDcgKzAwMDAiLCJzaWduX2luX21ldGhvZCI6bnVsbCwicm9sZSI6ImJpb21ldHJpeF9hZG1pbiJ9.QlcsM1gmB-U1BQ1BLzA4y3YIsvP0L1AIrdmZP_-pQp0"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"old_password\": \"muffins1\",\r\n  \"password\": \"muffins2\"\r\n}"
+						},
+						"url": {
+							"raw": "https://rails-api-v2.biometrixtech.com/v1/user",
+							"protocol": "https",
+							"host": [
+								"rails-api-v2",
+								"biometrixtech",
+								"com"
+							],
+							"path": [
+								"v1",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cognito Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c86cf6d2-e6c6-4ae2-bc5c-e2aa51616035",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok;",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"Body contains role\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"identity_id\");",
+									"});",
+									"",
+									"pm.test(\"Body contains jwt\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"token\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "jwt",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZTg1MTQ0ODktOGRlOS00N2UwLWIzZDUtYjE1ZGEyNDQ3ODNmIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDMtMjMgMTU6Mzk6NDcgKzAwMDAiLCJzaWduX2luX21ldGhvZCI6bnVsbCwicm9sZSI6ImJpb21ldHJpeF9hZG1pbiJ9.QlcsM1gmB-U1BQ1BLzA4y3YIsvP0L1AIrdmZP_-pQp0"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"old_password\": \"muffins1\",\r\n  \"password\": \"muffins2\"\r\n}"
+						},
+						"url": {
+							"raw": "https://rails-api-v2.biometrixtech.com/v1/user/cognito",
+							"protocol": "https",
+							"host": [
+								"rails-api-v2",
+								"biometrixtech",
+								"com"
+							],
+							"path": [
+								"v1",
+								"user",
+								"cognito"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e4bbf6b2-f655-46b2-9584-c24b1d327bb5",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok;",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"Body contains id\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"id\");",
+									"});",
+									"",
+									"pm.test(\"Body contains email\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"email\");",
+									"});",
+									"",
+									"pm.test(\"Body contains role\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"role\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "jwt",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZTg1MTQ0ODktOGRlOS00N2UwLWIzZDUtYjE1ZGEyNDQ3ODNmIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDMtMjMgMTU6Mzk6NDcgKzAwMDAiLCJzaWduX2luX21ldGhvZCI6bnVsbCwicm9sZSI6ImJpb21ldHJpeF9hZG1pbiJ9.QlcsM1gmB-U1BQ1BLzA4y3YIsvP0L1AIrdmZP_-pQp0"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"first_name\": \"Chris\",\r\n  \"last_name\": \"Meow\",\r\n  \"push_token\": \"testtoken\",\r\n  \"push_type\": \"android\"\r\n}"
+						},
+						"url": {
+							"raw": "https://rails-api-v2.biometrixtech.com/v1/user",
+							"protocol": "https",
+							"host": [
+								"rails-api-v2",
+								"biometrixtech",
+								"com"
+							],
+							"path": [
+								"v1",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test Push Notifications",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "db1843a1-a877-48e7-895d-9445005d082a",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok;",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"Body contains success\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"success\");",
+									"});",
+									"",
+									"pm.test(\"Success equals true\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[\"success\"]).to.eql(true);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "jwt",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZTg1MTQ0ODktOGRlOS00N2UwLWIzZDUtYjE1ZGEyNDQ3ODNmIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDMtMjMgMTU6Mzk6NDcgKzAwMDAiLCJzaWduX2luX21ldGhvZCI6bnVsbCwicm9sZSI6ImJpb21ldHJpeF9hZG1pbiJ9.QlcsM1gmB-U1BQ1BLzA4y3YIsvP0L1AIrdmZP_-pQp0"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://rails-api-v2.biometrixtech.com/v1/user/test_push_notifications",
+							"protocol": "https",
+							"host": [
+								"rails-api-v2",
+								"biometrixtech",
+								"com"
+							],
+							"path": [
+								"v1",
+								"user",
+								"test_push_notifications"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Training Groups",
+			"description": "",
+			"item": [
+				{
+					"name": "Create Training Group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9c8dfc84-c39a-4b9a-a7a9-4427b6f09ffa",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok;",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok;",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"Body contains id\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"id\");",
+									"});",
+									"",
+									"pm.test(\"Body contains team_id\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"team_id\");",
+									"});",
+									"",
+									"pm.test(\"Body contains user_id\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"user_id\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "jwt",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZTg1MTQ0ODktOGRlOS00N2UwLWIzZDUtYjE1ZGEyNDQ3ODNmIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDMtMjMgMTU6Mzk6NDcgKzAwMDAiLCJzaWduX2luX21ldGhvZCI6bnVsbCwicm9sZSI6ImJpb21ldHJpeF9hZG1pbiJ9.QlcsM1gmB-U1BQ1BLzA4y3YIsvP0L1AIrdmZP_-pQp0"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"a group\",\r\n  \"description\": \"the best group\",\r\n  \"tier\": \"primary\",\r\n  \"team_id\": \"f87e1deb-f022-4223-acaa-4926b6094343\"\r\n}"
+						},
+						"url": {
+							"raw": "https://rails-api-v2.biometrixtech.com/v1/training_groups",
+							"protocol": "https",
+							"host": [
+								"rails-api-v2",
+								"biometrixtech",
+								"com"
+							],
+							"path": [
+								"v1",
+								"training_groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Training Groups",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f5d61539-2d56-495f-8e22-5878ad3e3d1d",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok;",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok;",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"Body contains id\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"id\");",
+									"});",
+									"",
+									"pm.test(\"Body contains team_id\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"team_id\");",
+									"});",
+									"",
+									"pm.test(\"Body contains user_id\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"user_id\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "jwt",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZTg1MTQ0ODktOGRlOS00N2UwLWIzZDUtYjE1ZGEyNDQ3ODNmIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDMtMjMgMTY6MjA6MjEgKzAwMDAiLCJzaWduX2luX21ldGhvZCI6bnVsbCwicm9sZSI6ImJpb21ldHJpeF9hZG1pbiJ9.QZXWIq7z4Z9KqEovH8fWaokiOTktAJCsLAXZwJtI9RE"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"a different group name\",\r\n  \"description\": \"the worst group\",\r\n  \"user_ids\": [\r\n    \"e8514489-8de9-47e0-b3d5-b15da244783f\"\r\n  ]\r\n}"
+						},
+						"url": {
+							"raw": "https://rails-api-v2.biometrixtech.com/v1/training_groups/ad644ccd-3803-4bf5-a661-3fe972a6c609",
+							"protocol": "https",
+							"host": [
+								"rails-api-v2",
+								"biometrixtech",
+								"com"
+							],
+							"path": [
+								"v1",
+								"training_groups",
+								"ad644ccd-3803-4bf5-a661-3fe972a6c609"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Training Groups",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "26f8ba53-7e51-4e46-a436-9d1e00c9058f",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok;",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "jwt",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZTg1MTQ0ODktOGRlOS00N2UwLWIzZDUtYjE1ZGEyNDQ3ODNmIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDMtMjMgMTY6MjA6MjEgKzAwMDAiLCJzaWduX2luX21ldGhvZCI6bnVsbCwicm9sZSI6ImJpb21ldHJpeF9hZG1pbiJ9.QZXWIq7z4Z9KqEovH8fWaokiOTktAJCsLAXZwJtI9RE"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"a group\",\r\n  \"description\": \"the best group\",\r\n  \"tier\": \"primary\",\r\n  \"team_id\": \"f87e1deb-f022-4223-acaa-4926b6094343\"\r\n}"
+						},
+						"url": {
+							"raw": "https://rails-api-v2.biometrixtech.com/v1/training_groups",
+							"protocol": "https",
+							"host": [
+								"rails-api-v2",
+								"biometrixtech",
+								"com"
+							],
+							"path": [
+								"v1",
+								"training_groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Training Group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "63030de5-53a4-44d7-8e54-625efee884f2",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok;",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"Body contains success\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"success\");",
+									"});",
+									"",
+									"pm.test(\"Success equals true\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[\"success\"]).to.eql(true);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "jwt",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZTg1MTQ0ODktOGRlOS00N2UwLWIzZDUtYjE1ZGEyNDQ3ODNmIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDMtMjMgMTY6MjA6MjEgKzAwMDAiLCJzaWduX2luX21ldGhvZCI6bnVsbCwicm9sZSI6ImJpb21ldHJpeF9hZG1pbiJ9.QZXWIq7z4Z9KqEovH8fWaokiOTktAJCsLAXZwJtI9RE"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://rails-api-v2.biometrixtech.com/v1/training_groups/ad644ccd-3803-4bf5-a661-3fe972a6c609",
+							"protocol": "https",
+							"host": [
+								"rails-api-v2",
+								"biometrixtech",
+								"com"
+							],
+							"path": [
+								"v1",
+								"training_groups",
+								"ad644ccd-3803-4bf5-a661-3fe972a6c609"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Single User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d226af85-e43f-4f46-ab4b-490ab6a204b4",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok;",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok;",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"Body contains id\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"id\");",
+									"});",
+									"",
+									"pm.test(\"Body contains team_id\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"team_id\");",
+									"});",
+									"",
+									"pm.test(\"Body contains user_id\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"user_id\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "jwt",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZTg1MTQ0ODktOGRlOS00N2UwLWIzZDUtYjE1ZGEyNDQ3ODNmIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDMtMjMgMTY6MjA6MjEgKzAwMDAiLCJzaWduX2luX21ldGhvZCI6bnVsbCwicm9sZSI6ImJpb21ldHJpeF9hZG1pbiJ9.QZXWIq7z4Z9KqEovH8fWaokiOTktAJCsLAXZwJtI9RE"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"user_id\": \"f0119001-3f97-4e91-b9bf-20ed047871f9\"\r\n}"
+						},
+						"url": {
+							"raw": "https://rails-api-v2.biometrixtech.com/v1/training_groups/63a9217a-1c47-463f-8f94-36e9477941bd/remove_user",
+							"protocol": "https",
+							"host": [
+								"rails-api-v2",
+								"biometrixtech",
+								"com"
+							],
+							"path": [
+								"v1",
+								"training_groups",
+								"63a9217a-1c47-463f-8f94-36e9477941bd",
+								"remove_user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
