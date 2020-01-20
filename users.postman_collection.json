@@ -1,0 +1,1120 @@
+{
+	"info": {
+		"_postman_id": "aa6f6ada-6490-febf-7c31-14688b442433",
+		"name": "users",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0e5f9559-c56e-4644-886b-da013751b10c",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.environment.set(\"session_token\", jsonData.authorization.session_token);",
+							"pm.environment.set(\"jwt\", jsonData.authorization.jwt)",
+							"pm.environment.set(\"user_id\", jsonData.user.id)",
+							"pm.environment.set(\"account_id\", jsonData.user.account_ids[0])",
+							"console.log(environment.user_id, environment.session_token)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"disabled": false
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"personal_data\": {\"email\": \"dipesh+mvp@fathomai.com\"},\n\"password\": \"Fathom123!\"}"
+				},
+				"url": {
+					"raw": "https://apis.{{env}}.fathomai.com/users/{{api_version}}/user/login",
+					"protocol": "https",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"users",
+						"{{api_version}}",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create user",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0855ab07-eef3-4bac-8f91-f8e516fd3138",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "54b298e8-c667-4459-807a-650918f808eb",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.environment.set(\"session_token\", jsonData.authorization.session_token);",
+							"pm.environment.set(\"jwt\", jsonData.authorization.jwt)",
+							"pm.environment.set(\"user_id\", jsonData.user.id)",
+							"console.log(environment.user_id, environment.session_token)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"disabled": false
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"password\": \"fathomfolajin07\",\n\t\"personal_data\": {\n    \t\t\"email\": \"onorid@yahoo.com\",\n    \t\t\"first_name\": \"Julius\",\n    \t\t\"last_name\": \"Folajin\",\n    \t\t\"birth_date\": \"01/01/2006\"\n\t},\n\t\"first_time_experience\": [\"postman-created\"],\n\t\"account_id\": \"LKWP3723\"\n}"
+				},
+				"url": {
+					"raw": "https://apis.{{env}}.fathomai.com/users/{{api_version}}/user",
+					"protocol": "https",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"users",
+						"{{api_version}}",
+						"user"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "create user",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"disabled": false
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"secretpassword\",\n    \"biometric_data\": {\n        \"sex\": \"male\",\n        \"height\": {\"m\": 1.82},\n        \"mass\": {\"kg\": 75}\n    },\n\t\"personal_data\": {\n    \t\t\"email\": \"dipesh+test@fathomai.com\",\n            \"account_status\": \"active\",\n            \"account_type\": \"free\",\n            \"birth_date\": \"1987-11-28\",\n            \"first_name\": \"Dipesh\",\n            \"last_name\": \"Gautam\",\n            \"phone_number\": \"8608341033\",\n            \"zip_code\": \"27701\"},\n    \"cleared_to_play\": true,\n    \"role\": \"athlete\",\n    \"system_type\": \"1-sensor\",\n    \"injury_status\": \"healthy\",\n    \"agreed_terms_of_use\": true,\n    \"agreed_privacy_policy\": true,\n    \"onboarding_status\": [\"account_setup\"]\n}"
+						},
+						"url": {
+							"raw": "https://apis.{{env}}.fathomai.com/users/2_0/user",
+							"protocol": "https",
+							"host": [
+								"apis",
+								"{{env}}",
+								"fathomai",
+								"com"
+							],
+							"path": [
+								"users",
+								"2_0",
+								"user"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token",
+							"name": "Access-Control-Allow-Headers",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT",
+							"name": "Access-Control-Allow-Methods",
+							"description": "Specifies the method or methods allowed when accessing the resource. This is used in response to a preflight request."
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"name": "Access-Control-Allow-Origin",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"name": "Connection",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"key": "Content-Length",
+							"value": "15",
+							"name": "Content-Length",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 24 Sep 2018 17:54:30 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Status",
+							"value": "404",
+							"name": "Status",
+							"description": "Custom header"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 e00ad2d047d0ea09daec27bf338662df.cloudfront.net (CloudFront)",
+							"name": "Via",
+							"description": "Informs the client of proxies through which the response was sent."
+						},
+						{
+							"key": "X-Amz-Cf-Id",
+							"value": "8yihapHbET1npDdJMLr47eSsro87U3Kih9qHran15kcWVVrcf6QtyQ==",
+							"name": "X-Amz-Cf-Id",
+							"description": "Custom header"
+						},
+						{
+							"key": "X-Amzn-Trace-Id",
+							"value": "Root=1-5ba924d5-6cd0e5ba8b358eaec0eec0a6;Sampled=1",
+							"name": "X-Amzn-Trace-Id",
+							"description": "Custom header"
+						},
+						{
+							"key": "X-Cache",
+							"value": "Error from cloudfront",
+							"name": "X-Cache",
+							"description": "Custom header"
+						},
+						{
+							"key": "x-amz-apigw-id",
+							"value": "NvKxaFSlvHcFaCw=",
+							"name": "x-amz-apigw-id",
+							"description": "Custom header"
+						},
+						{
+							"key": "x-amzn-Remapped-Content-Length",
+							"value": "15",
+							"name": "x-amzn-Remapped-Content-Length",
+							"description": "Custom header"
+						},
+						{
+							"key": "x-amzn-RequestId",
+							"value": "e29bc3d6-c022-11e8-86f1-9117cb662b99",
+							"name": "x-amzn-RequestId",
+							"description": "Custom header"
+						}
+					],
+					"cookie": [],
+					"body": "{\"message\":\"\"}\n"
+				}
+			]
+		},
+		{
+			"name": "re authorize",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b3485c50-2844-41a2-8549-e8e109498ac4",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.environment.set(\"jwt\", jsonData.authorization.jwt)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiYTEyMzM0MjMtNzNkMy00NzYxLWFjOTItODljYzE1OTIxZDM0IiwiY3JlYXRlZF9hdCI6IjIwMTgtMDctMjNUMTQ6MDA6NDMuNzA2NTc0Iiwic2lnbl9pbl9tZXRob2QiOiJqc29uIiwicm9sZSI6bnVsbCwiZXhwIjoxNTMyMzU4MDQzfQ.cNOG6aaqUv99HTpHRXjOQi2mEP_wNc6BnYEOo7i5MOY",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"session_token\": \"{{session_token}}\"}"
+				},
+				"url": {
+					"raw": "https://apis.{{env}}.fathomai.com/users/{{api_version}}/user/{{user_id}}/authorize",
+					"protocol": "https",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"users",
+						"{{api_version}}",
+						"user",
+						"{{user_id}}",
+						"authorize"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6ImZhdGhvbV8wMDEifQ.eyJhdXRoX3RpbWUiOjE1Mzg4MzU4OTMsImNvZ25pdG86dXNlcm5hbWUiOiIwMDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDAiLCJjdXN0b206cm9sZSI6InNlcnZpY2UiLCJldmVudF9pZCI6ImU3NjBlOTBlLTNiZjQtNDE1ZC05ZGM0LWFlZGNiNTQxZDEyZCIsImlzcyI6InVzZXJzLWRldi1hcGlnYXRld2F5LXNlcnZpY2VhdXRoIiwidG9rZW5fdXNlIjoiaWQiLCJleHAiOjE1Mzk4MDgwMjksImlhdCI6MTUzOTcyMTYyOSwic3ViIjoiMDAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAwIn0.WfIxcpNHvJFtORvykzttlpFrv3g7a6HcUgq1JVeRjtB2XKD2V9d7GwVNZGDFTL5FFwZGlQzodnFZwYv70XP6sve_nPlcHDDHZug9rvUVpEzzbNPDTtEfWe-mTZs65zAXfv-gHENnaioJxzyxcGBPrLBEMpXKupSpgSmFKcW6JBP2N0taRU3PrDeXC7sPZLgDk-u4NGwD3Gj9uC5CXThV2VAe8pEDa3h9WKZKoJkhM5tk9-UKDiYTTvbIe59D7Dlf2JWA2QwqT06QQNIMg8WhfN2EHkHgbRmGE9XMpejrWpKVSjD1z54yoQfUAs3T-d0fXRHd-ETx6oIzNqBHS7N2wA",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/users/{{api_version}}/user/{{user_id}}?get_team=true",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"users",
+						"{{api_version}}",
+						"user",
+						"{{user_id}}"
+					],
+					"query": [
+						{
+							"key": "get_team",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "forgot_password",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"disabled": false
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"personal_data\": {\"email\":\"dipesh+passwordtest@fathomai.com\"}\n}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/users/{{api_version}}/user/forgot_password",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"users",
+						"{{api_version}}",
+						"user",
+						"forgot_password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"first_time_experience\": [\"test\"]\n    }"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/users/{{api_version}}/user/{{user_id}}",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"users",
+						"{{api_version}}",
+						"user",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Notify user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c990966f-6419-4b99-9136-0ed0eb1a4bfb",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a8783e1b-ff80-4e81-95fa-652c491c04ce",
+						"exec": [
+							"postman.setEnvironmentVariable('date_time',(new Date().toISOString().split('.')[0]+'Z'))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6ImZhdGhvbV8wMDEifQ.eyJhdXRoX3RpbWUiOjE1Mzg4MzU4OTMsImNvZ25pdG86dXNlcm5hbWUiOiIwMDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDAiLCJjdXN0b206cm9sZSI6InNlcnZpY2UiLCJldmVudF9pZCI6IjI0MGFlYTQyLTY2YjItNGFhMC04MDA3LWM3ZDk4YWVhYzBhNSIsImlzcyI6InVzZXJzLXRlc3QtYXBpZ2F0ZXdheS1zZXJ2aWNlYXV0aCIsInRva2VuX3VzZSI6ImlkIiwiZXhwIjoxNTU0OTI4MTc5LCJpYXQiOjE1NTQ4NDE3NzksInN1YiI6IjAwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMCJ9.ZnvojNQyUyVE2_CZguzsOv0TiB6LZcDM9a8F-ILCbJE0smUo3v2So_A3YYJW9JblGTF5MyCDW3Iu1jvIQrtlKNrMKZBZ_qLBQF4rNmW-oloaBWvZulLHMdq9K_ziOCuWxldNVRAc-av1vInE_vpo3Fn5QQ312LzrdjJ5KqRBCFu5BU73Ji8eo931hHYe2p7gXyIP8p2auYZK_V2jFJDMH_7htXAatjkjdUuptLOyF0gDeqKR3I2-An2Oqv55p0Ji9N3BqSlDoCvDoV3B9EipZfoC5jiZymebV3ek27ZX0bVp3q02xNTJi-l25K5AhOSIDw5MoHWgeMPOuUyKfHGUzA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"message\": \"1 Athlete has completed their survey and they are all cleared to train today. Tap to view\",\n \"call_to_action\": \"VIEW_PLAN\",\n\t\t\t\"last_updated\": \"{{date_time}}\"\n}"
+				},
+				"url": {
+					"raw": "https://apis.{{env}}.fathomai.com/users/{{api_version}}/user/{{user_id}}/notify",
+					"protocol": "https",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"users",
+						"{{api_version}}",
+						"user",
+						"{{user_id}}",
+						"notify"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Schedule notification",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c990966f-6419-4b99-9136-0ed0eb1a4bfb",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDAiLCJleHAiOjE1Mzg2NzkyMzV9.vZ3uDO8voSjRXG-CZSSDB_IV3sLvPgG8p5RoIGRoEj4"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"message\": \"Dipesh is Sending this\",\n\t\"call_to_action\": \"VIEW_PLAN\"\n}"
+				},
+				"url": {
+					"raw": "https://apis.dev.fathomai.com/users/{{api_version}}/user/{{user_id}}/notify",
+					"protocol": "https",
+					"host": [
+						"apis",
+						"dev",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"users",
+						"{{api_version}}",
+						"user",
+						"{{user_id}}",
+						"notify"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify Email",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"confirmation_code\": \"00e8845d7e5eedd9308f89c2\"}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/users/{{api_version}}/user/{{user_id}}/verify_email",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"users",
+						"{{api_version}}",
+						"user",
+						"{{user_id}}",
+						"verify_email"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reset Password",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"disabled": false
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"personal_data\": {\"email\": \"dipesh+mvp@fathomai.com\"},\n\"confirmation_code\": \"231023\",\n\"password\": \"Fathom1!\"}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/users/{{api_version}}/user/reset_password",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"users",
+						"{{api_version}}",
+						"user",
+						"reset_password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "daily cron",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6ImZhdGhvbV8wMDEifQ.eyJhdXRoX3RpbWUiOjE1Mzg4MzU4OTMsImNvZ25pdG86dXNlcm5hbWUiOiIwMDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDAiLCJjdXN0b206cm9sZSI6InNlcnZpY2UiLCJldmVudF9pZCI6IjQ1ODIxOWUyLTkyNDgtNDA2ZC1hNWU5LTRmYTMzOTYwMDA2YSIsImlzcyI6InVzZXJzLXRlc3QtYXBpZ2F0ZXdheS1zZXJ2aWNlYXV0aCIsInRva2VuX3VzZSI6ImlkIiwiZXhwIjoxNTQ3ODM0MTk1LCJpYXQiOjE1NDc3NDc3OTUsInN1YiI6IjAwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMCJ9.g0uHQ3bRrv-HQaOoKE04o7FpRAIsl8dw5iGK7NlIDdPqoCzcWuUVpt9_OBLVg6XRxNHD-hbT7j66u4T-MBHm-PIbO9BJogwF11M8RuvwYCsuVw0HuEbx3-ecCCFzk_qRhXReAIZDrSFh5iqRKZqQWKtyty4rtOvHoLmpySkM7hGxLxO5NtcCgbrpsfPMDUkFJTsX15oOXaEkfU1wVlDp2Lq0FuChweJoZRclXzRtw46I3kIXaBduWHgln36y1nTMy58kO0FfN16JqgLOpthRcQPkPiZeiF-phdR2JOSUIoy5qGNrySkhVgEQngU5c0RZfLnU--EbWzK35zv8Jt5jzQ"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}"
+				},
+				"url": {
+					"raw": "https://apis.{{env}}.fathomai.com/users/{{api_version}}/misc/activeusers",
+					"protocol": "https",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"users",
+						"{{api_version}}",
+						"misc",
+						"activeusers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Account",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0855ab07-eef3-4bac-8f91-f8e516fd3138",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "54b298e8-c667-4459-807a-650918f808eb",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.environment.set(\"account_id\", jsonData.account.id)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"disabled": false
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6ImZhdGhvbV8wMDEifQ.eyJhdXRoX3RpbWUiOjE1Mzg4MzU4OTMsImNvZ25pdG86dXNlcm5hbWUiOiIwMDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDAiLCJjdXN0b206cm9sZSI6InNlcnZpY2UiLCJldmVudF9pZCI6ImJjNGFmMTU0LTllMGMtNDdkOC05ZTVkLWQ3Y2ZiMWRmNGM1MyIsImlzcyI6InVzZXJzLXRlc3QtYXBpZ2F0ZXdheS1zZXJ2aWNlYXV0aCIsInRva2VuX3VzZSI6ImlkIiwiZXhwIjoxNTQxNjAyMTIwLCJpYXQiOjE1NDE1MTU3MjAsInN1YiI6IjAwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMCJ9.KqPuZSnItfhHnkBDLghxA4mgaqMwW5lof4QKnNk9BWUU_d77petEp2kymn-cXXExah6DB4ek5h0LKkqOPU5V6U8XtqJIB0Btrm-deoUJnQtuQu5Yr7v0OnOjVAnb7vM8MCxMKwBts2x-T5nQ7oi9GgHvw4EzeHHzelgJxeccEkdI-akAZKY4VObxutxDwgXYmrHxk74yVVlNeUCxiuIzqiKviwz3LHSwtXN_8BSWtnzv-Johq_ghGKSAhoGR2MT8_nAhBbdqjNW5ncTyzR7jVqgpPzJqBVDDTm2ir0bEs55Xk8fMjY-D6X2_qW-YcNYV0AJ-qyIHkVAJLTgkbqWIoQ",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"test_03_26\",\n\t\"seats\": 8,\n\t\"personas\": [\"1\", \"2\"]\n}"
+				},
+				"url": {
+					"raw": "https://apis.{{env}}.fathomai.com/users/{{api_version}}/account",
+					"protocol": "https",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"users",
+						"{{api_version}}",
+						"account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "35cef9f5-ceca-4298-bd6d-7dde9deff02a",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"// pm.environment.set(\"session_token\", jsonData.authorization.session_token);",
+							"// pm.environment.set(\"jwt\", jsonData.authorization.jwt)",
+							"pm.environment.set(\"account_code\", jsonData.account.codes.athlete)",
+							"// console.log(environment.user_id, environment.session_token)"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "5d27121d-191f-4e1b-bbbb-2a6161186ed7",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"disabled": false
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6ImZhdGhvbV8wMDEifQ.eyJhdXRoX3RpbWUiOjE1Mzg4MzU4OTMsImNvZ25pdG86dXNlcm5hbWUiOiIwMDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDAiLCJjdXN0b206cm9sZSI6InNlcnZpY2UiLCJldmVudF9pZCI6ImJjNGFmMTU0LTllMGMtNDdkOC05ZTVkLWQ3Y2ZiMWRmNGM1MyIsImlzcyI6InVzZXJzLXRlc3QtYXBpZ2F0ZXdheS1zZXJ2aWNlYXV0aCIsInRva2VuX3VzZSI6ImlkIiwiZXhwIjoxNTQxNjAyMTIwLCJpYXQiOjE1NDE1MTU3MjAsInN1YiI6IjAwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMCJ9.KqPuZSnItfhHnkBDLghxA4mgaqMwW5lof4QKnNk9BWUU_d77petEp2kymn-cXXExah6DB4ek5h0LKkqOPU5V6U8XtqJIB0Btrm-deoUJnQtuQu5Yr7v0OnOjVAnb7vM8MCxMKwBts2x-T5nQ7oi9GgHvw4EzeHHzelgJxeccEkdI-akAZKY4VObxutxDwgXYmrHxk74yVVlNeUCxiuIzqiKviwz3LHSwtXN_8BSWtnzv-Johq_ghGKSAhoGR2MT8_nAhBbdqjNW5ncTyzR7jVqgpPzJqBVDDTm2ir0bEs55Xk8fMjY-D6X2_qW-YcNYV0AJ-qyIHkVAJLTgkbqWIoQ",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://apis.{{env}}.fathomai.com/users/{{api_version}}/account/{{account_id}}",
+					"protocol": "https",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"users",
+						"{{api_version}}",
+						"account",
+						"{{account_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get account from code",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0855ab07-eef3-4bac-8f91-f8e516fd3138",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "54b298e8-c667-4459-807a-650918f808eb",
+						"exec": [
+							"// var jsonData = JSON.parse(responseBody);",
+							"// pm.environment.set(\"session_token\", jsonData.authorization.session_token);",
+							"// pm.environment.set(\"jwt\", jsonData.authorization.jwt)",
+							"// pm.environment.set(\"user_id\", jsonData.user.id)",
+							"// console.log(environment.user_id, environment.session_token)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"disabled": false
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6ImZhdGhvbV8wMDEifQ.eyJhdXRoX3RpbWUiOjE1Mzg4MzU4OTMsImNvZ25pdG86dXNlcm5hbWUiOiIwMDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDAiLCJjdXN0b206cm9sZSI6InNlcnZpY2UiLCJldmVudF9pZCI6ImJjNGFmMTU0LTllMGMtNDdkOC05ZTVkLWQ3Y2ZiMWRmNGM1MyIsImlzcyI6InVzZXJzLXRlc3QtYXBpZ2F0ZXdheS1zZXJ2aWNlYXV0aCIsInRva2VuX3VzZSI6ImlkIiwiZXhwIjoxNTQxNjAyMTIwLCJpYXQiOjE1NDE1MTU3MjAsInN1YiI6IjAwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMCJ9.KqPuZSnItfhHnkBDLghxA4mgaqMwW5lof4QKnNk9BWUU_d77petEp2kymn-cXXExah6DB4ek5h0LKkqOPU5V6U8XtqJIB0Btrm-deoUJnQtuQu5Yr7v0OnOjVAnb7vM8MCxMKwBts2x-T5nQ7oi9GgHvw4EzeHHzelgJxeccEkdI-akAZKY4VObxutxDwgXYmrHxk74yVVlNeUCxiuIzqiKviwz3LHSwtXN_8BSWtnzv-Johq_ghGKSAhoGR2MT8_nAhBbdqjNW5ncTyzR7jVqgpPzJqBVDDTm2ir0bEs55Xk8fMjY-D6X2_qW-YcNYV0AJ-qyIHkVAJLTgkbqWIoQ",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://apis.{{env}}.fathomai.com/users/{{api_version}}/account?account_code_={{account_code}}",
+					"protocol": "https",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"users",
+						"{{api_version}}",
+						"account"
+					],
+					"query": [
+						{
+							"key": "account_code_",
+							"value": "{{account_code}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Join Account",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0855ab07-eef3-4bac-8f91-f8e516fd3138",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "54b298e8-c667-4459-807a-650918f808eb",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"disabled": false
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"account_code_\": \"{{account_code}}\",\n\t\"account_code\": \"EMZGYJ9257\"\n}"
+				},
+				"url": {
+					"raw": "https://apis.{{env}}.fathomai.com/users/{{api_version}}/user/{{user_id}}/join_account",
+					"protocol": "https",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"users",
+						"{{api_version}}",
+						"user",
+						"{{user_id}}",
+						"join_account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get users for account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "35cef9f5-ceca-4298-bd6d-7dde9deff02a",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"// pm.environment.set(\"session_token\", jsonData.authorization.session_token);",
+							"// pm.environment.set(\"jwt\", jsonData.authorization.jwt)",
+							"pm.environment.set(\"account_code\", jsonData.account.code)",
+							"// console.log(environment.user_id, environment.session_token)"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "5d27121d-191f-4e1b-bbbb-2a6161186ed7",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"disabled": false
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6ImZhdGhvbV8wMDEifQ.eyJhdXRoX3RpbWUiOjE1Mzg4MzU4OTMsImNvZ25pdG86dXNlcm5hbWUiOiIwMDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDAiLCJjdXN0b206cm9sZSI6InNlcnZpY2UiLCJldmVudF9pZCI6ImRlNzEzNTc5LWRhZTctNDkxYS1iYTIzLTA1MGE1NzUyN2QwNyIsImlzcyI6InVzZXJzLXRlc3QtYXBpZ2F0ZXdheS1zZXJ2aWNlYXV0aCIsInRva2VuX3VzZSI6ImlkIiwiZXhwIjoxNTQ3NTYzMDg4LCJpYXQiOjE1NDc0NzY2ODgsInN1YiI6IjAwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMCJ9.onwYzixZI98BxbfGht-LRUoOa1OF9DCA79hZ44of1h-kzJ6EB_fg2UUgx2bNc64SUcbAFS0I9ummjLZRt9wSL7IeDj2KOaSBwN3gUA5m0276zdqQhbJheY7J94BntiEk-7DoAr3zqO_Y31onuLQu6dQOWgd0EFCaXbUcDFHbi_uvf1xZ07YsY1OHw711r3dHDUUGxv9aC0lsyyf1eadns4phix5X0qjZXwGlLRD6gCUi5M46ZSwWquzBLeNizV6onM17Qj93taDBDr1e6RLYjK8CaBW7G6yEgxxuj4MPgzHsbR_n0HBRMrn-MJoK5yNEyyHD0M2OVmAnna2nOMU7-A",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://apis.{{env}}.fathomai.com/users/{{api_version}}/account/dd3643dd-dfb2-595f-9e15-44bee19ced71/users",
+					"protocol": "https",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"users",
+						"{{api_version}}",
+						"account",
+						"dd3643dd-dfb2-595f-9e15-44bee19ced71",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete user",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6ImZhdGhvbV8wMDEifQ.eyJhdXRoX3RpbWUiOjE1Mzg4MzU4OTMsImNvZ25pdG86dXNlcm5hbWUiOiIwMDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDAiLCJjdXN0b206cm9sZSI6InNlcnZpY2UiLCJldmVudF9pZCI6ImU3NjBlOTBlLTNiZjQtNDE1ZC05ZGM0LWFlZGNiNTQxZDEyZCIsImlzcyI6InVzZXJzLWRldi1hcGlnYXRld2F5LXNlcnZpY2VhdXRoIiwidG9rZW5fdXNlIjoiaWQiLCJleHAiOjE1Mzk4MDgwMjksImlhdCI6MTUzOTcyMTYyOSwic3ViIjoiMDAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAwIn0.WfIxcpNHvJFtORvykzttlpFrv3g7a6HcUgq1JVeRjtB2XKD2V9d7GwVNZGDFTL5FFwZGlQzodnFZwYv70XP6sve_nPlcHDDHZug9rvUVpEzzbNPDTtEfWe-mTZs65zAXfv-gHENnaioJxzyxcGBPrLBEMpXKupSpgSmFKcW6JBP2N0taRU3PrDeXC7sPZLgDk-u4NGwD3Gj9uC5CXThV2VAe8pEDa3h9WKZKoJkhM5tk9-UKDiYTTvbIe59D7Dlf2JWA2QwqT06QQNIMg8WhfN2EHkHgbRmGE9XMpejrWpKVSjD1z54yoQfUAs3T-d0fXRHd-ETx6oIzNqBHS7N2wA",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/users/{{api_version}}/user/d7c12947-2762-402d-928f-c4dfecf3cac1",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"users",
+						"{{api_version}}",
+						"user",
+						"d7c12947-2762-402d-928f-c4dfecf3cac1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register device",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6ImZhdGhvbV8wMDEifQ.eyJhdXRoX3RpbWUiOjE1Mzg4MzU4OTMsImNvZ25pdG86dXNlcm5hbWUiOiIwMDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDAiLCJjdXN0b206cm9sZSI6InNlcnZpY2UiLCJldmVudF9pZCI6ImU3NjBlOTBlLTNiZjQtNDE1ZC05ZGM0LWFlZGNiNTQxZDEyZCIsImlzcyI6InVzZXJzLWRldi1hcGlnYXRld2F5LXNlcnZpY2VhdXRoIiwidG9rZW5fdXNlIjoiaWQiLCJleHAiOjE1Mzk4MDgwMjksImlhdCI6MTUzOTcyMTYyOSwic3ViIjoiMDAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAwIn0.WfIxcpNHvJFtORvykzttlpFrv3g7a6HcUgq1JVeRjtB2XKD2V9d7GwVNZGDFTL5FFwZGlQzodnFZwYv70XP6sve_nPlcHDDHZug9rvUVpEzzbNPDTtEfWe-mTZs65zAXfv-gHENnaioJxzyxcGBPrLBEMpXKupSpgSmFKcW6JBP2N0taRU3PrDeXC7sPZLgDk-u4NGwD3Gj9uC5CXThV2VAe8pEDa3h9WKZKoJkhM5tk9-UKDiYTTvbIe59D7Dlf2JWA2QwqT06QQNIMg8WhfN2EHkHgbRmGE9XMpejrWpKVSjD1z54yoQfUAs3T-d0fXRHd-ETx6oIzNqBHS7N2wA",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://apis.test.fathomai.com/users/2_2/device/27cc8e6b-1fb1-472a-8aec-349c4a6f143f",
+					"protocol": "https",
+					"host": [
+						"apis",
+						"test",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"users",
+						"2_2",
+						"device",
+						"27cc8e6b-1fb1-472a-8aec-349c4a6f143f"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "a22fc047-a12c-4b23-8449-bb81cbd60797",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "4f2d6b23-fedd-40e1-81db-0a7b17ee8276",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "e04c7936-960f-45ab-a9be-309d011cfe55",
+			"key": "api_version",
+			"value": "2_2",
+			"type": "string"
+		}
+	]
+}
