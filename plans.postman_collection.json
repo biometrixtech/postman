@@ -1,7 +1,8 @@
 {
 	"info": {
-		"_postman_id": "caf415b8-fb20-5aed-5862-ec6930acfbf0",
+		"_postman_id": "e997be50-4a6e-402a-aae1-db94a6f9913f",
 		"name": "plans",
+		"description": "# Introduction\nWhat does your API do?\n\n# Overview\nThings that the developers should know about\n\n# Authentication\nWhat is the preferred way of using the API?\n\n# Error Codes\nWhat errors and status codes can a user expect?\n\n# Rate limit\nIs there a limit to the number of requests an user can send?",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -771,9 +772,6 @@
 		},
 		{
 			"name": "get dashboard data",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
 				"method": "GET",
 				"header": [
@@ -786,10 +784,6 @@
 						"value": "{{jwt}}"
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
 					"raw": "https://apis.{{env}}.fathomai.com/plans/{{api_version}}/coach/{{user_id}}/dashboard",
 					"protocol": "https",
@@ -1298,6 +1292,60 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "get daily plan - public",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3a752b52-c36e-4438-91ee-70914507a29d",
+						"exec": [
+							"//postman.setEnvironmentVariable('current_date',(new Date().toISOString().split('T')[0]))",
+							"//postman.setEnvironmentVariable('event_date',(new Date().toISOString().split('.')[0]+'Z'))",
+							"var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds",
+							"//postman.setEnvironmentVariable('current_date',(new Date(new Date() - tzoffset).toISOString().split('T')[0]))",
+							"//postman.setEnvironmentVariable('event_date',(new Date(new Date() - tzoffset).toISOString().split('.')[0]+'Z'))",
+							"//could just use moment().toISOString(true) instead ^",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"start_date\": \"{{current_date}}\",\n\t\"event_date\": \"{{event_date}}\",\n\t\"user_id\": \"{{user_id}}\"\n}"
+				},
+				"url": {
+					"raw": "http://apis.public.fathomai.com/plans/latest/daily_plan",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"public",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"latest",
+						"daily_plan"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -1324,9 +1372,9 @@
 	],
 	"variable": [
 		{
-			"id": "49d6201f-5d4d-4cd7-8142-cc48cb17531c",
+			"id": "9021068b-d64d-4b8d-ac38-0618d9f8ea81",
 			"key": "api_version",
-			"value": "3_1",
+			"value": "4_3",
 			"type": "string"
 		}
 	]
