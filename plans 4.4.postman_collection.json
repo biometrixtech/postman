@@ -1,0 +1,1354 @@
+{
+	"info": {
+		"_postman_id": "a1b2fe98-5336-4b71-a33e-d8e5a92e843d",
+		"name": "plans 4.4",
+		"description": "# Introduction\nWhat does your API do?\n\n# Overview\nThings that the developers should know about\n\n# Authentication\nWhat is the preferred way of using the API?\n\n# Error Codes\nWhat errors and status codes can a user expect?\n\n# Rate limit\nIs there a limit to the number of requests an user can send?",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create daily readiness survey",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b5cf0103-7fb4-4007-8f4a-7c97ef601181",
+						"exec": [
+							"postman.setEnvironmentVariable('date_time',(new Date().toISOString().split('.')[0]+'Z'))",
+							"postman.setEnvironmentVariable('event_date',(new Date().toISOString().split('T')[0]+'T12:30:00Z'))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"date_time\": \"{{date_time}}\",\n\"soreness\":[{\n\t\t\t\t                \"body_part\": 7,\n\t\t\t\t                \"severity\": 3,\n\t\t\t\t                \"movement\": 3,\n\t\t\t\t                \"pain\": false,\n\t\t\t\t                \"side\": 1\n\t\t\t\t            }],\n\"clear_candidates\": [],\n\"sessions_planned\": false,\n\"sessions\": []\n}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/daily_readiness/{{user_id}}",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"daily_readiness",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get soreness from previous surveys",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "20ed1a57-15d1-4dc0-89c1-a447d51502ff",
+						"exec": [
+							"postman.setEnvironmentVariable('event_date',(new Date().toISOString().split('.')[0]+'Z'))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"event_date\": \"{{event_date}}\"}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/daily_readiness/{{user_id}}/previous",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"daily_readiness",
+						"{{user_id}}",
+						"previous"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get daily plan",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "69837b18-ae2a-4ecf-8200-50abbd92fd30",
+						"exec": [
+							"//postman.setEnvironmentVariable('current_date',(new Date().toISOString().split('T')[0]))",
+							"//postman.setEnvironmentVariable('event_date',(new Date().toISOString().split('.')[0]+'Z'))",
+							"postman.setEnvironmentVariable('user_id','2b4a1792-42c7-460e-9e4c-98627e72cc6f')",
+							"postman.setEnvironmentVariable('current_date','2019-09-05')",
+							"postman.setEnvironmentVariable('event_date','2019-09-05T19:44:41Z')",
+							"postman.setEnvironmentVariable('env','public')",
+							"postman.setEnvironmentVariable('api_version','latest')"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"start_date\": \"{{current_date}}\",\n\t\"event_date\": \"{{event_date}}\",\n\t\"visualizations\": \"True\"\n}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/daily_plan/{{user_id}}",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"daily_plan",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Start Exercise Modalities",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "92d43e1d-37de-4809-beb3-6554e1390492",
+						"exec": [
+							"postman.setEnvironmentVariable('current_time',(new Date().toISOString().split('.')[0]+'Z'))",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"event_date\": \"{{current_time}}\",\n\t\"recovery_type\": \"post_active_rest\"\n}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/active_recovery/{{user_id}}/exercise_modalities",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"active_recovery",
+						"{{user_id}}",
+						"exercise_modalities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Complete Exercise Modalities",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "92d43e1d-37de-4809-beb3-6554e1390492",
+						"exec": [
+							"postman.setEnvironmentVariable('current_time',(new Date().toISOString().split('.')[0]+'Z'))",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"event_date\": \"{{current_time}}\",\n\t\"recovery_type\": \"post_active_rest\",\n\t\"recovery_index\": 0,\n\t\"completed_exercises\": [\"4\", \"48\"]\n}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/active_recovery/{{user_id}}/exercise_modalities",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"active_recovery",
+						"{{user_id}}",
+						"exercise_modalities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "edit target minutes",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "92d43e1d-37de-4809-beb3-6554e1390492",
+						"exec": [
+							"postman.setEnvironmentVariable('current_time',(new Date().toISOString().split('.')[0]+'Z'))",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"event_date\": \"{{current_time}}\",\n\t\"active_time\": 5\n}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/active_recovery/{{user_id}}/active_time",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"active_recovery",
+						"{{user_id}}",
+						"active_time"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create session",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "898d9d11-43fd-46cb-b948-111310805c3a",
+						"exec": [
+							"postman.setEnvironmentVariable('current_time',(new Date().toISOString().split('.')[0]+'Z'))",
+							"postman.setEnvironmentVariable('event_date',(new Date().toISOString().split('.')[0]+'Z'))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"event_date\": \"{{current_time}}\",\n    \"sessions_planned\": true,\n    \"sessions\":[\n\t\t    \t{\n\t\t\t\t    \"event_date\": \"{{event_date}}\",\n\t\t\t\t    \"session_type\": 6,\n\t\t\t\t    \"sport_name\": 1,\n\t\t\t\t    \"duration\": 30,\n\t\t\t\t    \"description\": \"Evening Practice\",\n\t\t\t\t    \"calories\": 100,\n\t\t\t\t    \"distance\": 200,\n\t\t\t\t    \"end_date\": \"{{current_time}}\",\n\t\t\t\t    \"source\": 1,\n\t\t\t\t    \"deleted\": false,\n\t\t\t\t    \"ignored\": true,\n\t\t\t\t    \"hr_data\":  [\n                                {\"value\": 153, \"startDate\": \"2019-01-12T10:43:08.490-0500\", \"endDate\": \"2019-01-12T10:43:08.490-0500\"},\n                                {\"value\": 156, \"startDate\": \"2019-01-12T10:43:03.490-0500\", \"endDate\": \"2019-01-12T10:43:03.490-0500\"},\n                                {\"value\": 161, \"startDate\": \"2019-01-12T10:42:58.490-0500\", \"endDate\": \"2019-01-12T10:42:58.490-0500\"},\n                                {\"value\": 163, \"startDate\": \"2019-01-12T10:42:56.490-0500\", \"endDate\": \"2019-01-12T10:42:56.490-0500\"},\n                                {\"value\": 167, \"startDate\": \"2019-01-12T10:42:50.490-0500\", \"endDate\": \"2019-01-12T10:42:50.490-0500\"},\n                                {\"value\": 163, \"startDate\": \"2019-01-12T10:42:47.490-0500\", \"endDate\": \"2019-01-12T10:42:47.490-0500\"},\n                                {\"value\": 127, \"startDate\": \"2019-01-12T10:41:23.490-0500\", \"endDate\": \"2019-01-12T10:41:23.490-0500\"}\n                            ],\n\t\t\t\t    \"post_session_survey\": {\n\t\t\t\t        \"event_date\": \"{{current_time}}\",\n\t\t\t\t        \"RPE\": null,\n\t\t\t\t        \"soreness\": [],\n\t\t\t\t        \"clear_candidates\": [{\"body_part\":7,\"pain\":true,\"side\":2,\"status\":\"persistent_2_pain\",\"isClearCandidate\":true,\"severity\":1}]\n\t\t\t\t    }\n\t\t    \t\t},{\n\t\t\t\t    \"event_date\": \"{{event_date}}\",\n\t\t\t\t    \"session_type\": 6,\n\t\t\t\t    \"sport_name\": 17,\n\t\t\t\t    \"duration\": 30,\n\t\t\t\t    \"description\": \"Evening Practice 2\",\n\t\t\t\t    \"calories\": null,\n\t\t\t\t    \"distance\": null,\n\t\t\t\t    \"end_date\": null,\n\t\t\t\t    \"deleted\": false,\n\t\t\t\t    \"source\": 0,\n\t\t\t\t    \"hr_data\": [],\n\t\t\t\t    \"post_session_survey\": {\n\t\t\t\t        \"event_date\": \"{{current_time}}\",\n\t\t\t\t        \"RPE\": 5,\n\t\t\t\t        \"soreness\": [{\n\t\t\t\t                \"body_part\": 16,\n\t\t\t\t                \"severity\": 4,\n\t\t\t\t                \"pain\": true,\n\t\t\t\t                \"side\": 1\n\t\t\t\t            }],\n\t\t\t\t        \"clear_candidates\": [\n\t\t\t\t            {\n\t\t\t\t                \"body_part\": 5,\n\t\t\t\t                \"severity\": 0,\n\t\t\t\t                \"pain\": true,\n\t\t\t\t                \"side\": 2,\n\t\t\t\t                \"status\": \"acute_pain\"\n\t\t\t\t            }\n\t\t\t\t        ]\n\t\t\t\t    }\n\t\t    \t\t}\n\t\t    \t\t\n\t\t    \t]\n\t}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/session/{{user_id}}",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"session",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Session",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ad7b4b77-1483-4a2d-b047-cb9a3d2ae33b",
+						"exec": [
+							"postman.setEnvironmentVariable('current_time',(new Date().toISOString().split('.')[0]+'Z'))",
+							"postman.setEnvironmentVariable('end_time',(new Date().toISOString().split('.')[0]+'Z'))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"event_date\": \"{{current_time}}\",\n    \"sessions\": [{\"event_date\": \"{{date_time}}\",\n                  \"end_date\": \"{{date_time}}\",\n                  \"session_type\": 6,\n                  \"sport_name\": 1,\n                  \"duration\": 90.5,\n                  \"calories\": 50,\n                  \"distance\": 100,\n                  \"source\": 1,\n                  \"hr_data\": [\n                                {\"value\": 153, \"startDate\": \"2019-01-12T10:43:08.490-0500\", \"endDate\": \"2019-01-12T10:43:08.490-0500\"},\n                                {\"value\": 156, \"startDate\": \"2019-01-12T10:43:03.490-0500\", \"endDate\": \"2019-01-12T10:43:03.490-0500\"},\n                                {\"value\": 161, \"startDate\": \"2019-01-12T10:42:58.490-0500\", \"endDate\": \"2019-01-12T10:42:58.490-0500\"},\n                                {\"value\": 163, \"startDate\": \"2019-01-12T10:42:56.490-0500\", \"endDate\": \"2019-01-12T10:42:56.490-0500\"},\n                                {\"value\": 167, \"startDate\": \"2019-01-12T10:42:50.490-0500\", \"endDate\": \"2019-01-12T10:42:50.490-0500\"},\n                                {\"value\": 163, \"startDate\": \"2019-01-12T10:42:47.490-0500\", \"endDate\": \"2019-01-12T10:42:47.490-0500\"},\n                                {\"value\": 127, \"startDate\": \"2019-01-12T10:41:23.490-0500\", \"endDate\": \"2019-01-12T10:41:23.490-0500\"}\n                            ]\n    }\n    \t]\n}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/session/{{user_id}}/8149ae4d-df8f-401e-b5b0-5312547d33eb",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"session",
+						"{{user_id}}",
+						"8149ae4d-df8f-401e-b5b0-5312547d33eb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete session",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"event_date\": \"2018-08-10T00:00:00Z\",\n    \"session_type\": 0\n}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/session/{{user_id}}/90298f12-634f-4bf5-98e5-e85713afea69",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"session",
+						"{{user_id}}",
+						"90298f12-634f-4bf5-98e5-e85713afea69"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "write sensor data",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e63013ab-f015-46cd-93d3-fc0ef40baab2",
+						"exec": [
+							"postman.setEnvironmentVariable('last_sensor_sync',(new Date().toISOString().split('.')[0]+'Z'))",
+							"console.log(environment.last_sensor_sync)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"last_sensor_sync\": \"{{last_sensor_sync}}\",\n\t\"sessions\":\n\t\t[\n\t\t\t{\n\t\t\t\"session_type\": 0,\n\t            \"start_time\": \"2018-09-02T13:40:20Z\",\n\t            \"end_time\": \"2018-09-02T14:40:20Z\",\n\t            \"inactive_duration\": 1500,\n\t            \"low_duration\": 500, \n\t            \"mod_duration\": 200,\n\t            \"high_duration\": 60,\n\t            \"inactive_accel\": 1500,\n\t            \"low_accel\": 500, \n\t            \"mod_accel\": 200,\n\t            \"high_accel\": 60\n\t        }\n\t    ]\n}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/session/{{user_id}}/sensor_data",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"session",
+						"{{user_id}}",
+						"sensor_data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create plan",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMDJjYjc5NjUtNzkyMS00OTNhLTgwZDQtNmIyNzhjOTI4ZmFkIiwiY3JlYXRlZF9hdCI6IjIwMTgtMDEtMDQgMTU6MDI6NDIgLTA1MDAiLCJzaWduX2luX21ldGhvZCI6bnVsbH0.xH8zpcdoGI3JDjpt39jvNmDxUmk1Kh9tVZDGUYAmzX0"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://apis.{{env}}.fathomai.com/plans/{{api_version}}/athlete/{{user_id}}/daily_plan",
+					"protocol": "https",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"athlete",
+						"{{user_id}}",
+						"daily_plan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Clear Data",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0b47d1b2-8275-4aaa-8fd7-5ed12b58f26f",
+						"exec": [
+							"postman.setEnvironmentVariable('current_time',(new Date().toISOString().split('.')[0]+\"Z\" ))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"event_date\": \"{{current_time}}\"\n}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/misc/{{user_id}}/clear_user_data",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"misc",
+						"{{user_id}}",
+						"clear_user_data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "No Sessions Planned",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "6e4d26b4-0c0b-411a-bcf5-2f8f1adeff54",
+						"exec": [
+							"postman.setEnvironmentVariable('current_date',(new Date().toISOString().split('T')[0]))",
+							"postman.setEnvironmentVariable('current_time',(new Date().toISOString().split('.')[0]+'Z'))",
+							"console.log(environment.current_date)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"event_date\": \"{{current_time}}\"\n}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/session/{{user_id}}/no_sessions",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"session",
+						"{{user_id}}",
+						"no_sessions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Functional Strength",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "92d43e1d-37de-4809-beb3-6554e1390492",
+						"exec": [
+							"postman.setEnvironmentVariable('current_time',(new Date().toISOString().split('.')[0]+'Z'))",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"event_date\": \"{{current_time}}\",\n\t\"completed_exercises\": [\"175\"]\n}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/functional_strength/{{user_id}}/activate",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"functional_strength",
+						"{{user_id}}",
+						"activate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Schedule notification",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6ImZhdGhvbV8wMDEifQ.eyJhdXRoX3RpbWUiOjE1Mzg4MzU4OTMsImNvZ25pdG86dXNlcm5hbWUiOiIwMDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDAiLCJjdXN0b206cm9sZSI6InNlcnZpY2UiLCJldmVudF9pZCI6ImZkNTZlNDY0LWNkNjMtNGFkMi04NzE2LWM3NTAyNGZhZjY0MCIsImlzcyI6InVzZXJzLXRlc3QtYXBpZ2F0ZXdheS1zZXJ2aWNlYXV0aCIsInRva2VuX3VzZSI6ImlkIiwiZXhwIjoxNTQ3MjI1OTUwLCJpYXQiOjE1NDcxMzk1NTAsInN1YiI6IjAwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMCJ9.mujVBmJ5hLuUVO18Bnz-l7KUcgTuX2hD1VEPqEKpbO8p4AuxNgb6zG9fDUjVtL2QWuYcFoJY9dICkqymURMKvtSrQgb37tJg9parGmQoL5LEVahOmXCZY-pvBAh8vlF5Sdt0_Q_rCTG_qHG1iuCdOhnBHD55bjIXej9SUFgI4GukKDOGVVrfaCEGwkV_YhcJTtCiRGkEWWuok1xqtTQa4uYyBzaGwRbYEvehCf4rz_MIsblBI2vWs1kzuk-7VnFUbs_1RblACvN2_X7SNv_tmaSVC5SJNPAG_2CiCtMBShU5MU6XrPh1DUIlKvdVJ-s5kY-dYStwKiXczlW-smR-Jg"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"timezone\": \"-05:00\"}"
+				},
+				"url": {
+					"raw": "https://apis.{{env}}.fathomai.com/plans/{{api_version}}/athlete/{{user_id}}/active",
+					"protocol": "https",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"athlete",
+						"{{user_id}}",
+						"active"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "send complettion notification",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b6a3689b-d2a2-4afb-bfc7-24cc08243a51",
+						"exec": [
+							"postman.setEnvironmentVariable('current_time',(new Date().toISOString().split('T')[0]))",
+							"console.log(environment.current_time)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"event_date\": \"{{current_time}}\",\n\t\"recovery_type\": \"prep\"\n}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/athlete/{{user_id}}/90bdba98-9183-4acd-9546-944b6a80da66/send_daily_readiness_notification",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"athlete",
+						"{{user_id}}",
+						"90bdba98-9183-4acd-9546-944b6a80da66",
+						"send_daily_readiness_notification"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get dashboard data",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					}
+				],
+				"url": {
+					"raw": "https://apis.{{env}}.fathomai.com/plans/{{api_version}}/coach/{{user_id}}/dashboard",
+					"protocol": "https",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"coach",
+						"{{user_id}}",
+						"dashboard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update stats",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"event_date\": \"2019-02-21\"}"
+				},
+				"url": {
+					"raw": "https://apis.{{env}}.fathomai.com/plans/{{api_version}}/athlete/{{user_id}}/stats",
+					"protocol": "https",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"athlete",
+						"{{user_id}}",
+						"stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "log app",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "62971d91-b0a1-46c5-9d63-36eb3116bd57",
+						"exec": [
+							"postman.setEnvironmentVariable('current_time',(new Date().toISOString()))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"event_date\": \"{{current_time}}\",\n\t\"os_name\": \"postman\",\n\t\"os_version\": \"10.1\",\n\t\"app_version\": \"2.6\"\n}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/misc/{{user_id}}/app_logs",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"misc",
+						"{{user_id}}",
+						"app_logs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "survey",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b5cf0103-7fb4-4007-8f4a-7c97ef601181",
+						"exec": [
+							"postman.setEnvironmentVariable('date_time',(new Date().toISOString().split('.')[0]+'Z'))",
+							"postman.setEnvironmentVariable('event_date',(new Date().toISOString().split('T')[0]+'T12:30:00Z'))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"wearable_devices\": [\"Fitbit\", \"Garmin\", \"Whoop, none\"],\n\t\"typical_weekly_sessions\": \"1-3\"\n}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/athlete/{{user_id}}/survey",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"athlete",
+						"{{user_id}}",
+						"survey"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sync previous health data",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "898d9d11-43fd-46cb-b948-111310805c3a",
+						"exec": [
+							"postman.setEnvironmentVariable('current_time',(new Date().toISOString().split('.')[0]+'Z'))",
+							"postman.setEnvironmentVariable('event_date',(new Date().toISOString().split('.')[0]+'Z'))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"event_date\": \"2019-01-31T16:12:02Z\", \"start_date\": \"2019-01-29\", \"end_date\": \"2019-01-30\", \"sessions\": [{\"event_date\": \"2019-01-29T10:11:00Z\", \"session_type\": 6, \"sport_name\": 1, \"duration\": 5, \"description\": \"Evening Practice\", \"calories\": 100, \"distance\": 200, \"end_date\": \"2019-01-29T10:41:00Z\", \"source\": 1, \"deleted\": false, \"hr_data\": [{\"value\": 153, \"startDate\": \"2019-01-29T10:43:08.000-5000\", \"endDate\": \"2019-01-29T10:43:08.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:43:13.000-5000\", \"endDate\": \"2019-01-29T10:43:13.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:43:18.000-5000\", \"endDate\": \"2019-01-29T10:43:18.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:43:23.000-5000\", \"endDate\": \"2019-01-29T10:43:23.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:43:28.000-5000\", \"endDate\": \"2019-01-29T10:43:28.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:43:33.000-5000\", \"endDate\": \"2019-01-29T10:43:33.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:43:38.000-5000\", \"endDate\": \"2019-01-29T10:43:38.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:43:43.000-5000\", \"endDate\": \"2019-01-29T10:43:43.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:43:48.000-5000\", \"endDate\": \"2019-01-29T10:43:48.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:43:53.000-5000\", \"endDate\": \"2019-01-29T10:43:53.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:43:58.000-5000\", \"endDate\": \"2019-01-29T10:43:58.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:44:03.000-5000\", \"endDate\": \"2019-01-29T10:44:03.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:44:08.000-5000\", \"endDate\": \"2019-01-29T10:44:08.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:44:13.000-5000\", \"endDate\": \"2019-01-29T10:44:13.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:44:18.000-5000\", \"endDate\": \"2019-01-29T10:44:18.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:44:23.000-5000\", \"endDate\": \"2019-01-29T10:44:23.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:44:28.000-5000\", \"endDate\": \"2019-01-29T10:44:28.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:44:33.000-5000\", \"endDate\": \"2019-01-29T10:44:33.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:44:38.000-5000\", \"endDate\": \"2019-01-29T10:44:38.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:44:43.000-5000\", \"endDate\": \"2019-01-29T10:44:43.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:44:48.000-5000\", \"endDate\": \"2019-01-29T10:44:48.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:44:53.000-5000\", \"endDate\": \"2019-01-29T10:44:53.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:44:58.000-5000\", \"endDate\": \"2019-01-29T10:44:58.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:45:03.000-5000\", \"endDate\": \"2019-01-29T10:45:03.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:45:08.000-5000\", \"endDate\": \"2019-01-29T10:45:08.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:45:13.000-5000\", \"endDate\": \"2019-01-29T10:45:13.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:45:18.000-5000\", \"endDate\": \"2019-01-29T10:45:18.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:45:23.000-5000\", \"endDate\": \"2019-01-29T10:45:23.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:45:28.000-5000\", \"endDate\": \"2019-01-29T10:45:28.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:45:33.000-5000\", \"endDate\": \"2019-01-29T10:45:33.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:45:38.000-5000\", \"endDate\": \"2019-01-29T10:45:38.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:45:43.000-5000\", \"endDate\": \"2019-01-29T10:45:43.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:45:48.000-5000\", \"endDate\": \"2019-01-29T10:45:48.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:45:53.000-5000\", \"endDate\": \"2019-01-29T10:45:53.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:45:58.000-5000\", \"endDate\": \"2019-01-29T10:45:58.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:46:03.000-5000\", \"endDate\": \"2019-01-29T10:46:03.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:46:08.000-5000\", \"endDate\": \"2019-01-29T10:46:08.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:46:13.000-5000\", \"endDate\": \"2019-01-29T10:46:13.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:46:18.000-5000\", \"endDate\": \"2019-01-29T10:46:18.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:46:23.000-5000\", \"endDate\": \"2019-01-29T10:46:23.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:46:28.000-5000\", \"endDate\": \"2019-01-29T10:46:28.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:46:33.000-5000\", \"endDate\": \"2019-01-29T10:46:33.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:46:38.000-5000\", \"endDate\": \"2019-01-29T10:46:38.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:46:43.000-5000\", \"endDate\": \"2019-01-29T10:46:43.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:46:48.000-5000\", \"endDate\": \"2019-01-29T10:46:48.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:46:53.000-5000\", \"endDate\": \"2019-01-29T10:46:53.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:46:58.000-5000\", \"endDate\": \"2019-01-29T10:46:58.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:47:03.000-5000\", \"endDate\": \"2019-01-29T10:47:03.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:47:08.000-5000\", \"endDate\": \"2019-01-29T10:47:08.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:47:13.000-5000\", \"endDate\": \"2019-01-29T10:47:13.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:47:18.000-5000\", \"endDate\": \"2019-01-29T10:47:18.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:47:23.000-5000\", \"endDate\": \"2019-01-29T10:47:23.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:47:28.000-5000\", \"endDate\": \"2019-01-29T10:47:28.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:47:33.000-5000\", \"endDate\": \"2019-01-29T10:47:33.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:47:38.000-5000\", \"endDate\": \"2019-01-29T10:47:38.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:47:43.000-5000\", \"endDate\": \"2019-01-29T10:47:43.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:47:48.000-5000\", \"endDate\": \"2019-01-29T10:47:48.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:47:53.000-5000\", \"endDate\": \"2019-01-29T10:47:53.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:47:58.000-5000\", \"endDate\": \"2019-01-29T10:47:58.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-29T10:48:03.000-5000\", \"endDate\": \"2019-01-29T10:48:03.000-5000\"}], \"post_session_survey\": {\"event_date\": \"2019-01-31T16:11:53Z\", \"RPE\": null, \"soreness\": []}}, {\"event_date\": \"2019-01-30T10:11:00Z\", \"session_type\": 6, \"sport_name\": 1, \"duration\": 5, \"description\": \"Evening Practice\", \"calories\": 100, \"distance\": 200, \"end_date\": \"2019-01-30T10:41:00Z\", \"source\": 1, \"deleted\": false, \"hr_data\": [{\"value\": 153, \"startDate\": \"2019-01-30T10:43:08.000-5000\", \"endDate\": \"2019-01-30T10:43:08.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:43:13.000-5000\", \"endDate\": \"2019-01-30T10:43:13.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:43:18.000-5000\", \"endDate\": \"2019-01-30T10:43:18.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:43:23.000-5000\", \"endDate\": \"2019-01-30T10:43:23.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:43:28.000-5000\", \"endDate\": \"2019-01-30T10:43:28.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:43:33.000-5000\", \"endDate\": \"2019-01-30T10:43:33.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:43:38.000-5000\", \"endDate\": \"2019-01-30T10:43:38.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:43:43.000-5000\", \"endDate\": \"2019-01-30T10:43:43.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:43:48.000-5000\", \"endDate\": \"2019-01-30T10:43:48.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:43:53.000-5000\", \"endDate\": \"2019-01-30T10:43:53.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:43:58.000-5000\", \"endDate\": \"2019-01-30T10:43:58.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:44:03.000-5000\", \"endDate\": \"2019-01-30T10:44:03.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:44:08.000-5000\", \"endDate\": \"2019-01-30T10:44:08.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:44:13.000-5000\", \"endDate\": \"2019-01-30T10:44:13.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:44:18.000-5000\", \"endDate\": \"2019-01-30T10:44:18.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:44:23.000-5000\", \"endDate\": \"2019-01-30T10:44:23.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:44:28.000-5000\", \"endDate\": \"2019-01-30T10:44:28.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:44:33.000-5000\", \"endDate\": \"2019-01-30T10:44:33.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:44:38.000-5000\", \"endDate\": \"2019-01-30T10:44:38.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:44:43.000-5000\", \"endDate\": \"2019-01-30T10:44:43.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:44:48.000-5000\", \"endDate\": \"2019-01-30T10:44:48.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:44:53.000-5000\", \"endDate\": \"2019-01-30T10:44:53.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:44:58.000-5000\", \"endDate\": \"2019-01-30T10:44:58.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:45:03.000-5000\", \"endDate\": \"2019-01-30T10:45:03.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:45:08.000-5000\", \"endDate\": \"2019-01-30T10:45:08.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:45:13.000-5000\", \"endDate\": \"2019-01-30T10:45:13.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:45:18.000-5000\", \"endDate\": \"2019-01-30T10:45:18.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:45:23.000-5000\", \"endDate\": \"2019-01-30T10:45:23.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:45:28.000-5000\", \"endDate\": \"2019-01-30T10:45:28.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:45:33.000-5000\", \"endDate\": \"2019-01-30T10:45:33.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:45:38.000-5000\", \"endDate\": \"2019-01-30T10:45:38.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:45:43.000-5000\", \"endDate\": \"2019-01-30T10:45:43.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:45:48.000-5000\", \"endDate\": \"2019-01-30T10:45:48.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:45:53.000-5000\", \"endDate\": \"2019-01-30T10:45:53.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:45:58.000-5000\", \"endDate\": \"2019-01-30T10:45:58.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:46:03.000-5000\", \"endDate\": \"2019-01-30T10:46:03.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:46:08.000-5000\", \"endDate\": \"2019-01-30T10:46:08.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:46:13.000-5000\", \"endDate\": \"2019-01-30T10:46:13.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:46:18.000-5000\", \"endDate\": \"2019-01-30T10:46:18.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:46:23.000-5000\", \"endDate\": \"2019-01-30T10:46:23.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:46:28.000-5000\", \"endDate\": \"2019-01-30T10:46:28.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:46:33.000-5000\", \"endDate\": \"2019-01-30T10:46:33.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:46:38.000-5000\", \"endDate\": \"2019-01-30T10:46:38.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:46:43.000-5000\", \"endDate\": \"2019-01-30T10:46:43.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:46:48.000-5000\", \"endDate\": \"2019-01-30T10:46:48.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:46:53.000-5000\", \"endDate\": \"2019-01-30T10:46:53.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:46:58.000-5000\", \"endDate\": \"2019-01-30T10:46:58.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:47:03.000-5000\", \"endDate\": \"2019-01-30T10:47:03.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:47:08.000-5000\", \"endDate\": \"2019-01-30T10:47:08.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:47:13.000-5000\", \"endDate\": \"2019-01-30T10:47:13.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:47:18.000-5000\", \"endDate\": \"2019-01-30T10:47:18.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:47:23.000-5000\", \"endDate\": \"2019-01-30T10:47:23.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:47:28.000-5000\", \"endDate\": \"2019-01-30T10:47:28.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:47:33.000-5000\", \"endDate\": \"2019-01-30T10:47:33.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:47:38.000-5000\", \"endDate\": \"2019-01-30T10:47:38.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:47:43.000-5000\", \"endDate\": \"2019-01-30T10:47:43.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:47:48.000-5000\", \"endDate\": \"2019-01-30T10:47:48.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:47:53.000-5000\", \"endDate\": \"2019-01-30T10:47:53.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:47:58.000-5000\", \"endDate\": \"2019-01-30T10:47:58.000-5000\"}, {\"value\": 153, \"startDate\": \"2019-01-30T10:48:03.000-5000\", \"endDate\": \"2019-01-30T10:48:03.000-5000\"}], \"post_session_survey\": {\"event_date\": \"2019-01-31T16:11:53Z\", \"RPE\": null, \"soreness\": []}}], \"sleep_data\": [{\"value\": \"INBED\", \"startDate\": \"2019-01-25T00:00:00.000-0500\", \"endDate\": \"2019-01-25T07:34:09.030-0500\"}, {\"value\": \"INBED\", \"startDate\": \"2019-01-11T01:12:25.249-0500\", \"endDate\": \"2019-01-11T07:30:22.717-0500\"}, {\"value\": \"INBED\", \"startDate\": \"2019-01-10T07:37:36.000-0500\", \"endDate\": \"2019-01-10T07:39:08.998-0500\"}, {\"value\": \"INBED\", \"startDate\": \"2019-01-10T07:34:20.000-0500\", \"endDate\": \"2019-01-10T07:35:24.000-0500\"}, {\"value\": \"INBED\", \"startDate\": \"2019-01-10T00:00:00.000-0500\", \"endDate\": \"2019-01-10T07:34:12.000-0500\"}, {\"value\": \"INBED\", \"startDate\": \"2019-01-09T00:09:50.212-0500\", \"endDate\": \"2019-01-09T07:35:21.256-0500\"}, {\"value\": \"UNKNOWN\", \"startDate\": \"2019-01-09T07:19:51.212-0500\", \"endDate\": \"2019-01-09T07:35:21.256-0500\"}, {\"value\": \"INBED\", \"startDate\": \"2019-01-09T00:10:52.000-0500\", \"endDate\": \"2019-01-09T07:30:23.306-0500\"}, {\"value\": \"INBED\", \"startDate\": \"2019-01-09T00:11:00.000-0500\", \"endDate\": \"2019-01-09T07:30:14.516-0500\"}, {\"value\": \"ASLEEP\", \"startDate\": \"2019-01-09T00:29:51.212-0500\", \"endDate\": \"2019-01-09T07:19:51.212-0500\"}, {\"value\": \"INBED\", \"startDate\": \"2019-01-09T00:09:50.212-0500\", \"endDate\": \"2019-01-09T07:02:09.754-0500\"}, {\"value\": \"UNKNOWN\", \"startDate\": \"2019-01-09T06:49:51.212-0500\", \"endDate\": \"2019-01-09T07:02:09.754-0500\"}, {\"value\": \"INBED\", \"startDate\": \"2019-01-08T00:00:00.000-0500\", \"endDate\": \"2019-01-08T07:40:02.673-0500\"}, {\"value\": \"INBED\", \"startDate\": \"2019-01-07T00:00:00.000-0500\", \"endDate\": \"2019-01-07T07:30:03.514-0500\"}, {\"value\": \"INBED\", \"startDate\": \"2019-01-04T00:00:00.000-0500\", \"endDate\": \"2019-01-04T07:30:15.568-0500\"}, {\"value\": \"INBED\", \"startDate\": \"2019-01-03T07:26:48.000-0500\", \"endDate\": \"2019-01-03T07:31:02.264-0500\"}, {\"value\": \"INBED\", \"startDate\": \"2019-01-03T07:10:24.000-0500\", \"endDate\": \"2019-01-03T07:17:00.000-0500\"}, {\"value\": \"INBED\", \"startDate\": \"2019-01-03T07:09:32.000-0500\", \"endDate\": \"2019-01-03T07:09:52.000-0500\"}, {\"value\": \"INBED\", \"startDate\": \"2019-01-03T07:08:32.000-0500\", \"endDate\": \"2019-01-03T07:09:00.000-0500\"}, {\"value\": \"INBED\", \"startDate\": \"2019-01-03T06:59:20.000-0500\", \"endDate\": \"2019-01-03T07:02:40.000-0500\"}, {\"value\": \"INBED\", \"startDate\": \"2019-01-03T06:49:04.000-0500\", \"endDate\": \"2019-01-03T06:50:40.000-0500\"}, {\"value\": \"INBED\", \"startDate\": \"2019-01-02T20:16:11.842-0500\", \"endDate\": \"2019-01-03T06:49:22.114-0500\"}, {\"value\": \"UNKNOWN\", \"startDate\": \"2019-01-03T06:26:12.842-0500\", \"endDate\": \"2019-01-03T06:49:22.114-0500\"}, {\"value\": \"INBED\", \"startDate\": \"2019-01-03T00:00:00.000-0500\", \"endDate\": \"2019-01-03T06:49:04.000-0500\"}, {\"value\": \"ASLEEP\", \"startDate\": \"2019-01-03T05:36:12.842-0500\", \"endDate\": \"2019-01-03T06:26:12.842-0500\"}, {\"value\": \"UNKNOWN\", \"startDate\": \"2019-01-03T05:26:12.842-0500\", \"endDate\": \"2019-01-03T05:36:12.842-0500\"}, {\"value\": \"ASLEEP\", \"startDate\": \"2019-01-02T20:26:12.842-0500\", \"endDate\": \"2019-01-03T05:26:12.842-0500\"}, {\"value\": \"UNKNOWN\", \"startDate\": \"2019-01-02T20:16:11.842-0500\", \"endDate\": \"2019-01-02T20:26:12.842-0500\"}]}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/health_data/{{user_id}}",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"health_data",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Functional Strength activate",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "92d43e1d-37de-4809-beb3-6554e1390492",
+						"exec": [
+							"postman.setEnvironmentVariable('current_time',(new Date().toISOString().split('.')[0]+'Z'))",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"event_date\": \"{{current_time}}\",\n\t\"current_sport_name\": 14,\n\t\"current_position\": 0\n}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/functional_strength/{{user_id}}/activate",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"functional_strength",
+						"{{user_id}}",
+						"activate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "copy user data",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0b47d1b2-8275-4aaa-8fd7-5ed12b58f26f",
+						"exec": [
+							"postman.setEnvironmentVariable('current_time',(new Date().toISOString().split('.')[0]+\"Z\" ))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\t\n\t\"event_date\": \"{{current_time}}\",\n\t\"copy_all\": false\n}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/misc/{{user_id}}/copy_test_data",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"misc",
+						"{{user_id}}",
+						"copy_test_data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Start BodyPart Modalities",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "92d43e1d-37de-4809-beb3-6554e1390492",
+						"exec": [
+							"postman.setEnvironmentVariable('current_time',(new Date().toISOString().split('.')[0]+'Z'))",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"event_date\": \"{{current_time}}\",\n\t\"recovery_type\": \"heat\"\n}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/active_recovery/{{user_id}}/body_part_modalities",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"active_recovery",
+						"{{user_id}}",
+						"body_part_modalities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Complete BodyPart Modalities",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "92d43e1d-37de-4809-beb3-6554e1390492",
+						"exec": [
+							"postman.setEnvironmentVariable('current_time',(new Date().toISOString().split('.')[0]+'Z'))",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"event_date\": \"{{current_time}}\",\n\t\"recovery_type\": \"heat\",\n\t\"completed_body_parts\": [{\"body_part_location\": 7, \"side\": 1}]\n}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/active_recovery/{{user_id}}/body_part_modalities",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"active_recovery",
+						"{{user_id}}",
+						"body_part_modalities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Insights Read",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "92d43e1d-37de-4809-beb3-6554e1390492",
+						"exec": [
+							"postman.setEnvironmentVariable('current_time',(new Date().toISOString().split('.')[0]+'Z'))",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"event_date\": \"{{current_time}}\"\n}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/insights/{{user_id}}/read",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"insights",
+						"{{user_id}}",
+						"read"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "On-demand mobilize",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "92d43e1d-37de-4809-beb3-6554e1390492",
+						"exec": [
+							"postman.setEnvironmentVariable('current_time',(new Date().toISOString().split('.')[0]+'Z'))",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"event_date\": \"{{current_time}}\"\n}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/active_recovery/{{user_id}}/get_mobilize",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"active_recovery",
+						"{{user_id}}",
+						"get_mobilize"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "0b4e1c90-7f6c-47cd-be1a-2893921cb769",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "0c9478c5-acbc-461e-b68d-40e2b038fabe",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "7d19937e-90c3-4812-9f28-9ad3673d2eee",
+			"key": "api_version",
+			"value": "4_5",
+			"type": "string"
+		}
+	]
+}

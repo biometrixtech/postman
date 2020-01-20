@@ -1,0 +1,156 @@
+{
+	"info": {
+		"_postman_id": "c8dfb4be-8809-4131-a552-4069474f2791",
+		"name": "Third Party Plans",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create daily readiness survey with planned session",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b5cf0103-7fb4-4007-8f4a-7c97ef601181",
+						"exec": [
+							"postman.setEnvironmentVariable('date_time',(new Date().toISOString().split('.')[0]+'Z'))",
+							"postman.setEnvironmentVariable('event_date',(new Date().toISOString().split('T')[0]+'T12:30:00Z'))"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e63adb04-e53d-46de-9942-f5b8e59b407a",
+						"exec": [
+							"pm.test(\"Successful API call\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"const responseJSON = pm.response.json();",
+							"",
+							"pm.test(\"Response should include daily plan with post active rest recovery modality\", function () {",
+							"    //pm.response.to.not.be.error;",
+							"    pm.expect(responseJSON).to.have.property('daily_plans');",
+							"    pm.expect(responseJSON.daily_plans[0]).to.have.property('modalities');",
+							"    pm.expect(responseJSON.daily_plans[0].modalities.length).to.eql(1)",
+							"    pm.expect(responseJSON.daily_plans[0].modalities[0].type).to.eql(1)",
+							"    //pm.expect(pm.response.json()).to.include({'message': \"14 is not a valid VisualizationType\"});",
+							"    //pm.response.to.have.jsonBody(\"14 is not a valid VisualizationType\");",
+							"    //pm.response.to.not.have.jsonBody(\"error\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"date_time\": \"{{date_time}}\",\n\"soreness\":[{\n\t\t\t\t                \"body_part\": 7,\n\t\t\t\t                \"severity\": 3,\n\t\t\t\t                \"movement\": 3,\n\t\t\t\t                \"pain\": false,\n\t\t\t\t                \"side\": 1\n\t\t\t\t            }],\n\"sessions_planned\": false,\n\"sessions\": [{\n\t\t\t\t    \"event_date\": \"{{event_date}}\",\n\t\t\t\t    \"session_type\": 6,\n\t\t\t\t    \"sport_name\": 1,\n\t\t\t\t    \"duration\": 30,\n\t\t\t\t    \"workout_program_module\": {\n\t\t\t\t    \t\"provider_id\": \"test_id\",\n\t\t\t\t    \t\"program_id\": \"23G\",\n\t\t\t\t    \t\"program_module_id\": \"56\",\n\t\t\t\t    \t\"workout_sections\": [{\n\t\t\t\t    \t\t\"name\": \"Upper Body Work\",\n\t\t\t\t    \t\t\"duration_seconds\": 360,\n\t\t\t\t    \t\t\"workout_section_type\": \"1\",\n\t\t\t\t    \t\t\"difficulty\": 5,\n\t\t\t\t    \t\t\"intensity_pace\": 5,\n\t\t\t\t    \t\t\"exercises\": [\n\t\t\t\t    \t\t\t{\n\t\t\t\t    \t\t\t\t\"id\": \"1\",\n\t\t\t\t    \t\t\t\t\"name\": \"Bench Press\",\n\t\t\t\t    \t\t\t\t\"weight_in_lbs\": 102.5,\n\t\t\t\t    \t\t\t\t\"weight_type\": \"36\",\n\t\t\t\t    \t\t\t\t\"sets\": 2,\n\t\t\t\t    \t\t\t\t\"reps_per_set\": 10,\n\t\t\t\t    \t\t\t\t\"reps_unit\": 1,\n\t\t\t\t    \t\t\t\t\"intensity_pace\": 5\n\t\t\t\t    \t\t\t}\n\t\t\t\t    \t\t\t]\n\t\t\t\t    \t}]\n\t\t\t\t    }\n\t\t    \t\t}\n\t\t    \t]\n}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/daily_readiness/{{user_id}}",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"daily_readiness",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete session",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"event_date\": \"2018-08-10T00:00:00Z\",\n    \"session_type\": 0\n}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/session/{{user_id}}/90298f12-634f-4bf5-98e5-e85713afea69",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"session",
+						"{{user_id}}",
+						"90298f12-634f-4bf5-98e5-e85713afea69"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "1ec09219-e696-4630-9feb-e588b6c84141",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "844c1590-ed97-40ab-9156-07c4fee47de7",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "f10c25ea-1a3d-490d-bdfc-98b4332cbf1a",
+			"key": "api_version",
+			"value": "4_8",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
