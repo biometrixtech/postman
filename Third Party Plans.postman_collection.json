@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c8dfb4be-8809-4131-a552-4069474f2791",
+		"_postman_id": "3286d8ce-789f-454e-b35d-bea33ee7fa6a",
 		"name": "Third Party Plans",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -13,8 +13,11 @@
 					"script": {
 						"id": "b5cf0103-7fb4-4007-8f4a-7c97ef601181",
 						"exec": [
-							"postman.setEnvironmentVariable('date_time',(new Date().toISOString().split('.')[0]+'Z'))",
-							"postman.setEnvironmentVariable('event_date',(new Date().toISOString().split('T')[0]+'T12:30:00Z'))"
+							"postman.setEnvironmentVariable('date_time',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('event_date',(new Date().toISOString().split('T')[0]+'T12:30:00Z'));",
+							"pm.environment.set(\"calories\", null);",
+							"pm.environment.set(\"distance\", null);",
+							"pm.environment.set(\"bench_weight\", 102.5);"
 						],
 						"type": "text/javascript"
 					}
@@ -30,18 +33,42 @@
 							"",
 							"const responseJSON = pm.response.json();",
 							"",
-							"pm.test(\"Response should include daily plan with post active rest recovery modality\", function () {",
-							"    //pm.response.to.not.be.error;",
+							"pm.test(\"Response should include daily plan\", function () {",
 							"    pm.expect(responseJSON).to.have.property('daily_plans');",
-							"    pm.expect(responseJSON.daily_plans[0]).to.have.property('modalities');",
-							"    pm.expect(responseJSON.daily_plans[0].modalities.length).to.eql(1)",
-							"    pm.expect(responseJSON.daily_plans[0].modalities[0].type).to.eql(1)",
+							"});",
+							"",
+							"const dailyPlan = responseJSON.daily_plans[0];",
+							"",
+							"pm.test(\"Daily plan should include post active rest recovery modality\", function () {",
+							"    //pm.response.to.not.be.error;",
+							"    pm.expect(dailyPlan).to.have.property('modalities');",
+							"    pm.expect(dailyPlan.modalities.length).to.eql(1);",
+							"    pm.expect(dailyPlan.modalities[0].type).to.eql(1);",
 							"    //pm.expect(pm.response.json()).to.include({'message': \"14 is not a valid VisualizationType\"});",
 							"    //pm.response.to.have.jsonBody(\"14 is not a valid VisualizationType\");",
 							"    //pm.response.to.not.have.jsonBody(\"error\");",
 							"});",
 							"",
-							"pm.environment.set(\"session_id\", responseJSON.daily_plans[0].training_sessions[0].session_id);"
+							"pm.test(\"Response should include daily plan with the planned session sent\", function () {",
+							"    pm.expect(dailyPlan).to.have.property('training_sessions');",
+							"    pm.expect(dailyPlan.training_sessions.length).to.eql(1);",
+							"    pm.expect(dailyPlan.training_sessions[0].event_date).to.eql(pm.environment.get(\"event_date\"));",
+							"});",
+							"",
+							"const trainingSession = dailyPlan.training_sessions[0];",
+							"pm.test(\"Training session should include updated workout program module\", function () {",
+							"    pm.expect(trainingSession).to.have.property(\"workout_program_module\");",
+							"    const workoutProgramModule = trainingSession.workout_program_module;",
+							"    pm.expect(workoutProgramModule).to.have.property(\"workout_sections\");",
+							"    pm.expect(workoutProgramModule.workout_sections.length).to.eql(1);",
+							"    const workoutSection = workoutProgramModule.workout_sections[0];",
+							"    pm.expect(workoutSection).to.have.property(\"exercises\");",
+							"    pm.expect(workoutSection.exercises.length).to.eql(1);",
+							"    const exercise = workoutSection.exercises[0];",
+							"    pm.expect(exercise.weight_in_lbs).to.eql(pm.environment.get(\"bench_weight\"));",
+							"});",
+							"",
+							"pm.environment.set(\"session_id\", trainingSession.session_id);"
 						],
 						"type": "text/javascript"
 					}
@@ -64,7 +91,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"date_time\": \"{{date_time}}\",\n\"soreness\":[{\n\t\t\t\t                \"body_part\": 7,\n\t\t\t\t                \"severity\": 3,\n\t\t\t\t                \"movement\": 3,\n\t\t\t\t                \"pain\": false,\n\t\t\t\t                \"side\": 1\n\t\t\t\t            }],\n\"sessions_planned\": false,\n\"sessions\": [{\n\t\t\t\t    \"event_date\": \"{{event_date}}\",\n\t\t\t\t    \"session_type\": 6,\n\t\t\t\t    \"sport_name\": 1,\n\t\t\t\t    \"source\": 0,\n\t\t\t\t    \"duration\": 30,\n\t\t\t\t    \"workout_program_module\": {\n\t\t\t\t    \t\"provider_id\": \"test_id\",\n\t\t\t\t    \t\"program_id\": \"23G\",\n\t\t\t\t    \t\"program_module_id\": \"56\",\n\t\t\t\t    \t\"workout_sections\": [{\n\t\t\t\t    \t\t\"name\": \"Upper Body Work\",\n\t\t\t\t    \t\t\"duration_seconds\": 360,\n\t\t\t\t    \t\t\"workout_section_type\": \"1\",\n\t\t\t\t    \t\t\"difficulty\": 5,\n\t\t\t\t    \t\t\"intensity_pace\": 5,\n\t\t\t\t    \t\t\"exercises\": [\n\t\t\t\t    \t\t\t{\n\t\t\t\t    \t\t\t\t\"id\": \"1\",\n\t\t\t\t    \t\t\t\t\"name\": \"Bench Press\",\n\t\t\t\t    \t\t\t\t\"weight_in_lbs\": 102.5,\n\t\t\t\t    \t\t\t\t\"weight_type\": \"36\",\n\t\t\t\t    \t\t\t\t\"sets\": 2,\n\t\t\t\t    \t\t\t\t\"reps_per_set\": 10,\n\t\t\t\t    \t\t\t\t\"reps_unit\": 1,\n\t\t\t\t    \t\t\t\t\"intensity_pace\": 5\n\t\t\t\t    \t\t\t}\n\t\t\t\t    \t\t\t]\n\t\t\t\t    \t}]\n\t\t\t\t    }\n\t\t    \t\t}\n\t\t    \t]\n}"
+					"raw": "{\"date_time\": \"{{date_time}}\",\n\"soreness\":[{\n\t\t\t\t                \"body_part\": 7,\n\t\t\t\t                \"severity\": 3,\n\t\t\t\t                \"movement\": 3,\n\t\t\t\t                \"pain\": false,\n\t\t\t\t                \"side\": 1\n\t\t\t\t            }],\n\"sessions_planned\": false,\n\"sessions\": [{\n\t\t\t\t    \"event_date\": \"{{event_date}}\",\n\t\t\t\t    \"session_type\": 6,\n\t\t\t\t    \"sport_name\": 1,\n\t\t\t\t    \"source\": 0,\n\t\t\t\t    \"duration\": 30,\n\t\t\t\t    \"workout_program_module\": {\n\t\t\t\t    \t\"provider_id\": \"test_id\",\n\t\t\t\t    \t\"program_id\": \"23G\",\n\t\t\t\t    \t\"program_module_id\": \"56\",\n\t\t\t\t    \t\"workout_sections\": [{\n\t\t\t\t    \t\t\"name\": \"Upper Body Work\",\n\t\t\t\t    \t\t\"duration_seconds\": 360,\n\t\t\t\t    \t\t\"workout_section_type\": \"1\",\n\t\t\t\t    \t\t\"difficulty\": 5,\n\t\t\t\t    \t\t\"intensity_pace\": 5,\n\t\t\t\t    \t\t\"exercises\": [\n\t\t\t\t    \t\t\t{\n\t\t\t\t    \t\t\t\t\"id\": \"1\",\n\t\t\t\t    \t\t\t\t\"name\": \"Bench Press\",\n\t\t\t\t    \t\t\t\t\"weight_in_lbs\": {{bench_weight}},\n\t\t\t\t    \t\t\t\t\"weight_type\": \"36\",\n\t\t\t\t    \t\t\t\t\"sets\": 2,\n\t\t\t\t    \t\t\t\t\"reps_per_set\": 10,\n\t\t\t\t    \t\t\t\t\"reps_unit\": 1,\n\t\t\t\t    \t\t\t\t\"intensity_pace\": 5\n\t\t\t\t    \t\t\t}\n\t\t\t\t    \t\t\t]\n\t\t\t\t    \t}]\n\t\t\t\t    }\n\t\t    \t\t}\n\t\t    \t]\n}"
 				},
 				"url": {
 					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/daily_readiness/{{user_id}}",
@@ -86,6 +113,435 @@
 			"response": []
 		},
 		{
+			"name": "Update Session with workout program modules Return Plan",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ad7b4b77-1483-4a2d-b047-cb9a3d2ae33b",
+						"exec": [
+							"postman.setEnvironmentVariable('current_time',(new Date().toISOString().split('.')[0]+'Z'))",
+							"postman.setEnvironmentVariable('end_time',(new Date().toISOString().split('.')[0]+'Z'))",
+							"pm.environment.set(\"distance\", 100);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "72bf5eee-400d-428d-97f9-09580e9a7d5a",
+						"exec": [
+							"pm.test(\"Successful API call\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const responseJSON = pm.response.json();",
+							"",
+							"pm.test(\"Response should include daily plan\", function () {",
+							"    pm.expect(responseJSON).to.have.property('daily_plans');",
+							"});",
+							"",
+							"const dailyPlan = responseJSON.daily_plans[0];",
+							"",
+							"pm.test(\"Daily plan should include post active rest recovery modality\", function () {",
+							"    pm.expect(dailyPlan).to.have.property('modalities');",
+							"    pm.expect(dailyPlan.modalities.length).to.eql(1);",
+							"    pm.expect(dailyPlan.modalities[0].type).to.eql(1);",
+							"});",
+							"",
+							"pm.test(\"Response should include daily plan with the planned session sent\", function () {",
+							"    pm.expect(dailyPlan).to.have.property('training_sessions');",
+							"    pm.expect(dailyPlan.training_sessions.length).to.eql(1);",
+							"});",
+							"",
+							"const trainingSession = dailyPlan.training_sessions[0];",
+							"pm.test(\"Training session should include updated workout program module\", function () {",
+							"    pm.expect(trainingSession).to.have.property(\"workout_program_module\");",
+							"    const workoutProgramModule = trainingSession.workout_program_module;",
+							"    pm.expect(workoutProgramModule).to.have.property(\"workout_sections\");",
+							"    pm.expect(workoutProgramModule.workout_sections.length).to.eql(1);",
+							"    const workoutSection = workoutProgramModule.workout_sections[0];",
+							"    pm.expect(workoutSection).to.have.property(\"exercises\");",
+							"    pm.expect(workoutSection.exercises.length).to.eql(1);",
+							"    const exercise = workoutSection.exercises[0];",
+							"    pm.expect(exercise.weight_in_lbs).to.eql(pm.environment.get(\"bench_weight\"));",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"event_date\": \"{{current_time}}\",\n    \"user_age\": 32,\n    \"return_updated_plan\": true,\n    \"sessions\": [{\"event_date\": \"{{date_time}}\",\n                  \"end_date\": \"{{date_time}}\",\n                  \"session_type\": 6,\n                  \"sport_name\": 1,\n                  \"duration\": 90.5,\n                  \"distance\": {{distance}},\n                  \"source\": 0,\n                  \"hr_data\": [\n                                {\"value\": 153, \"startDate\": \"2019-01-12T10:43:08.490-0500\", \"endDate\": \"2019-01-12T10:43:08.490-0500\"},\n                                {\"value\": 156, \"startDate\": \"2019-01-12T10:43:03.490-0500\", \"endDate\": \"2019-01-12T10:43:03.490-0500\"},\n                                {\"value\": 161, \"startDate\": \"2019-01-12T10:42:58.490-0500\", \"endDate\": \"2019-01-12T10:42:58.490-0500\"},\n                                {\"value\": 163, \"startDate\": \"2019-01-12T10:42:56.490-0500\", \"endDate\": \"2019-01-12T10:42:56.490-0500\"},\n                                {\"value\": 167, \"startDate\": \"2019-01-12T10:42:50.490-0500\", \"endDate\": \"2019-01-12T10:42:50.490-0500\"},\n                                {\"value\": 163, \"startDate\": \"2019-01-12T10:42:47.490-0500\", \"endDate\": \"2019-01-12T10:42:47.490-0500\"},\n                                {\"value\": 127, \"startDate\": \"2019-01-12T10:41:23.490-0500\", \"endDate\": \"2019-01-12T10:41:23.490-0500\"}\n                            ]\n    }\n    \t]\n}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/session/{{user_id}}/{{session_id}}",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"session",
+						"{{user_id}}",
+						"{{session_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Session Do Not Return Plan",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "337e724a-31be-4570-ba58-10f30ef3d10c",
+						"exec": [
+							"pm.test(\"Successful API call\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const responseJSON = pm.response.json();",
+							"",
+							"pm.test(\"Response should only respond with a success message\", function () {",
+							"    //pm.response.to.not.be.error;",
+							"    pm.expect(responseJSON).to.have.property('message');",
+							"    pm.expect(responseJSON.message).to.eql('success');",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "13421516-2955-47b7-8173-d1a4246472bb",
+						"exec": [
+							"postman.setEnvironmentVariable('current_time',(new Date().toISOString().split('.')[0]+'Z'))",
+							"postman.setEnvironmentVariable('end_time',(new Date().toISOString().split('.')[0]+'Z'))",
+							"pm.environment.set(\"calories\", 50);",
+							"pm.environment.set(\"distance\", 100);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"event_date\": \"{{current_time}}\",\n    \"user_age\": 32,\n    \"return_updated_plan\": false,\n    \"sessions\": [{\"event_date\": \"{{date_time}}\",\n                  \"end_date\": \"{{date_time}}\",\n                  \"session_type\": 6,\n                  \"sport_name\": 1,\n                  \"duration\": 90.5,\n                  \"calories\": {{calories}},\n                  \"distance\": {{distance}},\n                  \"source\": 0,\n                  \"hr_data\": [\n                                {\"value\": 153, \"startDate\": \"2019-01-12T10:43:08.490-0500\", \"endDate\": \"2019-01-12T10:43:08.490-0500\"},\n                                {\"value\": 156, \"startDate\": \"2019-01-12T10:43:03.490-0500\", \"endDate\": \"2019-01-12T10:43:03.490-0500\"},\n                                {\"value\": 161, \"startDate\": \"2019-01-12T10:42:58.490-0500\", \"endDate\": \"2019-01-12T10:42:58.490-0500\"},\n                                {\"value\": 163, \"startDate\": \"2019-01-12T10:42:56.490-0500\", \"endDate\": \"2019-01-12T10:42:56.490-0500\"},\n                                {\"value\": 167, \"startDate\": \"2019-01-12T10:42:50.490-0500\", \"endDate\": \"2019-01-12T10:42:50.490-0500\"},\n                                {\"value\": 163, \"startDate\": \"2019-01-12T10:42:47.490-0500\", \"endDate\": \"2019-01-12T10:42:47.490-0500\"},\n                                {\"value\": 127, \"startDate\": \"2019-01-12T10:41:23.490-0500\", \"endDate\": \"2019-01-12T10:41:23.490-0500\"}\n                            ]\n    }\n    \t]\n}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/session/{{user_id}}/{{session_id}}",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"session",
+						"{{user_id}}",
+						"{{session_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Session Return Plan",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ad7b4b77-1483-4a2d-b047-cb9a3d2ae33b",
+						"exec": [
+							"postman.setEnvironmentVariable('current_time',(new Date().toISOString().split('.')[0]+'Z'))",
+							"postman.setEnvironmentVariable('end_time',(new Date().toISOString().split('.')[0]+'Z'))",
+							"pm.environment.set(\"calories\", 50);",
+							"pm.environment.set(\"distance\", 500);",
+							"pm.environment.set(\"bench_weight\", 150);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "72bf5eee-400d-428d-97f9-09580e9a7d5a",
+						"exec": [
+							"pm.test(\"Successful API call\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const responseJSON = pm.response.json();",
+							"",
+							"pm.test(\"Response should include daily plan\", function () {",
+							"    pm.expect(responseJSON).to.have.property('daily_plans');",
+							"});",
+							"",
+							"const dailyPlan = responseJSON.daily_plans[0];",
+							"",
+							"pm.test(\"Daily plan should include post active rest recovery modality\", function () {",
+							"    pm.expect(dailyPlan).to.have.property('modalities');",
+							"    pm.expect(dailyPlan.modalities.length).to.eql(1);",
+							"    pm.expect(dailyPlan.modalities[0].type).to.eql(1);",
+							"});",
+							"",
+							"pm.test(\"Daily plan should include training session\", function () {",
+							"    pm.expect(dailyPlan).to.have.property('training_sessions');",
+							"    pm.expect(dailyPlan.training_sessions.length).to.eql(1);",
+							"});",
+							"",
+							"const trainingSession = dailyPlan.training_sessions[0];",
+							"pm.test(\"Training session in response should be updated accordingly\", function () {",
+							"    pm.expect(trainingSession.distance).to.eql(pm.environment.get(\"distance\"));",
+							"    pm.expect(trainingSession.calories).to.eql(pm.environment.get(\"calories\"));",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"event_date\": \"{{current_time}}\",\n    \"user_age\": 32,\n    \"return_updated_plan\": true,\n    \"sessions\": [{\"event_date\": \"{{date_time}}\",\n                  \"end_date\": \"{{date_time}}\",\n                  \"session_type\": 6,\n                  \"sport_name\": 1,\n                  \"duration\": 90.5,\n                  \"calories\": {{calories}},\n                  \"distance\": {{distance}},\n                  \"source\": 0,\n                  \"hr_data\": [\n                                {\"value\": 153, \"startDate\": \"2019-01-12T10:43:08.490-0500\", \"endDate\": \"2019-01-12T10:43:08.490-0500\"},\n                                {\"value\": 156, \"startDate\": \"2019-01-12T10:43:03.490-0500\", \"endDate\": \"2019-01-12T10:43:03.490-0500\"},\n                                {\"value\": 161, \"startDate\": \"2019-01-12T10:42:58.490-0500\", \"endDate\": \"2019-01-12T10:42:58.490-0500\"},\n                                {\"value\": 163, \"startDate\": \"2019-01-12T10:42:56.490-0500\", \"endDate\": \"2019-01-12T10:42:56.490-0500\"},\n                                {\"value\": 167, \"startDate\": \"2019-01-12T10:42:50.490-0500\", \"endDate\": \"2019-01-12T10:42:50.490-0500\"},\n                                {\"value\": 163, \"startDate\": \"2019-01-12T10:42:47.490-0500\", \"endDate\": \"2019-01-12T10:42:47.490-0500\"},\n                                {\"value\": 127, \"startDate\": \"2019-01-12T10:41:23.490-0500\", \"endDate\": \"2019-01-12T10:41:23.490-0500\"}\n                            ],\n\t\t\t\t    \"workout_program_module\": {\n\t\t\t\t    \t\"provider_id\": \"test_id\",\n\t\t\t\t    \t\"program_id\": \"23G\",\n\t\t\t\t    \t\"program_module_id\": \"56\",\n\t\t\t\t    \t\"workout_sections\": [{\n\t\t\t\t    \t\t\"name\": \"Upper Body Work\",\n\t\t\t\t    \t\t\"duration_seconds\": 360,\n\t\t\t\t    \t\t\"workout_section_type\": \"1\",\n\t\t\t\t    \t\t\"difficulty\": 5,\n\t\t\t\t    \t\t\"intensity_pace\": 5,\n\t\t\t\t    \t\t\"exercises\": [\n\t\t\t\t    \t\t\t{\n\t\t\t\t    \t\t\t\t\"id\": \"1\",\n\t\t\t\t    \t\t\t\t\"name\": \"Bench Press\",\n\t\t\t\t    \t\t\t\t\"weight_in_lbs\": {{bench_weight}},\n\t\t\t\t    \t\t\t\t\"weight_type\": \"36\",\n\t\t\t\t    \t\t\t\t\"sets\": 2,\n\t\t\t\t    \t\t\t\t\"reps_per_set\": 10,\n\t\t\t\t    \t\t\t\t\"reps_unit\": 1,\n\t\t\t\t    \t\t\t\t\"intensity_pace\": 5\n\t\t\t\t    \t\t\t}\n\t\t\t\t    \t\t\t]\n\t\t\t\t    \t}]\n\t\t\t\t    }\n    }\n    \t]\n}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/session/{{user_id}}/{{session_id}}",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"session",
+						"{{user_id}}",
+						"{{session_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Session HR data without user_age",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ad7b4b77-1483-4a2d-b047-cb9a3d2ae33b",
+						"exec": [
+							"postman.setEnvironmentVariable('current_time',(new Date().toISOString().split('.')[0]+'Z'))",
+							"postman.setEnvironmentVariable('end_time',(new Date().toISOString().split('.')[0]+'Z'))",
+							"pm.environment.set(\"calories\", 50);",
+							"pm.environment.set(\"distance\", 100);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "72bf5eee-400d-428d-97f9-09580e9a7d5a",
+						"exec": [
+							"pm.test(\"Successful API call\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"const responseJSON = pm.response.json();",
+							"",
+							"pm.test(\"Response should only respond with a failure message\", function () {",
+							"    //pm.response.to.not.be.error;",
+							"    pm.expect(responseJSON).to.have.property('message');",
+							"    pm.expect(responseJSON.message).to.include('Cannot process heart rate data without also providing user age');",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"event_date\": \"{{current_time}}\",\n    \"return_updated_plan\": true,\n    \"sessions\": [{\"event_date\": \"{{date_time}}\",\n                  \"end_date\": \"{{date_time}}\",\n                  \"session_type\": 6,\n                  \"sport_name\": 1,\n                  \"duration\": 90.5,\n                  \"calories\": {{calories}},\n                  \"distance\": {{distance}},\n                  \"source\": 0,\n                  \"hr_data\": [\n                                {\"value\": 153, \"startDate\": \"2019-01-12T10:43:08.490-0500\", \"endDate\": \"2019-01-12T10:43:08.490-0500\"},\n                                {\"value\": 156, \"startDate\": \"2019-01-12T10:43:03.490-0500\", \"endDate\": \"2019-01-12T10:43:03.490-0500\"},\n                                {\"value\": 161, \"startDate\": \"2019-01-12T10:42:58.490-0500\", \"endDate\": \"2019-01-12T10:42:58.490-0500\"},\n                                {\"value\": 163, \"startDate\": \"2019-01-12T10:42:56.490-0500\", \"endDate\": \"2019-01-12T10:42:56.490-0500\"},\n                                {\"value\": 167, \"startDate\": \"2019-01-12T10:42:50.490-0500\", \"endDate\": \"2019-01-12T10:42:50.490-0500\"},\n                                {\"value\": 163, \"startDate\": \"2019-01-12T10:42:47.490-0500\", \"endDate\": \"2019-01-12T10:42:47.490-0500\"},\n                                {\"value\": 127, \"startDate\": \"2019-01-12T10:41:23.490-0500\", \"endDate\": \"2019-01-12T10:41:23.490-0500\"}\n                            ]\n    }\n    \t]\n}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/session/{{user_id}}/{{session_id}}",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"session",
+						"{{user_id}}",
+						"{{session_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Session with no calories sent Return Plan",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ad7b4b77-1483-4a2d-b047-cb9a3d2ae33b",
+						"exec": [
+							"postman.setEnvironmentVariable('current_time',(new Date().toISOString().split('.')[0]+'Z'))",
+							"postman.setEnvironmentVariable('end_time',(new Date().toISOString().split('.')[0]+'Z'))",
+							"pm.environment.set(\"distance\", 100);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "72bf5eee-400d-428d-97f9-09580e9a7d5a",
+						"exec": [
+							"pm.test(\"Successful API call\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const responseJSON = pm.response.json();",
+							"",
+							"pm.test(\"Response should include daily plan\", function () {",
+							"    pm.expect(responseJSON).to.have.property('daily_plans');",
+							"});",
+							"",
+							"const dailyPlan = responseJSON.daily_plans[0];",
+							"",
+							"pm.test(\"Daily plan should include post active rest recovery modality\", function () {",
+							"    pm.expect(dailyPlan).to.have.property('modalities');",
+							"    pm.expect(dailyPlan.modalities.length).to.eql(1);",
+							"    pm.expect(dailyPlan.modalities[0].type).to.eql(1);",
+							"});",
+							"",
+							"pm.test(\"Daily plan should include training session\", function () {",
+							"    pm.expect(dailyPlan).to.have.property('training_sessions');",
+							"    pm.expect(dailyPlan.training_sessions.length).to.eql(1);",
+							"});",
+							"",
+							"const trainingSession = dailyPlan.training_sessions[0];",
+							"pm.test(\"Training session in response should be updated accordingly\", function () {",
+							"    pm.expect(trainingSession.calories).to.eql(pm.environment.get(\"calories\")); // this should equal what was sent previously (not in this request) ",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"event_date\": \"{{current_time}}\",\n    \"user_age\": 32,\n    \"return_updated_plan\": true,\n    \"sessions\": [{\"event_date\": \"{{date_time}}\",\n                  \"end_date\": \"{{date_time}}\",\n                  \"session_type\": 6,\n                  \"sport_name\": 1,\n                  \"duration\": 90.5,\n                  \"distance\": {{distance}},\n                  \"source\": 0,\n                  \"hr_data\": [\n                                {\"value\": 153, \"startDate\": \"2019-01-12T10:43:08.490-0500\", \"endDate\": \"2019-01-12T10:43:08.490-0500\"},\n                                {\"value\": 156, \"startDate\": \"2019-01-12T10:43:03.490-0500\", \"endDate\": \"2019-01-12T10:43:03.490-0500\"},\n                                {\"value\": 161, \"startDate\": \"2019-01-12T10:42:58.490-0500\", \"endDate\": \"2019-01-12T10:42:58.490-0500\"},\n                                {\"value\": 163, \"startDate\": \"2019-01-12T10:42:56.490-0500\", \"endDate\": \"2019-01-12T10:42:56.490-0500\"},\n                                {\"value\": 167, \"startDate\": \"2019-01-12T10:42:50.490-0500\", \"endDate\": \"2019-01-12T10:42:50.490-0500\"},\n                                {\"value\": 163, \"startDate\": \"2019-01-12T10:42:47.490-0500\", \"endDate\": \"2019-01-12T10:42:47.490-0500\"},\n                                {\"value\": 127, \"startDate\": \"2019-01-12T10:41:23.490-0500\", \"endDate\": \"2019-01-12T10:41:23.490-0500\"}\n                            ]\n    }\n    \t]\n}"
+				},
+				"url": {
+					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/session/{{user_id}}/{{session_id}}",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"{{env}}",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"{{api_version}}",
+						"session",
+						"{{user_id}}",
+						"{{session_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "delete session",
 			"event": [
 				{
@@ -94,6 +550,18 @@
 						"id": "6470107d-8feb-48e2-b304-1f222e79b523",
 						"exec": [
 							"postman.setEnvironmentVariable('event_date',(new Date().toISOString().split('T')[0]+'T12:30:00Z'))"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "9b6a40f1-f1e5-496a-81a2-51c7429ffc2c",
+						"exec": [
+							"",
+							"pm.environment.set(\"calories\", null);",
+							"pm.environment.set(\"distance\", null);"
 						],
 						"type": "text/javascript"
 					}
@@ -136,38 +604,75 @@
 			"response": []
 		},
 		{
-			"name": "Update Session",
+			"name": "create daily readiness survey without planned session",
 			"event": [
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "ad7b4b77-1483-4a2d-b047-cb9a3d2ae33b",
+						"id": "b5cf0103-7fb4-4007-8f4a-7c97ef601181",
 						"exec": [
-							"postman.setEnvironmentVariable('current_time',(new Date().toISOString().split('.')[0]+'Z'))",
-							"postman.setEnvironmentVariable('end_time',(new Date().toISOString().split('.')[0]+'Z'))"
+							"postman.setEnvironmentVariable('date_time',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('event_date',(new Date().toISOString().split('T')[0]+'T12:30:00Z'));",
+							"pm.environment.set(\"calories\", null);",
+							"pm.environment.set(\"distance\", null);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e63adb04-e53d-46de-9942-f5b8e59b407a",
+						"exec": [
+							"pm.test(\"Successful API call\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"const responseJSON = pm.response.json();",
+							"",
+							"pm.test(\"Response should include daily plan\", function () {",
+							"    pm.expect(responseJSON).to.have.property('daily_plans');",
+							"});",
+							"",
+							"const dailyPlan = responseJSON.daily_plans[0]",
+							"",
+							"pm.test(\"Response should include daily plan with pre active rest recovery modality\", function () {",
+							"    pm.expect(dailyPlan).to.have.property('modalities');",
+							"    pm.expect(dailyPlan.modalities.length).to.eql(1)",
+							"    pm.expect(dailyPlan.modalities[0].type).to.eql(1)",
+							"});",
+							"",
+							"pm.test(\"Response should not include any training sessions in the plan\", function () {",
+							"    pm.expect(dailyPlan).to.have.property('training_sessions');",
+							"    pm.expect(dailyPlan.training_sessions.length).to.eql(0);",
+							"});",
+							""
 						],
 						"type": "text/javascript"
 					}
 				}
 			],
 			"request": {
-				"method": "PATCH",
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
 				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					},
 					{
 						"key": "Authorization",
 						"value": "{{jwt}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"event_date\": \"{{current_time}}\",\n    \"user_age\": 32,\n    \"return_updated_plan\": true,\n    \"sessions\": [{\"event_date\": \"{{date_time}}\",\n                  \"end_date\": \"{{date_time}}\",\n                  \"session_type\": 6,\n                  \"sport_name\": 1,\n                  \"duration\": 90.5,\n                  \"calories\": 50,\n                  \"distance\": 100,\n                  \"source\": 0,\n                  \"hr_data\": [\n                                {\"value\": 153, \"startDate\": \"2019-01-12T10:43:08.490-0500\", \"endDate\": \"2019-01-12T10:43:08.490-0500\"},\n                                {\"value\": 156, \"startDate\": \"2019-01-12T10:43:03.490-0500\", \"endDate\": \"2019-01-12T10:43:03.490-0500\"},\n                                {\"value\": 161, \"startDate\": \"2019-01-12T10:42:58.490-0500\", \"endDate\": \"2019-01-12T10:42:58.490-0500\"},\n                                {\"value\": 163, \"startDate\": \"2019-01-12T10:42:56.490-0500\", \"endDate\": \"2019-01-12T10:42:56.490-0500\"},\n                                {\"value\": 167, \"startDate\": \"2019-01-12T10:42:50.490-0500\", \"endDate\": \"2019-01-12T10:42:50.490-0500\"},\n                                {\"value\": 163, \"startDate\": \"2019-01-12T10:42:47.490-0500\", \"endDate\": \"2019-01-12T10:42:47.490-0500\"},\n                                {\"value\": 127, \"startDate\": \"2019-01-12T10:41:23.490-0500\", \"endDate\": \"2019-01-12T10:41:23.490-0500\"}\n                            ]\n    }\n    \t]\n}"
+					"raw": "{\"date_time\": \"{{date_time}}\",\n\"soreness\":[{\n\t\t\t\t                \"body_part\": 7,\n\t\t\t\t                \"severity\": 3,\n\t\t\t\t                \"movement\": 3,\n\t\t\t\t                \"pain\": false,\n\t\t\t\t                \"side\": 1\n\t\t\t\t            }],\n\"sessions_planned\": false,\n\"sessions\": []\n}"
 				},
 				"url": {
-					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/session/{{user_id}}/{{session_id}}",
+					"raw": "http://apis.{{env}}.fathomai.com/plans/{{api_version}}/daily_readiness/{{user_id}}",
 					"protocol": "http",
 					"host": [
 						"apis",
@@ -178,9 +683,8 @@
 					"path": [
 						"plans",
 						"{{api_version}}",
-						"session",
-						"{{user_id}}",
-						"{{session_id}}"
+						"daily_readiness",
+						"{{user_id}}"
 					]
 				}
 			},
