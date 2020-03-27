@@ -1,0 +1,1672 @@
+{
+	"info": {
+		"_postman_id": "a7fae31e-d696-4062-92ff-878367c446d9",
+		"name": "Mobility APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0e5f9559-c56e-4644-886b-da013751b10c",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.environment.set(\"session_token\", jsonData.authorization.session_token);",
+							"pm.environment.set(\"jwt\", jsonData.authorization.jwt)",
+							"pm.environment.set(\"user_id\", jsonData.user.id)",
+							"pm.environment.set(\"account_id\", jsonData.user.account_ids[0])",
+							"console.log(environment.user_id, environment.session_token)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"personal_data\": {\"email\": \"mazen+mvp@fathomai.com\"},\n\"password\": \"Fathom123!\"}"
+				},
+				"url": {
+					"raw": "https://apis.dev.fathomai.com/users/2_4/user/login",
+					"protocol": "https",
+					"host": [
+						"apis",
+						"dev",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"users",
+						"2_4",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Mobility WOD",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b5cf0103-7fb4-4007-8f4a-7c97ef601181",
+						"exec": [
+							"postman.setEnvironmentVariable('event_date_time',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('event_date_time_1',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('end_date_time_1',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('event_date_time_2',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('end_date_time_2',(new Date().toISOString().split('.')[0]+'Z'));",
+							"pm.environment.set(\"calories\", null);",
+							"pm.environment.set(\"distance\", null);",
+							"pm.environment.set(\"bench_weight\", 102.5);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e63adb04-e53d-46de-9942-f5b8e59b407a",
+						"exec": [
+							"pm.test(\"Successful API call\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"const responseJSON = pm.response.json();",
+							"",
+							"pm.test(\"Response should include Mobility WOD\", function () {",
+							"    pm.expect(responseJSON).to.have.property('mobility_wod');",
+							"});",
+							"",
+							"const mobility_wod = responseJSON.mobility_wod;",
+							"",
+							"pm.test(\"Mobility WOD should include id\", function () {",
+							"    pm.expect(mobility_wod).to.have.property('mobility_wod_id');",
+							"    pm.environment.set(\"mobility_wod_id\", mobility_wod.mobility_wod_id);",
+							"});",
+							"",
+							"pm.test(\"Mobility WOD should have Active Rest activity assigned\", function () {",
+							"    pm.expect(mobility_wod).to.have.property('active_rest');",
+							"    pm.expect(mobility_wod.active_rest).to.not.eq(null);",
+							"    pm.expect(mobility_wod.active_rest.type).to.eql(1);",
+							"});",
+							"",
+							"const active_rest = mobility_wod.active_rest;",
+							"",
+							"pm.test(\"active_rest should have 4 exercise phases (inhibit, static_stretch, isolated_activate and static_integrate)\", function () {",
+							"    pm.expect(active_rest).to.have.property('exercise_phases');",
+							"    pm.expect(active_rest.exercise_phases.length).to.be.eq(4);",
+							"    pm.expect(active_rest.exercise_phases[0].type).to.be.eq(0);",
+							"    pm.expect(active_rest.exercise_phases[1].type).to.be.eq(1);",
+							"    pm.expect(active_rest.exercise_phases[2].type).to.be.eq(4);",
+							"    pm.expect(active_rest.exercise_phases[3].type).to.be.eq(5);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJraWQiOiJkZW1vXzAwMSIsImFsZyI6IlJTMjU2In0.eyJpc3MiOiJkZW1vIiwiYXVkIjoiZmF0aG9tIiwiZXhwIjoxNTg0NTUzNjA4LCJpYXQiOjE1ODQ1NDAwMDgsInN1YiI6IjZhOTFhMGNiLTJjOTAtNGI5My05NGQyLWE5NDNjNjI4NGFmNyIsInNjb3BlIjoiZmF0aG9tLnBsYW5zOnJlYWQifQ.EHBCbEewqrvSfteIFcHjv8xF2EF1odvhVE7H6XMU9Z2zl5LZeCxQGRp26anzQRlR-8s5FNljscufBrx8GFYtP8kc9bBkx3ld2YZM_q55-4y56FVaC7_7Bcd_6eBIYaavEIySohe4kQr9RUbCfU1oLP4yyMeg72-uG34PFwvUiQ8ZCSiJtAsEFUrvEuJPXpjbDgF7FqC9RuLKKaj3fgTnJ8o4V9L3thgvEqtX7SUtLX8W3KcBCV1wbFTO-POQwKStONTcEuXSAgGv4RcPoJ_ug1W6fqAYeL0VhtlLeYRjQ5phoT4M3oBn3TUu_Hx78UT1JorEAD8XLlzSbn23zQzlvw",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"event_date_time\": \"{{event_date_time}}\",\n\t\"symptoms\": [\n        {\n            \"body_part\": 18,\n            \"side\": 0,\n            \"tight\": 4,\n            \"knots\": null,\n            \"sharp\": null,\n            \"ache\": null\n        }\n        ],\n    \"sessions\": [\n            {\n                \"event_date\": \"{{event_date_time_2}}\",\n                \"session_type\": 7,\n                \"duration\": 840,\n                \"description\": \"Evening Practice\",\n                \"calories\": 100,\n                \"distance\": 200,\n                \"session_RPE\": 7.3,\n                \"end_date\": \"{{end_date_time_2}}\",\n                \"hr_data\":  [\n                            {\"value\": 153,\n                             \"startDate\": \"2019-01-12T10:43:08.490-0500\",\n                             \"endDate\": \"2019-01-12T10:43:08.490-0500\"\n                             }\n                        ],\n                \"workout_program_module\": {\n                                        \"workout_sections\": [{\n                                            \"name\": \"Upper Body Work\",\n                                            \"duration_seconds\": 360,\n                                            \"start_date_time\": \"2019-01-12T10:43:08Z\",\n                                            \"end_date_time\": \"2019-01-12T12:17:12Z\",\n                                            \"exercises\": [\n                                                {\n                                                    \"id\": \"1\",\n                                                    \"name\": \"Bent over Row\",\n                                                    \"weight_measure\": 2,\n                                                    \"weight\": 150,\n                                                    \"sets\": 2,\n                                                    \"reps_per_set\": 10,\n                                                    \"unit_of_measure\": 1,\n                                                    \"movement_id\": \"57e2fd3a4c6a031dc777e936\",\n                                                    \"bilateral\": true,\n                                                    \"side\": 0,\n                                                    \"rpe\": 5.0\n                                                }\n                                                ]\n                                        }]\n                                    }\n                }\n                \n            ]\n}"
+				},
+				"url": {
+					"raw": "http://apis.demo.fathomai.com/plans/5_0/mobility_wod/{{user_id}}",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"demo",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"5_0",
+						"mobility_wod",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Mobility WOD",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b5cf0103-7fb4-4007-8f4a-7c97ef601181",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e63adb04-e53d-46de-9942-f5b8e59b407a",
+						"exec": [
+							"pm.test(\"Successful API call\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const responseJSON = pm.response.json();",
+							"const mobility_wod_id = responseJSON.mobility_wod.mobility_wod_id;",
+							"pm.environment.set(\"mobility_wod_id\", mobility_wod_id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJraWQiOiJkZW1vXzAwMSIsImFsZyI6IlJTMjU2In0.eyJpc3MiOiJkZW1vIiwiYXVkIjoiZmF0aG9tIiwiZXhwIjoxNTg0NTUzNjA4LCJpYXQiOjE1ODQ1NDAwMDgsInN1YiI6IjZhOTFhMGNiLTJjOTAtNGI5My05NGQyLWE5NDNjNjI4NGFmNyIsInNjb3BlIjoiZmF0aG9tLnBsYW5zOnJlYWQifQ.EHBCbEewqrvSfteIFcHjv8xF2EF1odvhVE7H6XMU9Z2zl5LZeCxQGRp26anzQRlR-8s5FNljscufBrx8GFYtP8kc9bBkx3ld2YZM_q55-4y56FVaC7_7Bcd_6eBIYaavEIySohe4kQr9RUbCfU1oLP4yyMeg72-uG34PFwvUiQ8ZCSiJtAsEFUrvEuJPXpjbDgF7FqC9RuLKKaj3fgTnJ8o4V9L3thgvEqtX7SUtLX8W3KcBCV1wbFTO-POQwKStONTcEuXSAgGv4RcPoJ_ug1W6fqAYeL0VhtlLeYRjQ5phoT4M3oBn3TUu_Hx78UT1JorEAD8XLlzSbn23zQzlvw",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://apis.demo.fathomai.com/plans/5_0/mobility_wod/{{user_id}}/{{mobility_wod_id}}/",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"demo",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"5_0",
+						"mobility_wod",
+						"{{user_id}}",
+						"{{mobility_wod_id}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Active Rest (Mobility WOD) Start",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b5cf0103-7fb4-4007-8f4a-7c97ef601181",
+						"exec": [
+							"postman.setEnvironmentVariable('event_date_time',(new Date().toISOString().split('.')[0]+'Z'));",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e63adb04-e53d-46de-9942-f5b8e59b407a",
+						"exec": [
+							"pm.test(\"Successful API call\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const responseJSON = pm.response.json();",
+							"",
+							"pm.test(\"Response should include success message\", function () {",
+							"    pm.expect(responseJSON).to.have.property('message');",
+							"    pm.expect(responseJSON.message).to.eql('success')",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJraWQiOiJkZW1vXzAwMSIsImFsZyI6IlJTMjU2In0.eyJpc3MiOiJkZW1vIiwiYXVkIjoiZmF0aG9tIiwiZXhwIjoxNTg0NTUzNjA4LCJpYXQiOjE1ODQ1NDAwMDgsInN1YiI6IjZhOTFhMGNiLTJjOTAtNGI5My05NGQyLWE5NDNjNjI4NGFmNyIsInNjb3BlIjoiZmF0aG9tLnBsYW5zOnJlYWQifQ.EHBCbEewqrvSfteIFcHjv8xF2EF1odvhVE7H6XMU9Z2zl5LZeCxQGRp26anzQRlR-8s5FNljscufBrx8GFYtP8kc9bBkx3ld2YZM_q55-4y56FVaC7_7Bcd_6eBIYaavEIySohe4kQr9RUbCfU1oLP4yyMeg72-uG34PFwvUiQ8ZCSiJtAsEFUrvEuJPXpjbDgF7FqC9RuLKKaj3fgTnJ8o4V9L3thgvEqtX7SUtLX8W3KcBCV1wbFTO-POQwKStONTcEuXSAgGv4RcPoJ_ug1W6fqAYeL0VhtlLeYRjQ5phoT4M3oBn3TUu_Hx78UT1JorEAD8XLlzSbn23zQzlvw",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"event_date_time\": \"{{event_date_time}}\",\n\t\"activity_type\": 1\n}"
+				},
+				"url": {
+					"raw": "http://apis.demo.fathomai.com/plans/5_0/mobility_wod/{{user_id}}/{{mobility_wod_id}}/start_activity",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"demo",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"5_0",
+						"mobility_wod",
+						"{{user_id}}",
+						"{{mobility_wod_id}}",
+						"start_activity"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Active Rest (Mobility WOD) Complete",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b5cf0103-7fb4-4007-8f4a-7c97ef601181",
+						"exec": [
+							"postman.setEnvironmentVariable('event_date_time',(new Date().toISOString().split('.')[0]+'Z'));",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e63adb04-e53d-46de-9942-f5b8e59b407a",
+						"exec": [
+							"pm.test(\"Successful API call\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const responseJSON = pm.response.json();",
+							"",
+							"// pm.test(\"Response should include daily plan\", function () {",
+							"//     pm.expect(responseJSON).to.have.property('daily_plans');",
+							"// });",
+							"",
+							"// const dailyPlan = responseJSON.daily_plans[0];",
+							"/*",
+							"pm.test(\"Daily plan should include post active rest recovery modality\", function () {",
+							"    //pm.response.to.not.be.error;",
+							"    pm.expect(dailyPlan).to.have.property('modalities');",
+							"    pm.expect(dailyPlan.modalities.length).to.eql(1);",
+							"    pm.expect(dailyPlan.modalities[0].type).to.eql(1);",
+							"    //pm.expect(pm.response.json()).to.include({'message': \"14 is not a valid VisualizationType\"});",
+							"    //pm.response.to.have.jsonBody(\"14 is not a valid VisualizationType\");",
+							"    //pm.response.to.not.have.jsonBody(\"error\");",
+							"});",
+							"",
+							"pm.test(\"Response should include daily plan with the planned session sent\", function () {",
+							"    pm.expect(dailyPlan).to.have.property('training_sessions');",
+							"    pm.expect(dailyPlan.training_sessions.length).to.eql(1);",
+							"    pm.expect(dailyPlan.training_sessions[0].event_date).to.eql(pm.environment.get(\"event_date\"));",
+							"});",
+							"",
+							"const trainingSession = dailyPlan.training_sessions[0];",
+							"pm.test(\"Training session should include updated workout program module\", function () {",
+							"    pm.expect(trainingSession).to.have.property(\"workout_program_module\");",
+							"    const workoutProgramModule = trainingSession.workout_program_module;",
+							"    pm.expect(workoutProgramModule).to.have.property(\"workout_sections\");",
+							"    pm.expect(workoutProgramModule.workout_sections.length).to.eql(1);",
+							"    const workoutSection = workoutProgramModule.workout_sections[0];",
+							"    pm.expect(workoutSection).to.have.property(\"exercises\");",
+							"    pm.expect(workoutSection.exercises.length).to.eql(1);",
+							"    const exercise = workoutSection.exercises[0];",
+							"    pm.expect(exercise.weight_in_lbs).to.eql(pm.environment.get(\"bench_weight\"));",
+							"});",
+							"",
+							"pm.environment.set(\"session_id\", trainingSession.session_id);",
+							"*/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJraWQiOiJkZW1vXzAwMSIsImFsZyI6IlJTMjU2In0.eyJpc3MiOiJkZW1vIiwiYXVkIjoiZmF0aG9tIiwiZXhwIjoxNTg0NTUzNjA4LCJpYXQiOjE1ODQ1NDAwMDgsInN1YiI6IjZhOTFhMGNiLTJjOTAtNGI5My05NGQyLWE5NDNjNjI4NGFmNyIsInNjb3BlIjoiZmF0aG9tLnBsYW5zOnJlYWQifQ.EHBCbEewqrvSfteIFcHjv8xF2EF1odvhVE7H6XMU9Z2zl5LZeCxQGRp26anzQRlR-8s5FNljscufBrx8GFYtP8kc9bBkx3ld2YZM_q55-4y56FVaC7_7Bcd_6eBIYaavEIySohe4kQr9RUbCfU1oLP4yyMeg72-uG34PFwvUiQ8ZCSiJtAsEFUrvEuJPXpjbDgF7FqC9RuLKKaj3fgTnJ8o4V9L3thgvEqtX7SUtLX8W3KcBCV1wbFTO-POQwKStONTcEuXSAgGv4RcPoJ_ug1W6fqAYeL0VhtlLeYRjQ5phoT4M3oBn3TUu_Hx78UT1JorEAD8XLlzSbn23zQzlvw",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"event_date_time\": \"{{event_date_time}}\",\n\t\"activity_type\": 1,\n\t\"completed_exercises\": []\n}"
+				},
+				"url": {
+					"raw": "http://apis.demo.fathomai.com/plans/5_0/mobility_wod/{{user_id}}/{{mobility_wod_id}}/complete_activity",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"demo",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"5_0",
+						"mobility_wod",
+						"{{user_id}}",
+						"{{mobility_wod_id}}",
+						"complete_activity"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Responsive Recovery",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b5cf0103-7fb4-4007-8f4a-7c97ef601181",
+						"exec": [
+							"postman.setEnvironmentVariable('event_date_time',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('event_date_time_1',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('end_date_time_1',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('event_date_time_2',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('end_date_time_2',(new Date().toISOString().split('.')[0]+'Z'));",
+							"pm.environment.set(\"calories\", null);",
+							"pm.environment.set(\"distance\", null);",
+							"pm.environment.set(\"bench_weight\", 102.5);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e63adb04-e53d-46de-9942-f5b8e59b407a",
+						"exec": [
+							"pm.test(\"Successful API call\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"const responseJSON = pm.response.json();",
+							"pm.environment.set(\"responsive_recovery_id\", responseJSON.responsive_recovery.responsive_recovery_id);",
+							"pm.environment.set(\"training_session_id\", responseJSON.responsive_recovery.training_session_id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"event_date_time\": \"{{event_date_time}}\",\n    \"symptoms\": [\n        {\n            \"body_part\": 18,\n            \"side\": 0,\n            \"tight\": 4,\n            \"knots\": null,\n            \"sharp\": null,\n            \"ache\": null\n        }\n    ],\n    \"session\": {\n        \"event_date\": \"{{event_date_time_2}}\",\n        \"session_type\": 7,\n        \"duration\": 840,\n        \"description\": \"Evening Practice\",\n        \"calories\": 100,\n        \"distance\": 200,\n        \"session_RPE\": 7.3,\n        \"end_date\": \"{{end_date_time_2}}\",\n        \"hr_data\": [\n            {\n                \"value\": 153,\n                \"startDate\": \"2019-01-12T10:43:08.490-0500\",\n                \"endDate\": \"2019-01-12T10:43:08.490-0500\"\n            }\n        ],\n        \"workout_program_module\": {\n            \"program_id\": \"5ca50fc560e5d3000f13fdc7\",\n            \"program_module_id\": \"5cd2368560e5d3000f1ecf75\",\n            \"workout_sections\": [\n                {\n                    \"name\": \"Warm-Up/Movement Prep\",\n                    \"duration_seconds\": 200,\n                    \"start_date_time\": null,\n                    \"end_date_time\": null,\n                    \"exercises\": [\n                        {\n                            \"id\": \"5c1e8b9b4f9813000fe857ca\",\n                            \"name\": \"Cyclic Work\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e90c\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5c1e8b9b4f9813000fe857ca\",\n                            \"name\": \"Cyclic Work\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e90c\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5c1e8aac9eb3da000f1219b2\",\n                            \"name\": \"Dead Bugs\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"59271bd3d8d39b000f703a5a\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5c1e8aac9eb3da000f1219b2\",\n                            \"name\": \"Dead Bugs\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"59271bd3d8d39b000f703a5a\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5c478dab7e847e000f0ce621\",\n                            \"name\": \"Single Leg Romanian Deadlift w/Upper Body Reach\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e913\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5c478dab7e847e000f0ce621\",\n                            \"name\": \"Single Leg Romanian Deadlift w/Upper Body Reach\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e913\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5c4787660810e6000f23e46a\",\n                            \"name\": \"Landmine Hip Sway\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e8eb\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5c4787660810e6000f23e46a\",\n                            \"name\": \"Landmine Hip Sway\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e8eb\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5a71061d37af1b000fe345f8\",\n                            \"name\": \"Lateral Banded Monster Walk\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3b4c6a031dc777e9bd\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5a71061d37af1b000fe345f8\",\n                            \"name\": \"Lateral Banded Monster Walk\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3b4c6a031dc777e9bd\",\n                            \"rpe\": 5\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"Plyometrics\",\n                    \"duration_seconds\": 200,\n                    \"start_date_time\": null,\n                    \"end_date_time\": null,\n                    \"exercises\": [\n                        {\n                            \"id\": \"5cd13e2cfce11500124b84dd\",\n                            \"name\": \"Box Jumps\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e913\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd13e2cfce11500124b84dd\",\n                            \"name\": \"Box Jumps\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e913\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23c15cc3ad8000f25d895\",\n                            \"name\": \"Box Jumps\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e913\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23c15cc3ad8000f25d895\",\n                            \"name\": \"Box Jumps\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e913\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"59f5845d145143000f72fe5f\",\n                            \"name\": \"Single Leg Box Jump\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"59271bd3d8d39b000f703a5a\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"59f5845d145143000f72fe5f\",\n                            \"name\": \"Single Leg Box Jump\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"59271bd3d8d39b000f703a5a\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"59f5845d145143000f72fe5f\",\n                            \"name\": \"Single Leg Box Jump\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"59271bd3d8d39b000f703a5a\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"59f5845d145143000f72fe5f\",\n                            \"name\": \"Single Leg Box Jump\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"59271bd3d8d39b000f703a5a\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"59f5845d145143000f72fe5f\",\n                            \"name\": \"Single Leg Box Jump\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"59271bd3d8d39b000f703a5a\",\n                            \"rpe\": 5\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"Strength 1\",\n                    \"duration_seconds\": 200,\n                    \"start_date_time\": null,\n                    \"end_date_time\": null,\n                    \"exercises\": [\n                        {\n                            \"id\": \"5cd239d360e5d3000f1ecfdd\",\n                            \"name\": \"Front Squat \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"588d2e3aba4bcd000fd7b5f2\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd239d360e5d3000f1ecfdd\",\n                            \"name\": \"Front Squat \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"588d2e3aba4bcd000fd7b5f2\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd239d360e5d3000f1ecfdd\",\n                            \"name\": \"Front Squat \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"588d2e3aba4bcd000fd7b5f2\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd239d360e5d3000f1ecfdd\",\n                            \"name\": \"Front Squat \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"588d2e3aba4bcd000fd7b5f2\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd239d360e5d3000f1ecfdd\",\n                            \"name\": \"Front Squat \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"588d2e3aba4bcd000fd7b5f2\",\n                            \"rpe\": 5\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"Strength 2\",\n                    \"duration_seconds\": 200,\n                    \"start_date_time\": null,\n                    \"end_date_time\": null,\n                    \"exercises\": [\n                        {\n                            \"id\": \"5cd23a2660e5d3000f1ecff5\",\n                            \"name\": \"Clean Grip Sumo Deadlift\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e847\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23a2660e5d3000f1ecff5\",\n                            \"name\": \"Clean Grip Sumo Deadlift\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e847\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23a2660e5d3000f1ecff5\",\n                            \"name\": \"Clean Grip Sumo Deadlift\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e847\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23a2660e5d3000f1ecff5\",\n                            \"name\": \"Clean Grip Sumo Deadlift\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e847\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23a2660e5d3000f1ecff5\",\n                            \"name\": \"Clean Grip Sumo Deadlift\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e847\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23a2660e5d3000f1ecff5\",\n                            \"name\": \"Clean Grip Sumo Deadlift\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e847\",\n                            \"rpe\": 5\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"Accessory Work \",\n                    \"duration_seconds\": 200,\n                    \"start_date_time\": null,\n                    \"end_date_time\": null,\n                    \"exercises\": [\n                        {\n                            \"id\": \"5cd23a8160e5d3000f1ed022\",\n                            \"name\": \"Kettlebell Front Rack RNT Reverse Lunges\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"5c9cefebcc3ad8000f18e06b\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23a8160e5d3000f1ed022\",\n                            \"name\": \"Kettlebell Front Rack RNT Reverse Lunges\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"5c9cefebcc3ad8000f18e06b\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23a8160e5d3000f1ed022\",\n                            \"name\": \"Kettlebell Front Rack RNT Reverse Lunges\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"5c9cefebcc3ad8000f18e06b\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23a8160e5d3000f1ed022\",\n                            \"name\": \"Kettlebell Front Rack RNT Reverse Lunges\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"5c9cefebcc3ad8000f18e06b\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23ee5cc3ad8000f25d8fd\",\n                            \"name\": \"Single Leg Landmine Facing Romanian Deadlifts \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e936\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23ee5cc3ad8000f25d8fd\",\n                            \"name\": \"Single Leg Landmine Facing Romanian Deadlifts \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e936\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23ee5cc3ad8000f25d8fd\",\n                            \"name\": \"Single Leg Landmine Facing Romanian Deadlifts \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e936\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23ee5cc3ad8000f25d8fd\",\n                            \"name\": \"Single Leg Landmine Facing Romanian Deadlifts \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e936\",\n                            \"rpe\": 5\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"Stamina\",\n                    \"duration_seconds\": 200,\n                    \"start_date_time\": null,\n                    \"end_date_time\": null,\n                    \"exercises\": [\n                        {\n                            \"id\": \"5cd23f94cc3ad8000f25d940\",\n                            \"name\": \"Box Jump Overs\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e913\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23f94cc3ad8000f25d940\",\n                            \"name\": \"Box Jump Overs\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e913\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23f94cc3ad8000f25d940\",\n                            \"name\": \"Box Jump Overs\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e913\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23f94cc3ad8000f25d940\",\n                            \"name\": \"Box Jump Overs\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e913\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23f94cc3ad8000f25d940\",\n                            \"name\": \"Box Jump Overs\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e913\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23bf360e5d3000f1ed08d\",\n                            \"name\": \"Sandbag Bear Hug Step-Ups \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d00dc2ce90011f93d81\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23bf360e5d3000f1ed08d\",\n                            \"name\": \"Sandbag Bear Hug Step-Ups \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d00dc2ce90011f93d81\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23bf360e5d3000f1ed08d\",\n                            \"name\": \"Sandbag Bear Hug Step-Ups \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d00dc2ce90011f93d81\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23bf360e5d3000f1ed08d\",\n                            \"name\": \"Sandbag Bear Hug Step-Ups \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"5bb0d5141f5e07000ff5f00f\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23bf360e5d3000f1ed08d\",\n                            \"name\": \"Sandbag Bear Hug Step-Ups \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d00dc2ce90011f93d81\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5afc4c651a4308000fc914e4\",\n                            \"name\": \"Shuttle Run\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459de6dc2ce90011f93d86\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5afc4c651a4308000fc914e4\",\n                            \"name\": \"Shuttle Run\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459de6dc2ce90011f93d86\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5afc4c651a4308000fc914e4\",\n                            \"name\": \"Shuttle Run\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459de6dc2ce90011f93d86\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5afc4c651a4308000fc914e4\",\n                            \"name\": \"Shuttle Run\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459de6dc2ce90011f93d86\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5afc4c651a4308000fc914e4\",\n                            \"name\": \"Shuttle Run\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459de6dc2ce90011f93d86\",\n                            \"rpe\": 5\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"Bonus Work (Optional)\",\n                    \"duration_seconds\": 200,\n                    \"start_date_time\": null,\n                    \"end_date_time\": null,\n                    \"exercises\": [\n                        {\n                            \"id\": \"5cd2405efce11500124bde22\",\n                            \"name\": \"Copenhagen Windmill Plank\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"586540fd4d0fec0011c031a4\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd240aafce11500124bde37\",\n                            \"name\": \"Turkish Get-Ups \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"586540fd4d0fec0011c031a4\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd240aafce11500124bde37\",\n                            \"name\": \"Turkish Get-Ups \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"586540fd4d0fec0011c031a4\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd240aafce11500124bde37\",\n                            \"name\": \"Turkish Get-Ups \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"586540fd4d0fec0011c031a4\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd240aafce11500124bde37\",\n                            \"name\": \"Turkish Get-Ups \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"586540fd4d0fec0011c031a4\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd240aafce11500124bde37\",\n                            \"name\": \"Turkish Get-Ups \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"586540fd4d0fec0011c031a4\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd240aafce11500124bde37\",\n                            \"name\": \"Turkish Get-Ups \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"586540fd4d0fec0011c031a4\",\n                            \"rpe\": 5\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"Recovery Protocol\",\n                    \"duration_seconds\": 200,\n                    \"start_date_time\": null,\n                    \"end_date_time\": null,\n                    \"exercises\": [\n                        {\n                            \"id\": \"5b3bd15e8e19da000f053f43\",\n                            \"name\": \"Cossack Squat \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e936\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b3bd15e8e19da000f053f43\",\n                            \"name\": \"Cossack Squat \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e936\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b3bd15e8e19da000f053f43\",\n                            \"name\": \"Cossack Squat \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e936\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b3bd15e8e19da000f053f43\",\n                            \"name\": \"Cossack Squat \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e936\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b3bd15e8e19da000f053f43\",\n                            \"name\": \"Cossack Squat \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e936\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b616285247028000f6cc19f\",\n                            \"name\": \"Sneaking Ape \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e936\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b616285247028000f6cc19f\",\n                            \"name\": \"Sneaking Ape \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e936\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b616285247028000f6cc19f\",\n                            \"name\": \"Sneaking Ape \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e936\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b616285247028000f6cc19f\",\n                            \"name\": \"Sneaking Ape \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e936\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b616285247028000f6cc19f\",\n                            \"name\": \"Sneaking Ape \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e936\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b445cea589acb000f3147ec\",\n                            \"name\": \"Single Leg Hip Airplanes \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b445cea589acb000f3147ec\",\n                            \"name\": \"Single Leg Hip Airplanes \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b445cea589acb000f3147ec\",\n                            \"name\": \"Single Leg Hip Airplanes \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b445cea589acb000f3147ec\",\n                            \"name\": \"Single Leg Hip Airplanes \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b445cea589acb000f3147ec\",\n                            \"name\": \"Single Leg Hip Airplanes \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b73429d06257d000f630d78\",\n                            \"name\": \"Lateral Lizard Crawl \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b73429d06257d000f630d78\",\n                            \"name\": \"Lateral Lizard Crawl \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b73429d06257d000f630d78\",\n                            \"name\": \"Lateral Lizard Crawl \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b73429d06257d000f630d78\",\n                            \"name\": \"Lateral Lizard Crawl \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b73429d06257d000f630d78\",\n                            \"name\": \"Lateral Lizard Crawl \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5958ddb2b66a98000f5fc388\",\n                            \"name\": \"Supine Twist Pose\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5958ddb2b66a98000f5fc388\",\n                            \"name\": \"Supine Twist Pose\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"588a5d7f65dcf3000f912945\",\n                            \"name\": \"Prayer Stretch\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"588a5d7f65dcf3000f912945\",\n                            \"name\": \"Prayer Stretch\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"588a5d7f65dcf3000f912945\",\n                            \"name\": \"Prayer Stretch\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5993931cfd7558000f81f903\",\n                            \"name\": \"Dragon Pose\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                            \"rpe\": 5\n                        }\n                    ]\n                }\n            ]\n        }\n    }\n}"
+				},
+				"url": {
+					"raw": "http://apis.demo.fathomai.com/plans/5_0/responsive_recovery/{{user_id}}",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"demo",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"5_0",
+						"responsive_recovery",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Active Recovery (Responsive Recovery) Start",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b5cf0103-7fb4-4007-8f4a-7c97ef601181",
+						"exec": [
+							"postman.setEnvironmentVariable('event_date_time',(new Date().toISOString().split('.')[0]+'Z'));",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e63adb04-e53d-46de-9942-f5b8e59b407a",
+						"exec": [
+							"pm.test(\"Successful API call\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const responseJSON = pm.response.json();",
+							"",
+							"pm.test(\"Response should include success message\", function () {",
+							"    pm.expect(responseJSON).to.have.property('message');",
+							"    pm.expect(responseJSON.message).to.eql('success')",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJraWQiOiJkZW1vXzAwMSIsImFsZyI6IlJTMjU2In0.eyJpc3MiOiJkZW1vIiwiYXVkIjoiZmF0aG9tIiwiZXhwIjoxNTg0NTUzNjA4LCJpYXQiOjE1ODQ1NDAwMDgsInN1YiI6IjZhOTFhMGNiLTJjOTAtNGI5My05NGQyLWE5NDNjNjI4NGFmNyIsInNjb3BlIjoiZmF0aG9tLnBsYW5zOnJlYWQifQ.EHBCbEewqrvSfteIFcHjv8xF2EF1odvhVE7H6XMU9Z2zl5LZeCxQGRp26anzQRlR-8s5FNljscufBrx8GFYtP8kc9bBkx3ld2YZM_q55-4y56FVaC7_7Bcd_6eBIYaavEIySohe4kQr9RUbCfU1oLP4yyMeg72-uG34PFwvUiQ8ZCSiJtAsEFUrvEuJPXpjbDgF7FqC9RuLKKaj3fgTnJ8o4V9L3thgvEqtX7SUtLX8W3KcBCV1wbFTO-POQwKStONTcEuXSAgGv4RcPoJ_ug1W6fqAYeL0VhtlLeYRjQ5phoT4M3oBn3TUu_Hx78UT1JorEAD8XLlzSbn23zQzlvw",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"event_date_time\": \"{{event_date_time}}\",\n\t\"activity_type\": 2\n}"
+				},
+				"url": {
+					"raw": "http://apis.demo.fathomai.com/plans/5_0/responsive_recovery/{{user_id}}/{{responsive_recovery_id}}/start_activity",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"demo",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"5_0",
+						"responsive_recovery",
+						"{{user_id}}",
+						"{{responsive_recovery_id}}",
+						"start_activity"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Active Recovery (Responsive Recovery) Complete",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b5cf0103-7fb4-4007-8f4a-7c97ef601181",
+						"exec": [
+							"postman.setEnvironmentVariable('event_date_time',(new Date().toISOString().split('.')[0]+'Z'));",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e63adb04-e53d-46de-9942-f5b8e59b407a",
+						"exec": [
+							"pm.test(\"Successful API call\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const responseJSON = pm.response.json();",
+							"",
+							"pm.test(\"Response should include success message\", function () {",
+							"    pm.expect(responseJSON).to.have.property('message');",
+							"    pm.expect(responseJSON.message).to.eql('success')",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJraWQiOiJkZW1vXzAwMSIsImFsZyI6IlJTMjU2In0.eyJpc3MiOiJkZW1vIiwiYXVkIjoiZmF0aG9tIiwiZXhwIjoxNTg0NTUzNjA4LCJpYXQiOjE1ODQ1NDAwMDgsInN1YiI6IjZhOTFhMGNiLTJjOTAtNGI5My05NGQyLWE5NDNjNjI4NGFmNyIsInNjb3BlIjoiZmF0aG9tLnBsYW5zOnJlYWQifQ.EHBCbEewqrvSfteIFcHjv8xF2EF1odvhVE7H6XMU9Z2zl5LZeCxQGRp26anzQRlR-8s5FNljscufBrx8GFYtP8kc9bBkx3ld2YZM_q55-4y56FVaC7_7Bcd_6eBIYaavEIySohe4kQr9RUbCfU1oLP4yyMeg72-uG34PFwvUiQ8ZCSiJtAsEFUrvEuJPXpjbDgF7FqC9RuLKKaj3fgTnJ8o4V9L3thgvEqtX7SUtLX8W3KcBCV1wbFTO-POQwKStONTcEuXSAgGv4RcPoJ_ug1W6fqAYeL0VhtlLeYRjQ5phoT4M3oBn3TUu_Hx78UT1JorEAD8XLlzSbn23zQzlvw",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"event_date_time\": \"{{event_date_time}}\",\n\t\"activity_type\": 2,\n\t\"completed_exercises\": [\"1\", \"2\", \"3\"]\n}"
+				},
+				"url": {
+					"raw": "http://apis.demo.fathomai.com/plans/5_0/responsive_recovery/{{user_id}}/{{responsive_recovery_id}}/complete_activity",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"demo",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"5_0",
+						"responsive_recovery",
+						"{{user_id}}",
+						"{{responsive_recovery_id}}",
+						"complete_activity"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Responsive Recovery",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b5cf0103-7fb4-4007-8f4a-7c97ef601181",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e63adb04-e53d-46de-9942-f5b8e59b407a",
+						"exec": [
+							"pm.test(\"Successful API call\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const responseJSON = pm.response.json();",
+							"pm.environment.set(\"responsive_recovery_id\", responseJSON.responsive_recovery.responsive_recovery_id)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://apis.demo.fathomai.com/plans/5_0/responsive_recovery/{{user_id}}/{{responsive_recovery_id}}",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"demo",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"5_0",
+						"responsive_recovery",
+						"{{user_id}}",
+						"{{responsive_recovery_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Responsive Recovery",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b5cf0103-7fb4-4007-8f4a-7c97ef601181",
+						"exec": [
+							"postman.setEnvironmentVariable('event_date_time',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('event_date_time_1',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('end_date_time_1',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('event_date_time_2',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('end_date_time_2',(new Date().toISOString().split('.')[0]+'Z'));",
+							"pm.environment.set(\"calories\", null);",
+							"pm.environment.set(\"distance\", null);",
+							"pm.environment.set(\"bench_weight\", 102.5);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e63adb04-e53d-46de-9942-f5b8e59b407a",
+						"exec": [
+							"pm.test(\"Successful API call\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const responseJSON = pm.response.json();",
+							"pm.environment.set(\"responsive_recovery_id\", responseJSON.responsive_recovery.responsive_recovery_id)",
+							"pm.environment.set(\"session_id\", responseJSON.session_id);",
+							"",
+							"// pm.test(\"Response should include daily plan\", function () {",
+							"//     pm.expect(responseJSON).to.have.property('daily_plans');",
+							"// });",
+							"",
+							"// const dailyPlan = responseJSON.daily_plans[0];",
+							"/*",
+							"pm.test(\"Daily plan should include post active rest recovery modality\", function () {",
+							"    //pm.response.to.not.be.error;",
+							"    pm.expect(dailyPlan).to.have.property('modalities');",
+							"    pm.expect(dailyPlan.modalities.length).to.eql(1);",
+							"    pm.expect(dailyPlan.modalities[0].type).to.eql(1);",
+							"    //pm.expect(pm.response.json()).to.include({'message': \"14 is not a valid VisualizationType\"});",
+							"    //pm.response.to.have.jsonBody(\"14 is not a valid VisualizationType\");",
+							"    //pm.response.to.not.have.jsonBody(\"error\");",
+							"});",
+							"",
+							"pm.test(\"Response should include daily plan with the planned session sent\", function () {",
+							"    pm.expect(dailyPlan).to.have.property('training_sessions');",
+							"    pm.expect(dailyPlan.training_sessions.length).to.eql(1);",
+							"    pm.expect(dailyPlan.training_sessions[0].event_date).to.eql(pm.environment.get(\"event_date\"));",
+							"});",
+							"",
+							"const trainingSession = dailyPlan.training_sessions[0];",
+							"pm.test(\"Training session should include updated workout program module\", function () {",
+							"    pm.expect(trainingSession).to.have.property(\"workout_program_module\");",
+							"    const workoutProgramModule = trainingSession.workout_program_module;",
+							"    pm.expect(workoutProgramModule).to.have.property(\"workout_sections\");",
+							"    pm.expect(workoutProgramModule.workout_sections.length).to.eql(1);",
+							"    const workoutSection = workoutProgramModule.workout_sections[0];",
+							"    pm.expect(workoutSection).to.have.property(\"exercises\");",
+							"    pm.expect(workoutSection.exercises.length).to.eql(1);",
+							"    const exercise = workoutSection.exercises[0];",
+							"    pm.expect(exercise.weight_in_lbs).to.eql(pm.environment.get(\"bench_weight\"));",
+							"});",
+							"",
+							"pm.environment.set(\"session_id\", trainingSession.session_id);",
+							"*/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"event_date_time\": \"{{event_date_time}}\",\n    \"session\":\n            {\n            \t\"session_id\": \"{{training_session_id}}\",\n                \"event_date\": \"{{event_date_time_2}}\",\n                \"session_type\": 7,\n                \"duration\": 840,\n                \"description\": \"Evening Practice\",\n                \"calories\": 100,\n                \"distance\": 200,\n                \"session_RPE\": 7.3,\n                \"end_date\": \"{{end_date_time_2}}\",\n                \"hr_data\":  [\n                            {\"value\": 153,\n                             \"startDate\": \"2019-01-12T10:43:08.490-0500\",\n                             \"endDate\": \"2019-01-12T10:43:08.490-0500\"\n                             }\n                        ],\n        \"workout_program_module\": {\n            \"program_id\": \"5ca50fc560e5d3000f13fdc7\",\n            \"program_module_id\": \"5cd2368560e5d3000f1ecf75\",\n            \"workout_sections\": [\n                {\n                    \"name\": \"Warm-Up/Movement Prep\",\n                    \"duration_seconds\": 200,\n                    \"start_date_time\": null,\n                    \"end_date_time\": null,\n                    \"exercises\": [\n                        {\n                            \"id\": \"5c1e8b9b4f9813000fe857ca\",\n                            \"name\": \"Cyclic Work\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e90c\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5c1e8b9b4f9813000fe857ca\",\n                            \"name\": \"Cyclic Work\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e90c\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5c1e8aac9eb3da000f1219b2\",\n                            \"name\": \"Dead Bugs\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"59271bd3d8d39b000f703a5a\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5c1e8aac9eb3da000f1219b2\",\n                            \"name\": \"Dead Bugs\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"59271bd3d8d39b000f703a5a\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5c478dab7e847e000f0ce621\",\n                            \"name\": \"Single Leg Romanian Deadlift w/Upper Body Reach\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e913\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5c478dab7e847e000f0ce621\",\n                            \"name\": \"Single Leg Romanian Deadlift w/Upper Body Reach\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e913\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5c4787660810e6000f23e46a\",\n                            \"name\": \"Landmine Hip Sway\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e8eb\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5c4787660810e6000f23e46a\",\n                            \"name\": \"Landmine Hip Sway\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e8eb\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5a71061d37af1b000fe345f8\",\n                            \"name\": \"Lateral Banded Monster Walk\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3b4c6a031dc777e9bd\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5a71061d37af1b000fe345f8\",\n                            \"name\": \"Lateral Banded Monster Walk\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3b4c6a031dc777e9bd\",\n                            \"rpe\": 5\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"Plyometrics\",\n                    \"duration_seconds\": 200,\n                    \"start_date_time\": null,\n                    \"end_date_time\": null,\n                    \"exercises\": [\n                        {\n                            \"id\": \"5cd13e2cfce11500124b84dd\",\n                            \"name\": \"Box Jumps\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e913\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd13e2cfce11500124b84dd\",\n                            \"name\": \"Box Jumps\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e913\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23c15cc3ad8000f25d895\",\n                            \"name\": \"Box Jumps\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e913\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23c15cc3ad8000f25d895\",\n                            \"name\": \"Box Jumps\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e913\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"59f5845d145143000f72fe5f\",\n                            \"name\": \"Single Leg Box Jump\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"59271bd3d8d39b000f703a5a\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"59f5845d145143000f72fe5f\",\n                            \"name\": \"Single Leg Box Jump\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"59271bd3d8d39b000f703a5a\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"59f5845d145143000f72fe5f\",\n                            \"name\": \"Single Leg Box Jump\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"59271bd3d8d39b000f703a5a\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"59f5845d145143000f72fe5f\",\n                            \"name\": \"Single Leg Box Jump\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"59271bd3d8d39b000f703a5a\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"59f5845d145143000f72fe5f\",\n                            \"name\": \"Single Leg Box Jump\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"59271bd3d8d39b000f703a5a\",\n                            \"rpe\": 5\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"Strength 1\",\n                    \"duration_seconds\": 200,\n                    \"start_date_time\": null,\n                    \"end_date_time\": null,\n                    \"exercises\": [\n                        {\n                            \"id\": \"5cd239d360e5d3000f1ecfdd\",\n                            \"name\": \"Front Squat \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"588d2e3aba4bcd000fd7b5f2\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd239d360e5d3000f1ecfdd\",\n                            \"name\": \"Front Squat \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"588d2e3aba4bcd000fd7b5f2\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd239d360e5d3000f1ecfdd\",\n                            \"name\": \"Front Squat \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"588d2e3aba4bcd000fd7b5f2\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd239d360e5d3000f1ecfdd\",\n                            \"name\": \"Front Squat \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"588d2e3aba4bcd000fd7b5f2\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd239d360e5d3000f1ecfdd\",\n                            \"name\": \"Front Squat \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"588d2e3aba4bcd000fd7b5f2\",\n                            \"rpe\": 5\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"Strength 2\",\n                    \"duration_seconds\": 200,\n                    \"start_date_time\": null,\n                    \"end_date_time\": null,\n                    \"exercises\": [\n                        {\n                            \"id\": \"5cd23a2660e5d3000f1ecff5\",\n                            \"name\": \"Clean Grip Sumo Deadlift\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e847\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23a2660e5d3000f1ecff5\",\n                            \"name\": \"Clean Grip Sumo Deadlift\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e847\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23a2660e5d3000f1ecff5\",\n                            \"name\": \"Clean Grip Sumo Deadlift\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e847\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23a2660e5d3000f1ecff5\",\n                            \"name\": \"Clean Grip Sumo Deadlift\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e847\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23a2660e5d3000f1ecff5\",\n                            \"name\": \"Clean Grip Sumo Deadlift\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e847\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23a2660e5d3000f1ecff5\",\n                            \"name\": \"Clean Grip Sumo Deadlift\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e847\",\n                            \"rpe\": 5\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"Accessory Work \",\n                    \"duration_seconds\": 200,\n                    \"start_date_time\": null,\n                    \"end_date_time\": null,\n                    \"exercises\": [\n                        {\n                            \"id\": \"5cd23a8160e5d3000f1ed022\",\n                            \"name\": \"Kettlebell Front Rack RNT Reverse Lunges\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"5c9cefebcc3ad8000f18e06b\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23a8160e5d3000f1ed022\",\n                            \"name\": \"Kettlebell Front Rack RNT Reverse Lunges\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"5c9cefebcc3ad8000f18e06b\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23a8160e5d3000f1ed022\",\n                            \"name\": \"Kettlebell Front Rack RNT Reverse Lunges\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"5c9cefebcc3ad8000f18e06b\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23a8160e5d3000f1ed022\",\n                            \"name\": \"Kettlebell Front Rack RNT Reverse Lunges\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"5c9cefebcc3ad8000f18e06b\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23ee5cc3ad8000f25d8fd\",\n                            \"name\": \"Single Leg Landmine Facing Romanian Deadlifts \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e936\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23ee5cc3ad8000f25d8fd\",\n                            \"name\": \"Single Leg Landmine Facing Romanian Deadlifts \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e936\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23ee5cc3ad8000f25d8fd\",\n                            \"name\": \"Single Leg Landmine Facing Romanian Deadlifts \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e936\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23ee5cc3ad8000f25d8fd\",\n                            \"name\": \"Single Leg Landmine Facing Romanian Deadlifts \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e936\",\n                            \"rpe\": 5\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"Stamina\",\n                    \"duration_seconds\": 200,\n                    \"start_date_time\": null,\n                    \"end_date_time\": null,\n                    \"exercises\": [\n                        {\n                            \"id\": \"5cd23f94cc3ad8000f25d940\",\n                            \"name\": \"Box Jump Overs\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e913\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23f94cc3ad8000f25d940\",\n                            \"name\": \"Box Jump Overs\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e913\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23f94cc3ad8000f25d940\",\n                            \"name\": \"Box Jump Overs\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e913\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23f94cc3ad8000f25d940\",\n                            \"name\": \"Box Jump Overs\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e913\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23f94cc3ad8000f25d940\",\n                            \"name\": \"Box Jump Overs\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e913\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23bf360e5d3000f1ed08d\",\n                            \"name\": \"Sandbag Bear Hug Step-Ups \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d00dc2ce90011f93d81\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23bf360e5d3000f1ed08d\",\n                            \"name\": \"Sandbag Bear Hug Step-Ups \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d00dc2ce90011f93d81\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23bf360e5d3000f1ed08d\",\n                            \"name\": \"Sandbag Bear Hug Step-Ups \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d00dc2ce90011f93d81\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23bf360e5d3000f1ed08d\",\n                            \"name\": \"Sandbag Bear Hug Step-Ups \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"5bb0d5141f5e07000ff5f00f\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd23bf360e5d3000f1ed08d\",\n                            \"name\": \"Sandbag Bear Hug Step-Ups \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d00dc2ce90011f93d81\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5afc4c651a4308000fc914e4\",\n                            \"name\": \"Shuttle Run\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459de6dc2ce90011f93d86\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5afc4c651a4308000fc914e4\",\n                            \"name\": \"Shuttle Run\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459de6dc2ce90011f93d86\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5afc4c651a4308000fc914e4\",\n                            \"name\": \"Shuttle Run\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459de6dc2ce90011f93d86\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5afc4c651a4308000fc914e4\",\n                            \"name\": \"Shuttle Run\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459de6dc2ce90011f93d86\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5afc4c651a4308000fc914e4\",\n                            \"name\": \"Shuttle Run\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459de6dc2ce90011f93d86\",\n                            \"rpe\": 5\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"Bonus Work (Optional)\",\n                    \"duration_seconds\": 200,\n                    \"start_date_time\": null,\n                    \"end_date_time\": null,\n                    \"exercises\": [\n                        {\n                            \"id\": \"5cd2405efce11500124bde22\",\n                            \"name\": \"Copenhagen Windmill Plank\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"586540fd4d0fec0011c031a4\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd240aafce11500124bde37\",\n                            \"name\": \"Turkish Get-Ups \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"586540fd4d0fec0011c031a4\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd240aafce11500124bde37\",\n                            \"name\": \"Turkish Get-Ups \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"586540fd4d0fec0011c031a4\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd240aafce11500124bde37\",\n                            \"name\": \"Turkish Get-Ups \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"586540fd4d0fec0011c031a4\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd240aafce11500124bde37\",\n                            \"name\": \"Turkish Get-Ups \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"586540fd4d0fec0011c031a4\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd240aafce11500124bde37\",\n                            \"name\": \"Turkish Get-Ups \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"586540fd4d0fec0011c031a4\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5cd240aafce11500124bde37\",\n                            \"name\": \"Turkish Get-Ups \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"586540fd4d0fec0011c031a4\",\n                            \"rpe\": 5\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"Recovery Protocol\",\n                    \"duration_seconds\": 200,\n                    \"start_date_time\": null,\n                    \"end_date_time\": null,\n                    \"exercises\": [\n                        {\n                            \"id\": \"5b3bd15e8e19da000f053f43\",\n                            \"name\": \"Cossack Squat \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e936\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b3bd15e8e19da000f053f43\",\n                            \"name\": \"Cossack Squat \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e936\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b3bd15e8e19da000f053f43\",\n                            \"name\": \"Cossack Squat \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e936\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b3bd15e8e19da000f053f43\",\n                            \"name\": \"Cossack Squat \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e936\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b3bd15e8e19da000f053f43\",\n                            \"name\": \"Cossack Squat \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e936\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b616285247028000f6cc19f\",\n                            \"name\": \"Sneaking Ape \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e936\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b616285247028000f6cc19f\",\n                            \"name\": \"Sneaking Ape \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e936\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b616285247028000f6cc19f\",\n                            \"name\": \"Sneaking Ape \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e936\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b616285247028000f6cc19f\",\n                            \"name\": \"Sneaking Ape \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e936\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b616285247028000f6cc19f\",\n                            \"name\": \"Sneaking Ape \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"57e2fd3a4c6a031dc777e936\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b445cea589acb000f3147ec\",\n                            \"name\": \"Single Leg Hip Airplanes \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b445cea589acb000f3147ec\",\n                            \"name\": \"Single Leg Hip Airplanes \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b445cea589acb000f3147ec\",\n                            \"name\": \"Single Leg Hip Airplanes \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b445cea589acb000f3147ec\",\n                            \"name\": \"Single Leg Hip Airplanes \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b445cea589acb000f3147ec\",\n                            \"name\": \"Single Leg Hip Airplanes \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b73429d06257d000f630d78\",\n                            \"name\": \"Lateral Lizard Crawl \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b73429d06257d000f630d78\",\n                            \"name\": \"Lateral Lizard Crawl \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b73429d06257d000f630d78\",\n                            \"name\": \"Lateral Lizard Crawl \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b73429d06257d000f630d78\",\n                            \"name\": \"Lateral Lizard Crawl \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5b73429d06257d000f630d78\",\n                            \"name\": \"Lateral Lizard Crawl \",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5958ddb2b66a98000f5fc388\",\n                            \"name\": \"Supine Twist Pose\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5958ddb2b66a98000f5fc388\",\n                            \"name\": \"Supine Twist Pose\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"588a5d7f65dcf3000f912945\",\n                            \"name\": \"Prayer Stretch\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"588a5d7f65dcf3000f912945\",\n                            \"name\": \"Prayer Stretch\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"588a5d7f65dcf3000f912945\",\n                            \"name\": \"Prayer Stretch\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                            \"rpe\": 5\n                        },\n                        {\n                            \"id\": \"5993931cfd7558000f81f903\",\n                            \"name\": \"Dragon Pose\",\n                            \"weight_measure\": 2,\n                            \"weight\": 100,\n                            \"bilateral\": true,\n                            \"side\": 0,\n                            \"sets\": 1,\n                            \"reps_per_set\": 8,\n                            \"unit_of_measure\": 1,\n                            \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                            \"rpe\": 5\n                        }\n                    ]\n                }\n            ]\n        }\n                }\n}"
+				},
+				"url": {
+					"raw": "http://apis.demo.fathomai.com/plans/5_0/responsive_recovery/{{user_id}}/{{responsive_recovery_id}}/update",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"demo",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"5_0",
+						"responsive_recovery",
+						"{{user_id}}",
+						"{{responsive_recovery_id}}",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Responsive Recovery (No Session Sent)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b5cf0103-7fb4-4007-8f4a-7c97ef601181",
+						"exec": [
+							"postman.setEnvironmentVariable('event_date_time',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('event_date_time_1',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('end_date_time_1',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('event_date_time_2',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('end_date_time_2',(new Date().toISOString().split('.')[0]+'Z'));",
+							"pm.environment.set(\"calories\", null);",
+							"pm.environment.set(\"distance\", null);",
+							"pm.environment.set(\"bench_weight\", 102.5);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e63adb04-e53d-46de-9942-f5b8e59b407a",
+						"exec": [
+							"pm.test(\"Successful API call\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const responseJSON = pm.response.json();",
+							"pm.environment.set(\"responsive_recovery_id\", responseJSON.responsive_recovery.responsive_recovery_id)",
+							"",
+							"// pm.test(\"Response should include daily plan\", function () {",
+							"//     pm.expect(responseJSON).to.have.property('daily_plans');",
+							"// });",
+							"",
+							"// const dailyPlan = responseJSON.daily_plans[0];",
+							"/*",
+							"pm.test(\"Daily plan should include post active rest recovery modality\", function () {",
+							"    //pm.response.to.not.be.error;",
+							"    pm.expect(dailyPlan).to.have.property('modalities');",
+							"    pm.expect(dailyPlan.modalities.length).to.eql(1);",
+							"    pm.expect(dailyPlan.modalities[0].type).to.eql(1);",
+							"    //pm.expect(pm.response.json()).to.include({'message': \"14 is not a valid VisualizationType\"});",
+							"    //pm.response.to.have.jsonBody(\"14 is not a valid VisualizationType\");",
+							"    //pm.response.to.not.have.jsonBody(\"error\");",
+							"});",
+							"",
+							"pm.test(\"Response should include daily plan with the planned session sent\", function () {",
+							"    pm.expect(dailyPlan).to.have.property('training_sessions');",
+							"    pm.expect(dailyPlan.training_sessions.length).to.eql(1);",
+							"    pm.expect(dailyPlan.training_sessions[0].event_date).to.eql(pm.environment.get(\"event_date\"));",
+							"});",
+							"",
+							"const trainingSession = dailyPlan.training_sessions[0];",
+							"pm.test(\"Training session should include updated workout program module\", function () {",
+							"    pm.expect(trainingSession).to.have.property(\"workout_program_module\");",
+							"    const workoutProgramModule = trainingSession.workout_program_module;",
+							"    pm.expect(workoutProgramModule).to.have.property(\"workout_sections\");",
+							"    pm.expect(workoutProgramModule.workout_sections.length).to.eql(1);",
+							"    const workoutSection = workoutProgramModule.workout_sections[0];",
+							"    pm.expect(workoutSection).to.have.property(\"exercises\");",
+							"    pm.expect(workoutSection.exercises.length).to.eql(1);",
+							"    const exercise = workoutSection.exercises[0];",
+							"    pm.expect(exercise.weight_in_lbs).to.eql(pm.environment.get(\"bench_weight\"));",
+							"});",
+							"",
+							"pm.environment.set(\"session_id\", trainingSession.session_id);",
+							"*/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"event_date_time\": \"{{event_date_time}}\",\n\t\"symptoms\": [\n        {\n            \"body_part\": 18,\n            \"side\": 1,\n            \"tight\": 4,\n            \"knots\": null,\n            \"sharp\": null,\n            \"ache\": null\n        }\n        ]\n}"
+				},
+				"url": {
+					"raw": "http://apis.demo.fathomai.com/plans/5_0/responsive_recovery/{{user_id}}/{{responsive_recovery_id}}/update",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"demo",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"5_0",
+						"responsive_recovery",
+						"{{user_id}}",
+						"{{responsive_recovery_id}}",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CWI (Responsive Recovery) Start",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b5cf0103-7fb4-4007-8f4a-7c97ef601181",
+						"exec": [
+							"postman.setEnvironmentVariable('event_date_time',(new Date().toISOString().split('.')[0]+'Z'));",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e63adb04-e53d-46de-9942-f5b8e59b407a",
+						"exec": [
+							"pm.test(\"Successful API call\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const responseJSON = pm.response.json();",
+							"",
+							"pm.test(\"Response should include success message\", function () {",
+							"    pm.expect(responseJSON).to.have.property('message');",
+							"    pm.expect(responseJSON.message).to.eql('success')",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJraWQiOiJkZW1vXzAwMSIsImFsZyI6IlJTMjU2In0.eyJpc3MiOiJkZW1vIiwiYXVkIjoiZmF0aG9tIiwiZXhwIjoxNTg0NTUzNjA4LCJpYXQiOjE1ODQ1NDAwMDgsInN1YiI6IjZhOTFhMGNiLTJjOTAtNGI5My05NGQyLWE5NDNjNjI4NGFmNyIsInNjb3BlIjoiZmF0aG9tLnBsYW5zOnJlYWQifQ.EHBCbEewqrvSfteIFcHjv8xF2EF1odvhVE7H6XMU9Z2zl5LZeCxQGRp26anzQRlR-8s5FNljscufBrx8GFYtP8kc9bBkx3ld2YZM_q55-4y56FVaC7_7Bcd_6eBIYaavEIySohe4kQr9RUbCfU1oLP4yyMeg72-uG34PFwvUiQ8ZCSiJtAsEFUrvEuJPXpjbDgF7FqC9RuLKKaj3fgTnJ8o4V9L3thgvEqtX7SUtLX8W3KcBCV1wbFTO-POQwKStONTcEuXSAgGv4RcPoJ_ug1W6fqAYeL0VhtlLeYRjQ5phoT4M3oBn3TUu_Hx78UT1JorEAD8XLlzSbn23zQzlvw",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"event_date_time\": \"{{event_date_time}}\",\n\t\"activity_type\": 3\n}"
+				},
+				"url": {
+					"raw": "http://apis.demo.fathomai.com/plans/5_0/responsive_recovery/{{user_id}}/{{responsive_recovery_id}}/start_activity",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"demo",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"5_0",
+						"responsive_recovery",
+						"{{user_id}}",
+						"{{responsive_recovery_id}}",
+						"start_activity"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CWI (Responsive Recovery) Complete",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b5cf0103-7fb4-4007-8f4a-7c97ef601181",
+						"exec": [
+							"postman.setEnvironmentVariable('event_date_time',(new Date().toISOString().split('.')[0]+'Z'));",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e63adb04-e53d-46de-9942-f5b8e59b407a",
+						"exec": [
+							"pm.test(\"Successful API call\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const responseJSON = pm.response.json();",
+							"",
+							"pm.test(\"Response should include success message\", function () {",
+							"    pm.expect(responseJSON).to.have.property('message');",
+							"    pm.expect(responseJSON.message).to.eql('success')",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJraWQiOiJkZW1vXzAwMSIsImFsZyI6IlJTMjU2In0.eyJpc3MiOiJkZW1vIiwiYXVkIjoiZmF0aG9tIiwiZXhwIjoxNTg0NTUzNjA4LCJpYXQiOjE1ODQ1NDAwMDgsInN1YiI6IjZhOTFhMGNiLTJjOTAtNGI5My05NGQyLWE5NDNjNjI4NGFmNyIsInNjb3BlIjoiZmF0aG9tLnBsYW5zOnJlYWQifQ.EHBCbEewqrvSfteIFcHjv8xF2EF1odvhVE7H6XMU9Z2zl5LZeCxQGRp26anzQRlR-8s5FNljscufBrx8GFYtP8kc9bBkx3ld2YZM_q55-4y56FVaC7_7Bcd_6eBIYaavEIySohe4kQr9RUbCfU1oLP4yyMeg72-uG34PFwvUiQ8ZCSiJtAsEFUrvEuJPXpjbDgF7FqC9RuLKKaj3fgTnJ8o4V9L3thgvEqtX7SUtLX8W3KcBCV1wbFTO-POQwKStONTcEuXSAgGv4RcPoJ_ug1W6fqAYeL0VhtlLeYRjQ5phoT4M3oBn3TUu_Hx78UT1JorEAD8XLlzSbn23zQzlvw",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"event_date_time\": \"{{event_date_time}}\",\n\t\"activity_type\": 3\n}"
+				},
+				"url": {
+					"raw": "http://apis.demo.fathomai.com/plans/5_0/responsive_recovery/{{user_id}}/{{responsive_recovery_id}}/complete_activity",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"demo",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"5_0",
+						"responsive_recovery",
+						"{{user_id}}",
+						"{{responsive_recovery_id}}",
+						"complete_activity"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Movement Prep",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b5cf0103-7fb4-4007-8f4a-7c97ef601181",
+						"exec": [
+							"postman.setEnvironmentVariable('event_date_time',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('event_date_time_1',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('end_date_time_1',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('event_date_time_2',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('end_date_time_2',(new Date().toISOString().split('.')[0]+'Z'));",
+							"pm.environment.set(\"calories\", null);",
+							"pm.environment.set(\"distance\", null);",
+							"pm.environment.set(\"bench_weight\", 102.5);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e63adb04-e53d-46de-9942-f5b8e59b407a",
+						"exec": [
+							"pm.test(\"Successful API call\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"const responseJSON = pm.response.json();",
+							"const movement_prep_id = responseJSON.movement_prep.movement_prep_id;",
+							"pm.environment.set(\"movement_prep_id\", movement_prep_id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"event_date_time\": \"{{event_date_time}}\",\n\t\"symptoms\": [\n        {\n            \"body_part\": 18,\n            \"side\": 0,\n            \"tight\": 4,\n            \"knots\": null,\n            \"sharp\": null,\n            \"ache\": null\n        }\n        ],\n    \"session\":\n            {\n                \"event_date\": \"{{event_date_time_2}}\",\n                \"session_type\": 7,\n                \"duration\": 840,\n                \"description\": \"Evening Practice\",\n                \"calories\": 100,\n                \"distance\": 200,\n                \"session_RPE\": 7.3,\n                \"end_date\": \"{{end_date_time_2}}\",\n                \"workout_program_module\": {\n                                        \"workout_sections\": [{\n                                            \"name\": \"Upper Body Work\",\n                                            \"duration_seconds\": 360,\n                                            \"start_date_time\": \"2019-01-12T10:43:08Z\",\n                                            \"end_date_time\": \"2019-01-12T12:17:12Z\",\n                                            \"exercises\": [\n                                                {\n                                                    \"id\": \"1\",\n                                                    \"name\": \"Bent over Row\",\n                                                    \"weight_measure\": 2,\n                                                    \"weight\": 150,\n                                                    \"sets\": 2,\n                                                    \"reps_per_set\": 10,\n                                                    \"unit_of_measure\": 1,\n                                                    \"movement_id\": \"57e2fd3a4c6a031dc777e936\",\n                                                    \"bilateral\": true,\n                                                    \"side\": 0,\n                                                    \"rpe\": 5.0\n                                                },\n                                                {\n                        \"id\": \"1\",\n                        \"name\": \"2k Row\",\n                        \"weight_measure\": null,\n                        \"weight\": null,\n                        \"sets\": 1,\n                        \"reps_per_set\": 2,\n                        \"unit_of_measure\": 6,\n                        \"movement_id\": \"58459d9ddc2ce90011f93d84\",\n                        \"bilateral\": true,\n                        \"side\": 0,\n                        \"rpe\": 5.0\n                    }\n                                                ]\n                                        }]\n                                    }\n                }\n}"
+				},
+				"url": {
+					"raw": "http://apis.demo.fathomai.com/plans/5_0/movement_prep/{{user_id}}",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"demo",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"5_0",
+						"movement_prep",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Movement Prep",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b5cf0103-7fb4-4007-8f4a-7c97ef601181",
+						"exec": [
+							"postman.setEnvironmentVariable('event_date_time',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('event_date_time_1',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('end_date_time_1',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('event_date_time_2',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('end_date_time_2',(new Date().toISOString().split('.')[0]+'Z'));",
+							"pm.environment.set(\"calories\", null);",
+							"pm.environment.set(\"distance\", null);",
+							"pm.environment.set(\"bench_weight\", 102.5);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e63adb04-e53d-46de-9942-f5b8e59b407a",
+						"exec": [
+							"pm.test(\"Successful API call\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const responseJSON = pm.response.json();",
+							"const movement_prep_id = responseJSON.movement_prep.movement_prep_id;",
+							"pm.environment.set(\"movement_prep_id\", movement_prep_id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://apis.demo.fathomai.com/plans/5_0/movement_prep/{{user_id}}/{{movement_prep_id}}",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"demo",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"5_0",
+						"movement_prep",
+						"{{user_id}}",
+						"{{movement_prep_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Movement Integration Prep (Movement Prep) Start",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b5cf0103-7fb4-4007-8f4a-7c97ef601181",
+						"exec": [
+							"postman.setEnvironmentVariable('event_date_time',(new Date().toISOString().split('.')[0]+'Z'));",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e63adb04-e53d-46de-9942-f5b8e59b407a",
+						"exec": [
+							"pm.test(\"Successful API call\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const responseJSON = pm.response.json();",
+							"",
+							"pm.test(\"Response should include success message\", function () {",
+							"    pm.expect(responseJSON).to.have.property('message');",
+							"    pm.expect(responseJSON.message).to.eql('success')",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJraWQiOiJkZW1vXzAwMSIsImFsZyI6IlJTMjU2In0.eyJpc3MiOiJkZW1vIiwiYXVkIjoiZmF0aG9tIiwiZXhwIjoxNTg0NTUzNjA4LCJpYXQiOjE1ODQ1NDAwMDgsInN1YiI6IjZhOTFhMGNiLTJjOTAtNGI5My05NGQyLWE5NDNjNjI4NGFmNyIsInNjb3BlIjoiZmF0aG9tLnBsYW5zOnJlYWQifQ.EHBCbEewqrvSfteIFcHjv8xF2EF1odvhVE7H6XMU9Z2zl5LZeCxQGRp26anzQRlR-8s5FNljscufBrx8GFYtP8kc9bBkx3ld2YZM_q55-4y56FVaC7_7Bcd_6eBIYaavEIySohe4kQr9RUbCfU1oLP4yyMeg72-uG34PFwvUiQ8ZCSiJtAsEFUrvEuJPXpjbDgF7FqC9RuLKKaj3fgTnJ8o4V9L3thgvEqtX7SUtLX8W3KcBCV1wbFTO-POQwKStONTcEuXSAgGv4RcPoJ_ug1W6fqAYeL0VhtlLeYRjQ5phoT4M3oBn3TUu_Hx78UT1JorEAD8XLlzSbn23zQzlvw",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"event_date_time\": \"{{event_date_time}}\",\n\t\"activity_type\": 0\n}"
+				},
+				"url": {
+					"raw": "http://apis.demo.fathomai.com/plans/5_0/movement_prep/{{user_id}}/{{movement_prep_id}}/start_activity",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"demo",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"5_0",
+						"movement_prep",
+						"{{user_id}}",
+						"{{movement_prep_id}}",
+						"start_activity"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Movement Integration Prep (Movement Prep) Complete",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b5cf0103-7fb4-4007-8f4a-7c97ef601181",
+						"exec": [
+							"postman.setEnvironmentVariable('event_date_time',(new Date().toISOString().split('.')[0]+'Z'));",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e63adb04-e53d-46de-9942-f5b8e59b407a",
+						"exec": [
+							"pm.test(\"Successful API call\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const responseJSON = pm.response.json();",
+							"",
+							"pm.test(\"Response should include success message\", function () {",
+							"    pm.expect(responseJSON).to.have.property('message');",
+							"    pm.expect(responseJSON.message).to.eql('success')",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJraWQiOiJkZW1vXzAwMSIsImFsZyI6IlJTMjU2In0.eyJpc3MiOiJkZW1vIiwiYXVkIjoiZmF0aG9tIiwiZXhwIjoxNTg0NTUzNjA4LCJpYXQiOjE1ODQ1NDAwMDgsInN1YiI6IjZhOTFhMGNiLTJjOTAtNGI5My05NGQyLWE5NDNjNjI4NGFmNyIsInNjb3BlIjoiZmF0aG9tLnBsYW5zOnJlYWQifQ.EHBCbEewqrvSfteIFcHjv8xF2EF1odvhVE7H6XMU9Z2zl5LZeCxQGRp26anzQRlR-8s5FNljscufBrx8GFYtP8kc9bBkx3ld2YZM_q55-4y56FVaC7_7Bcd_6eBIYaavEIySohe4kQr9RUbCfU1oLP4yyMeg72-uG34PFwvUiQ8ZCSiJtAsEFUrvEuJPXpjbDgF7FqC9RuLKKaj3fgTnJ8o4V9L3thgvEqtX7SUtLX8W3KcBCV1wbFTO-POQwKStONTcEuXSAgGv4RcPoJ_ug1W6fqAYeL0VhtlLeYRjQ5phoT4M3oBn3TUu_Hx78UT1JorEAD8XLlzSbn23zQzlvw",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"event_date_time\": \"{{event_date_time}}\",\n\t\"activity_type\": 0\n}"
+				},
+				"url": {
+					"raw": "http://apis.demo.fathomai.com/plans/5_0/movement_prep/{{user_id}}/{{movement_prep_id}}/complete_activity",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"demo",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"5_0",
+						"movement_prep",
+						"{{user_id}}",
+						"{{movement_prep_id}}",
+						"complete_activity"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH Training Session",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b5cf0103-7fb4-4007-8f4a-7c97ef601181",
+						"exec": [
+							"postman.setEnvironmentVariable('event_date_time',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('event_date_time_1',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('end_date_time_1',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('event_date_time_2',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('end_date_time_2',(new Date().toISOString().split('.')[0]+'Z'));",
+							"pm.environment.set(\"calories\", null);",
+							"pm.environment.set(\"distance\", null);",
+							"pm.environment.set(\"bench_weight\", 102.5);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e63adb04-e53d-46de-9942-f5b8e59b407a",
+						"exec": [
+							"pm.test(\"Successful API call\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"event_date_time\": \"{{event_date_time}}\",\n    \"session\":\n            {\n            \t\"session_id\": \"{{session_id}}\",\n                \"event_date\": \"{{event_date_time_2}}\",\n                \"session_type\": 7,\n                \"duration\": 40,\n                \"description\": \"Evening Practice\",\n                \"calories\": 100,\n                \"distance\": 200,\n                \"session_RPE\": 7.3,\n                \"end_date\": \"{{end_date_time_2}}\",\n                \"hr_data\":  [\n                            {\"value\": 153,\n                             \"startDate\": \"2019-01-12T10:43:08.490-0500\",\n                             \"endDate\": \"2019-01-12T10:43:08.490-0500\"\n                             }\n                        ],\n                \"workout_program_module\": {\n                                        \"workout_sections\": [{\n                                            \"name\": \"Upper Body Work\",\n                                            \"duration_seconds\": 500,\n                                            \"start_date_time\": \"2019-01-12T10:43:08Z\",\n                                            \"end_date_time\": \"2019-01-12T12:17:12Z\",\n                                            \"exercises\": [\n                                                {\n                                                    \"id\": \"1\",\n                                                    \"name\": \"Bent over Row\",\n                                                    \"weight_measure\": 2,\n                                                    \"weight\": 150,\n                                                    \"sets\": 2,\n                                                    \"reps_per_set\": 10,\n                                                    \"unit_of_measure\": 1,\n                                                    \"movement_id\": \"57e2fd3a4c6a031dc777e936\",\n                                                    \"bilateral\": true,\n                                                    \"side\": 0,\n                                                    \"rpe\": 5.0\n                                                }\n                                                ]\n                                        }]\n                                    }\n                }\n}"
+				},
+				"url": {
+					"raw": "http://apis.demo.fathomai.com/plans/5_0/training_session/{{user_id}}/{{training_session_id}}",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"demo",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"5_0",
+						"training_session",
+						"{{user_id}}",
+						"{{training_session_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Report Symptoms",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b5cf0103-7fb4-4007-8f4a-7c97ef601181",
+						"exec": [
+							"postman.setEnvironmentVariable('event_date_time',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('event_date_time_1',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('end_date_time_1',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('event_date_time_2',(new Date().toISOString().split('.')[0]+'Z'));",
+							"postman.setEnvironmentVariable('end_date_time_2',(new Date().toISOString().split('.')[0]+'Z'));",
+							"pm.environment.set(\"calories\", null);",
+							"pm.environment.set(\"distance\", null);",
+							"pm.environment.set(\"bench_weight\", 102.5);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e63adb04-e53d-46de-9942-f5b8e59b407a",
+						"exec": [
+							"pm.test(\"Successful API call\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const responseJSON = pm.response.json();",
+							"",
+							"// pm.test(\"Response should include daily plan\", function () {",
+							"//     pm.expect(responseJSON).to.have.property('daily_plans');",
+							"// });",
+							"",
+							"// const dailyPlan = responseJSON.daily_plans[0];",
+							"/*",
+							"pm.test(\"Daily plan should include post active rest recovery modality\", function () {",
+							"    //pm.response.to.not.be.error;",
+							"    pm.expect(dailyPlan).to.have.property('modalities');",
+							"    pm.expect(dailyPlan.modalities.length).to.eql(1);",
+							"    pm.expect(dailyPlan.modalities[0].type).to.eql(1);",
+							"    //pm.expect(pm.response.json()).to.include({'message': \"14 is not a valid VisualizationType\"});",
+							"    //pm.response.to.have.jsonBody(\"14 is not a valid VisualizationType\");",
+							"    //pm.response.to.not.have.jsonBody(\"error\");",
+							"});",
+							"",
+							"pm.test(\"Response should include daily plan with the planned session sent\", function () {",
+							"    pm.expect(dailyPlan).to.have.property('training_sessions');",
+							"    pm.expect(dailyPlan.training_sessions.length).to.eql(1);",
+							"    pm.expect(dailyPlan.training_sessions[0].event_date).to.eql(pm.environment.get(\"event_date\"));",
+							"});",
+							"",
+							"const trainingSession = dailyPlan.training_sessions[0];",
+							"pm.test(\"Training session should include updated workout program module\", function () {",
+							"    pm.expect(trainingSession).to.have.property(\"workout_program_module\");",
+							"    const workoutProgramModule = trainingSession.workout_program_module;",
+							"    pm.expect(workoutProgramModule).to.have.property(\"workout_sections\");",
+							"    pm.expect(workoutProgramModule.workout_sections.length).to.eql(1);",
+							"    const workoutSection = workoutProgramModule.workout_sections[0];",
+							"    pm.expect(workoutSection).to.have.property(\"exercises\");",
+							"    pm.expect(workoutSection.exercises.length).to.eql(1);",
+							"    const exercise = workoutSection.exercises[0];",
+							"    pm.expect(exercise.weight_in_lbs).to.eql(pm.environment.get(\"bench_weight\"));",
+							"});",
+							"",
+							"pm.environment.set(\"session_id\", trainingSession.session_id);",
+							"*/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{jwt}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"event_date_time\": \"{{event_date_time}}\",\n\t\"symptoms\": [\n        {\n            \"body_part\": 18,\n            \"side\": 0,\n            \"tight\": 4,\n            \"knots\": null,\n            \"sharp\": null,\n            \"ache\": null\n        }\n        ]\n}"
+				},
+				"url": {
+					"raw": "http://apis.demo.fathomai.com/plans/5_0/report_symptoms/{{user_id}}",
+					"protocol": "http",
+					"host": [
+						"apis",
+						"demo",
+						"fathomai",
+						"com"
+					],
+					"path": [
+						"plans",
+						"5_0",
+						"report_symptoms",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "6f5efba7-793d-4257-a5eb-5a1685c2de97",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "bf3bdffb-458b-4d07-bc71-e4f25e5bc833",
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Successful API call\", function () {",
+					"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);",
+					"});",
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
